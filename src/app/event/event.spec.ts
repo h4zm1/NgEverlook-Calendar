@@ -1,7 +1,7 @@
-import { Event } from './event';
+import { EVENT } from './event';
 
 describe('Event', () => {
   it('should create an instance', () => {
-    expect(new Event()).toBeTruthy();
+    expect(new EVENT()).toBeTruthy();
   });
 });

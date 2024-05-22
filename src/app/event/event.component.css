@@ -70,48 +70,8 @@ a:hover {
   max-width: 800px;
 }
 
-#template {
-  float: left;
-  margin-top: 20px;
-  margin-left: 37px;
-  width: 100%;
-}
-
-.block_container {
-  justify-content: center;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.text-box {
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.topText {
-  margin-top: 10px;
-  text-align: center;
-}
-
 @media only screen and (max-width: 518px) {
   /* to make the page display correctly on phones */
-  #template {
-    float: left;
-    margin-top: 20px;
-    margin-left: 22px;
-    width: 100%;
-  }
-
-  .topText {
-    position: relative;
-    width: 400px;
-    margin-top: 10px;
-    padding: 25px 0 0 50px;
-  }
-
   .row {
     position: relative;
     width: 240px;
@@ -124,5 +84,4 @@ a:hover {
     right: 280px;
     top: 25px;
   }
-
 }

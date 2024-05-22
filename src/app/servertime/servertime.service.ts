@@ -9,8 +9,7 @@ export class ServertimeService {
 
   constructor(private zone: NgZone) {
   }
-
-
+  
   createSseSource(): Observable<MessageEvent> {
     if (this.eventSource) {
       this.eventSource.close()

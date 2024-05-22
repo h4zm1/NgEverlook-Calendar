@@ -1,0 +1,29 @@
+.text-box {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.topText {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.block_container {
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 518px) {
+  /* to make the page display correctly on phones */
+  .topText {
+    position: relative;
+    width: 400px;
+    margin-top: 10px;
+    padding: 25px 0 0 50px;
+  }
+
+}

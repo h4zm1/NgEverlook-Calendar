@@ -15,8 +15,7 @@ import {NgIf} from "@angular/common";
 })
 export class BossComponent implements OnInit{
   // zgBoss = inject(ZgbossService)
-  boss: Boss | undefined;
-  boss2 : string =""
+  boss : string =""
   state: string = "ON";
   changeState(){
 
@@ -31,7 +30,7 @@ export class BossComponent implements OnInit{
   constructor(private bossService: ZgbossService) {
   }
   ngOnInit() {
-    this.bossService.getBoss().subscribe(data => this.boss2=data);
+    this.bossService.getBoss().subscribe(data => this.boss=data);
   }
 
 }
