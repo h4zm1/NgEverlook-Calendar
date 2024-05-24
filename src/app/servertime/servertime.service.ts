@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {NgZone} from '@angular/core';
 import {Observable, Subscriber} from 'rxjs';
+import {environment} from "../../environments/environment";
 
 
 @Injectable()
@@ -9,12 +10,12 @@ export class ServertimeService {
 
   constructor(private zone: NgZone) {
   }
-  
+
   createSseSource(): Observable<MessageEvent> {
     if (this.eventSource) {
       this.eventSource.close()
     }
-    this.eventSource = new EventSource("http://localhost:8080/api/time");
+    this.eventSource = new EventSource(environment.apiUrl + "/api/time");
 
     return new Observable((subscriber: Subscriber<MessageEvent>) => {
 
