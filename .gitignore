@@ -44,6 +44,3 @@ Thumbs.db
 angular.json
 
 dist/
-
-
-src/environments/environment.ts

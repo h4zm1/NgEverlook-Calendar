@@ -2,6 +2,7 @@
 * {
   font-family: "Nunito-Light", sans-serif;
 }
+
 @font-face {
   font-family: 'Nunito-Light';
   src: url('assets/Nunito-Light.ttf') format('truetype');
@@ -9,3 +10,9 @@
   font-style: normal;
 }
 
+html, body {
+    max-width: 500px;
+    margin: auto;
+  //width: auto !important;
+  //overflow-x: hidden !important
+}

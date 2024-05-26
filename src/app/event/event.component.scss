@@ -117,7 +117,7 @@ a:hover {
   max-width: 800px;
 }
 
-@media only screen and (max-width: 518px) {
+@media only screen and (max-width: 587px) {
   /* to make the page display correctly on phones */
   .row {
     position: relative;
@@ -128,7 +128,13 @@ a:hover {
 
   .date {
     position: absolute;
-    right: 280px;
+    right: 180px;
     top: 25px;
+  }
+  .subject{
+    font-size: small;
+    width: 170px;
+    left: 25px;
+
   }
 }
