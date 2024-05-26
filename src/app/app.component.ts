@@ -11,7 +11,7 @@ import {routes} from "./app.routes";
   imports: [ RouterOutlet, RouterLink, RouterLinkActive, RouterModule,
     BossComponent, EventComponent, ServertimeComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
 }

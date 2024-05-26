@@ -1,0 +1,35 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$NgEverlook-Calendar-primary: mat.define-palette(mat.$amber-palette);
+$NgEverlook-Calendar-accent: mat.define-palette(mat.$blue-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$NgEverlook-Calendar-warn: mat.define-palette(mat.$red-palette);
+
+
+$NgEverlook-Calendar-theme: mat.define-light-theme((
+  color: (
+    primary: $NgEverlook-Calendar-primary,
+    accent: $NgEverlook-Calendar-accent,
+    warn: $NgEverlook-Calendar-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+// Create a mixin that applies theme colors to your .dot class.
+@mixin custom-dot-theme($theme) {
+  $primary: map-get($theme, primary);
+  .dot {
+    // Use mat-color to extract a specific color from a palette.
+    //background-color: mat.get-color-from-palette($primary);
+  }
+}
+
+
+// Include the mixin to apply the styles.
+@include custom-dot-theme($NgEverlook-Calendar-theme);
+@include mat.all-component-themes($NgEverlook-Calendar-theme);
+

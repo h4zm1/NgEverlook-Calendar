@@ -10,7 +10,7 @@ import {NgIf} from "@angular/common";
     NgIf
   ],
   templateUrl: './boss.component.html',
-  styleUrl: './boss.component.css',
+  styleUrl: './boss.component.scss',
   providers:[ZgbossService]
 })
 export class BossComponent implements OnInit{

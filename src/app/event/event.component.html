@@ -1,13 +1,22 @@
 <ul>
   @for (event of events; track event.id) {
-    <div [ngClass]="event.old ? 'row old' : 'row' ">
+<!--    <div [ngClass]="event.old ? 'row old' : 'row' ">-->
+      <div [ngClass]="{
+        'row': true,
+        'old': event.old === 1,
+        'first': event.old === 2
+      }">
       <div class="date">
         {{ event.date }}
       </div>
       <div class="dot"></div>
       <div class="trail"></div>
       @if (event.ony || event.mc || event.bwl || event.aq40 || event.naxx || event.zg || event.aq20 || event.dmf || event.pvp || event.madness) {
-        <div class="subject">
+        <div [ngClass]="{
+        'subject': true,
+        'old': event.old === 1,
+        'first': event.old === 2
+      }">
           @if (event.ony) {
             Onyxia<br>
           }

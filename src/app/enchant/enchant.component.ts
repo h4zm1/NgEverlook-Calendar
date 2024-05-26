@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './enchant.component.html',
-  styleUrl: './enchant.component.css'
+  styleUrl: './enchant.component.scss'
 })
 export class EnchantComponent {
 
