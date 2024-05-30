@@ -1,22 +1,40 @@
-<div style="font-size: 10px">
-</div>
-<div class="topText">
-  <h1 style="font-weight: bold;text-align: center">Everlook Calendar</h1><br/>
-  <div class="block_container" style="margin-bottom: 20px">
-    <div style="margin-right: 7px"> Server time is now:</div>
+<div [ngClass]="themeService.themeSignal()" class="home">
 
-    <app-servertime></app-servertime>
+  <!--  Settings and dark mode buttons-->
+  <div class="button-container">
+    <button mat-icon-button class="settings">
+      <mat-icon>settings</mat-icon>
+    </button>
+    <button mat-icon-button (click)="toggleTheme()">
+      <mat-icon>dark_mode</mat-icon>
+    </button>
   </div>
 
-  <div class="block_container" style="margin-bottom: 20px">
-    <b style="font-weight: bold; margin-right: 7px;">Current ZG Edge of Madness boss:</b>
-    <app-boss></app-boss>
+  <!--  Dark curtain-->
+  <div class="container">
+    <div class="dark-mode" [class.active]="state===1"></div>
   </div>
 
+  <!--  Top text boxes-->
+  <div class="topText">
+    <h1 style="font-weight: bold;text-align: center">Everlook Calendar</h1><br/>
 
-  <a mat-button href="" routerLink="/zgenchants" routerLinkActive="active" ariaCurrentWhenActive="page"
-     class="linkButton">Click here for
-    ZG enchants</a>
+    <div class="block_container" style="margin-bottom: 20px">
+      <div style="margin-right: 7px"> Server time is now:</div>
+
+      <app-servertime></app-servertime>
+    </div>
+
+    <div class="block_container" style="margin-bottom: 20px">
+      <b style="font-weight: bold; margin-right: 7px;">Current ZG Edge of Madness boss:</b>
+      <app-boss></app-boss>
+    </div>
+
+    <a mat-button href="" routerLink="/zgenchants" routerLinkActive="active" ariaCurrentWhenActive="page"
+       class="linkButton">Click here for
+      ZG enchants</a>
+
+  </div>
+  <app-event></app-event>
 
 </div>
-<app-event></app-event>

@@ -7,7 +7,7 @@
   width: 20px;
   height: 20px;
   border-radius: 100%;
-  background-color: #494949;
+  //background-color: #494949;
 }
 
 .first .dot:not(.old .dot):before {
@@ -21,7 +21,7 @@
   left: 50%;
   -webkit-animation: pulse-border 1.5s ease-out infinite;
   animation: pulse-border 1.5s ease-out infinite;
-  background: #494949;
+  //background: #494949;
   content: "";
   z-index: 2;
 }
@@ -45,22 +45,22 @@
   top: 43.5px;
   left: 207px;
   width: 3px;
-  background: #000;
+  //background: #000;
   height: calc(100% - 23px);
 }
 
-.old {
-  color: #ccc;
-}
+//.old {
+//  color: #ccc;
+//}
 
 .old .dot {
   //border-color: #ccc;
-  background-color: #ccc;
+  //background-color: #ccc;
 }
 
-.old .trail {
-  background: #ccc;
-}
+//.old .trail {
+//  background: #ccc;
+//}
 
 .row {
   position: relative;
@@ -83,15 +83,15 @@
   border-radius: 10px;
   position: relative;
   transition: 0.4s;
-  background: unset;
-
+  //background: unset;
   box-shadow: 5px 10px 20px 0 rgba(10, 53, 70, .1);
   z-index: 2;
   left: 30px;
+
 }
 
 .old:not(.new) .subject {
-  background: #f1f1f1;
+  //background: #f1f1f1;
 }
 
 body {
@@ -131,7 +131,7 @@ a:hover {
     right: 180px;
     top: 25px;
   }
-  .subject{
+  .subject {
     font-size: small;
     width: 170px;
     left: 25px;

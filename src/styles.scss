@@ -11,8 +11,9 @@
 }
 
 html, body {
-    max-width: 500px;
-    margin: auto;
-  //width: auto !important;
-  //overflow-x: hidden !important
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  //margin-top: -11px;
 }
+

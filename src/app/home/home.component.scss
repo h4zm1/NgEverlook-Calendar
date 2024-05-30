@@ -5,16 +5,27 @@
   justify-content: center;
   align-items: center;
 }
-a.linkButton{
-  //background-color: red;
+
+a.linkButton {
   color: #8d8d8d;
-  //background-color: unset;
 }
+
 .linkButton::ng-deep {
   .mat-mdc-button-ripple,
   .mdc-button__ripple {
     display: none !important;
   }
+}
+
+.mat-mdc-button {
+  font-family: unset;
+  font-size: unset;
+  letter-spacing: unset;
+  font-weight: unset;
+  text-transform: unset;
+  height: unset;
+  border-radius: unset;
+  padding: unset;
 }
 
 .topText {
@@ -31,10 +42,97 @@ a.linkButton{
 @media only screen and (max-width: 518px) {
   /* to make the page display correctly on phones */
   .topText {
-    position: relative;
-    width: 400px;
-    margin-top: 10px;
-    padding: 25px 0 0 50px;
+    //position: relative;
+    //width: 400px;
+    //margin-top: 10px;
+    //padding: 25px 0 0 50px;
   }
 
+}
+
+
+.mat-icon {
+  scale: 1.5
+}
+
+.mat-mdc-icon-button.mat-primary {
+  //--mdc-icon-button-icon-color: #821010;
+  --mat-icon-button-state-layer-color: #464646;
+  --mat-icon-button-ripple-color: rgba(255, 193, 7, 0);
+}
+
+.button-container {
+  display: flex;
+  position: absolute;
+  //right: 0;
+  top: 0;
+  gap: 10px;
+  justify-content: end;
+  margin: 0;
+  padding: 10px 20px 0 0;
+}
+
+.home {
+  min-inline-size: fit-content;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap-reverse;
+}
+
+.mode-tog {
+
+  z-index: 2;
+  transition: 1000ms;
+}
+
+.mode-tog.active {
+  background-color: white;
+  transition: 1000ms;
+}
+
+.container {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 20px;
+  top: 20px;
+  width: 20px;
+  height: 20px;
+  z-index: -1;
+}
+
+.dark-mode {
+  position: relative;
+  transform: scale(0);
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 250vw;
+  height: 350vw;
+  border-radius: 50%;
+  background-color: #333;
+  transition: 500ms ease-in-out;
+  display: flex;
+  z-index: -1;
+  flex: 0 0 auto;
+}
+
+.dark-mode.active {
+  transform: scale(1);
+  transition: 500ms ease-in-out;
+
+}
+
+
+@media screen and (max-width: 600px) {
+  .dark-mode {
+    width: 250vh;
+    height: 350vh;
+  }
+  .button-container {
+    transform: scale(.8);
+    padding: 10px 0 0 0;
+  }
 }
