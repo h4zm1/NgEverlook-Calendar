@@ -1,0 +1,26 @@
+a{
+  color: #888888;
+}
+.subject {
+  margin-bottom: 15px;
+  text-align: center;
+  padding: 10px 24px 10px 8px;
+  border-radius: 10px;
+  transition: 0.4s;
+  box-shadow: 5px 10px 20px 0 rgba(10, 53, 70, .1);
+  z-index: 2;
+  left: 30px;
+  width: 400px;
+  align-self: center;
+}
+.enchantholder{
+  min-inline-size: fit-content;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap-reverse;
+}
+.topText {
+  margin-top: 10px;
+  text-align: center;
+  white-space: nowrap;
+}
