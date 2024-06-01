@@ -46,3 +46,7 @@ angular.json
 dist/
 
 src/environments/environment.ts
+
+run server local.bat
+
+src/environments/

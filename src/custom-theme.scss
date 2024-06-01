@@ -46,7 +46,7 @@ $dark-theme: mat.define-dark-theme((
 
 // Dark theme variables
 $dark-bg-color: #222;
-$semi-dark-bg-color: #333;
+$semi-dark-bg-color: #2d2d2d;
 $light-text-color: #cacaca;
 
 // Light theme variables
@@ -127,6 +127,42 @@ $dark-text-color: #181818;
 
   .first .dot:not(.old .dot):before {
     background: #494949;
+  }
+
+
+  .emailInput {
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+      background-color: transparent;
+      border-radius: 10px 10px 0 0;
+      border: thin solid #1314313F;
+      border-bottom-style: none;
+    }
+  }
+
+  .pwdInput {
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+      background-color: transparent;
+      border-radius: 0 0 10px 10px;
+      border: thin solid #1314313F;
+    }
+
+  }
+  // labed color when input is focused
+  .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-floating-label--float-above {
+    color: #13143166;
+  }
+  // background when input is focused and hovered
+  .mat-mdc-form-field-focus-overlay {
+    background-color: rgb(0 0 0 / 0%);
+  }
+  // caret color
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
+    caret-color: #000000;
+  }
+  // label text on hover when input not active/focused
+  --mdc-filled-text-field-hover-label-text-color: rgba(0, 0, 0, 0.94);
+  .mdc-button .mdc-button__label {
+    color: #656565;
   }
 }
 

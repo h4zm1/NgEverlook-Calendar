@@ -1,0 +1,23 @@
+<div [ngClass]="themeService.themeSignal()" class="majorLogin">
+
+
+  <form action="">
+    <mat-form-field appearance="fill" class="emailInput">
+      <mat-label>Your e-mail address</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="pwdInput">
+      <mat-label>Password</mat-label>
+      <button mat-icon-button matSuffix class="visBtn" [class.active]="passwordValue"
+              (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="passwordValue" (input)="checkPasswordInput()"
+             [type]="hide ? 'password' : 'text'">
+    </mat-form-field>
+    <div class="loginHolder">
+      <button mat-button class="loginBtn">Log in</button>
+
+    </div>
+  </form>
+</div>

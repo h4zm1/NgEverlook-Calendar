@@ -1,0 +1,82 @@
+.majorLogin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: -webkit-fill-available;
+  justify-content: center;
+  scale: 1.1;
+}
+
+form {
+  //background-color: gray;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+
+::ng-deep {
+  // remove underline
+  .mat-mdc-form-field {
+    .mdc-line-ripple {
+      display: none;
+    }
+  }
+
+  // remove the space for conditions under input
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+
+  // remove text background inside input
+  .mat-mdc-form-field-input-control.mat-mdc-form-field-input-control {
+    background-clip: text;
+  }
+
+  // placeholder text color
+  .mat-mdc-form-field:not(.mat-form-field-disabled) .mat-mdc-floating-label.mdc-floating-label {
+    color: rgba(49, 49, 49, 0.8);
+  }
+
+  .mat-input-element {
+    color: white;
+  }
+
+  .mat-mdc-unelevated-button .mat-mdc-button-touch-target {
+    background-color: #494949;
+  }
+
+}
+
+.mat-label {
+  color: rgba(243, 8, 100, 0.4);
+}
+
+.visBtn {
+  visibility: hidden;
+}
+
+.visBtn.active {
+  visibility: visible;
+}
+
+// hiding ms edge password eye
+input[type=password]::-ms-reveal,
+input[type=password]::-ms-clear {
+  display: none;
+}
+
+// div that contains login button
+.loginHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  top: 25px;
+}
+
+.loginBtn {
+  //background-color: rgba(234, 234, 234, 0.46);
+  border-radius: 20px;
+  scale: 1.4;
+}

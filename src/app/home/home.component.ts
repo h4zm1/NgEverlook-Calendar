@@ -20,7 +20,7 @@ import {CommonModule} from '@angular/common';
     MatButton,
     MatAnchor,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
