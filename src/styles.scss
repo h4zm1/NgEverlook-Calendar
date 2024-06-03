@@ -1,7 +1,136 @@
-/* You can add global styles to this file, and also import other style files */
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+
+
+$fkn-m3-mono: (
+  0: #000000,
+  10: #1A1C1C,
+  20: #2F3131,
+  25: #3A3C3C,
+  30: #454747,
+  35: #515353,
+  40: #5D5F5F,
+  50: #767777,
+  60: #909191,
+  70: #AAABAB,
+  80: #C6C6C7,
+  90: #E2E2E2,
+  95: #F0F1F1,
+  98: #F9F9F9,
+  99: #FCFCFC,
+  100:#FFFFFF,
+  secondary: (
+    0: #000000,
+    10: #131c2b,
+    20: #283041,
+    25: #333c4d,
+    30: #3e4759,
+    35: #4a5365,
+    40: #565e71,
+    50: #6f778b,
+    60: #8891a5,
+    70: #a3abc0,
+    80: #bec6dc,
+    90: #dae2f9,
+    95: #ecf0ff,
+    98: #f9f9ff,
+    99: #fdfbff,
+    100: #ffffff,
+  ),
+  neutral: (
+    0: #000000,
+    10: #1a1b1f,
+    20: #2f3033,
+    25: #3b3b3f,
+    30: #46464a,
+    35: #525256,
+    40: #5e5e62,
+    50: #77777a,
+    60: #919094,
+    70: #ababaf,
+    80: #c7c6ca,
+    90: #e3e2e6,
+    95: #f2f0f4,
+    98: #faf9fd,
+    99: #fdfbff,
+    100: #ffffff,
+    4: #0a0b0c,
+    6: #101013,
+    12: #1e1f23,
+    17: #292a2d,
+    22: #343438,
+    24: #39393d,
+    87: #dbdade,
+    92: #e9e8ec,
+    94: #efedf1,
+    96: #f5f3f7,
+  ),
+  neutral-variant: (
+    0: #000000,
+    10: #181c22,
+    20: #2d3038,
+    25: #383b43,
+    30: #44474e,
+    35: #4f525a,
+    40: #5b5e66,
+    50: #74777f,
+    60: #8e9099,
+    70: #a9abb4,
+    80: #c4c6d0,
+    90: #e0e2ec,
+    95: #eff0fa,
+    98: #f9f9ff,
+    99: #fdfbff,
+    100: #ffffff,
+  ),
+  error: (
+    0: #000000,
+    10: #410002,
+    20: #690005,
+    25: #7e0007,
+    30: #93000a,
+    35: #a80710,
+    40: #ba1a1a,
+    50: #de3730,
+    60: #ff5449,
+    70: #ff897d,
+    80: #ffb4ab,
+    90: #ffdad6,
+    95: #ffedea,
+    98: #fff8f7,
+    99: #fffbff,
+    100: #ffffff,
+  ),
+);
+
+@include mat.core();
+
+// Light theme
+$light-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: $fkn-m3-mono,
+    tertiary: $fkn-m3-mono,
+  ),
+  density: (
+    scale: 0,
+  )
+));
+
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+:root {
+  @include mat.all-component-themes($light-theme);
+}
+
+// setting up font
 * {
   font-family: "Nunito-Light", sans-serif;
 }
+
 @font-face {
   font-family: 'Nunito-Light';
   src: url('assets/Nunito-Light.ttf') format('truetype');
@@ -10,9 +139,236 @@
 }
 
 html, body {
-  width: 100vw;
-  height: 100vh;
+  height: 100%;
   margin: 0;
-  //margin-top: -11px;
 }
 
+// Dark theme variables
+$dark-bg-color: #222;
+$semi-dark-bg-color: #252525;
+$light-text-color: #cacaca;
+
+// Light theme variables
+$light-bg-color: #d2d2d2;
+$semi-light-bg-color: rgba(192, 192, 192, 0);
+$dark-text-color: #181818;
+
+////////////////////////////////////
+//////////////DARK MODE////////////
+////////////////////////////////////
+
+.dark {
+  //@include mat.all-component-colors($dark-theme);
+  //
+  background-color: $semi-dark-bg-color;
+  color: $light-text-color;
+
+  .old:not(.new) .subject {
+    background: #3b3b3b;
+    color: #737373;
+    box-shadow: 4px 5px 10px 0 rgb(0 0 0 / 8%);
+
+  }
+
+  .subject {
+    background-color: #212121;
+    box-shadow: 4px 5px 10px 0 rgb(0 0 0 / 8%);
+  }
+
+
+  .old:not(.new) .subject {
+    background: #3b3b3b;
+    color: #737373
+  }
+
+  .old .date {
+    color: #737373;
+  }
+
+  .subject {
+    background-color: #212121;
+  }
+
+  .old:not(.new) .subject {
+    background: #3b3b3b;
+    color: #737373
+  }
+
+  .old .date {
+    color: #737373;
+  }
+
+  .mat-mdc-icon-button {
+    color: #cacaca;
+  }
+
+  .trail {
+    background: #a8a8a8;
+  }
+
+  .old .trail {
+    background: #414141;
+  }
+
+  .dot {
+    background: #a8a8a8;
+  }
+
+  .old .dot {
+    background: #414141;
+  }
+
+  .first .dot:not(.old .dot):before {
+    background: #c7c7c7;
+  }
+
+  .emailInput {
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+      background-color: transparent;
+      border-radius: 10px 10px 0 0;
+      border: thin solid #414141;
+      border-bottom-style: none;
+    }
+  }
+
+  .pwdInput {
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+      background-color: transparent;
+      border-radius: 0 0 10px 10px;
+      border: thin solid #414141;
+    }
+
+  }
+
+  // labed color when input is focused
+  .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-floating-label--float-above {
+    color: #bebebe;
+  }
+
+  // background when input is focused and hovered
+  .mat-mdc-form-field-focus-overlay {
+    background-color: rgb(0 0 0 / 0%);
+  }
+
+  // caret color
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
+    caret-color: #ffffff;
+    color: white;
+  }
+
+  // label text on hover when input not active/focused
+  --mdc-filled-text-field-hover-label-text-color: rgba(255, 255, 255, 0.94);
+
+  // login button text color
+  .mdc-button .mdc-button__label {
+    color: #d0d0d0;
+  }
+
+  // placeholder text color
+  .mat-mdc-form-field:not(.mat-form-field-disabled) .mat-mdc-floating-label.mdc-floating-label {
+    color: rgba(169, 169, 169, 0.65);
+  }
+
+  // text color when/after selecting suggested autofill
+  input:-webkit-autofill {
+    -webkit-text-fill-color: #ffffff;
+  }
+
+
+}
+
+
+////////////////////////////////////
+//////////////LIGHT MODE////////////
+////////////////////////////////////
+
+.light {
+  //@include mat.all-component-themes($light-theme);
+  background-color: $semi-light-bg-color;
+  color: $dark-text-color;
+
+  .mat-button.mat-primary .mat-button-focus-overlay {
+    background-color: transparent;
+  }
+
+  .subject {
+    //background-color: #212121;
+    background-color: #ffffff;
+    box-shadow: 5px 10px 20px 0 rgb(146 146 146 / 16%);
+  }
+
+  .old:not(.new) .subject {
+    background: #f6f6f6;
+    color: #b9b9b9
+  }
+
+  .old .date {
+    color: #b9b9b9;
+  }
+
+  .mat-mdc-icon-button {
+    color: #494949;
+  }
+
+  .trail {
+    background: #000;
+  }
+
+  .old .trail {
+    background: #ccc;
+  }
+
+  .dot {
+    background: #494949;
+  }
+
+  .old .dot {
+    background: #b7b7b7;
+  }
+
+  .first .dot:not(.old .dot):before {
+    background: #494949;
+  }
+
+
+  .emailInput {
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+      background-color: transparent;
+      border-radius: 10px 10px 0 0;
+      border: thin solid #1314313F;
+      border-bottom-style: none;
+    }
+  }
+
+  .pwdInput {
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+      background-color: transparent;
+      border-radius: 0 0 10px 10px;
+      border: thin solid #1314313F;
+    }
+
+  }
+
+  // labed color when input is focused
+  .mdc-text-field--filled:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-floating-label--float-above {
+    color: #13143166;
+  }
+
+  // background when input is focused and hovered
+  .mat-mdc-form-field-focus-overlay {
+    background-color: rgb(0 0 0 / 0%);
+  }
+
+  // caret color
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
+    caret-color: #000000;
+  }
+
+  // label text on hover when input not active/focused
+  --mdc-filled-text-field-hover-label-text-color: rgba(0, 0, 0, 0.94);
+
+  //.mdc-button .mdc-button__label {
+  //  color: #656565;
+  //}
+
+}

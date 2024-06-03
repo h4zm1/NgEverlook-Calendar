@@ -3,7 +3,7 @@ import {ServertimeComponent} from "../servertime/servertime.component";
 import {BossComponent} from "../boss/boss.component";
 import {EventComponent} from "../event/event.component";
 import {RouterModule} from '@angular/router';
-import {MatButtonModule, MatAnchor, MatButton, MatFabButton, MatIconButton} from "@angular/material/button";
+import {MatButtonModule, MatAnchor, MatButton} from "@angular/material/button";
 import {MatIconModule} from '@angular/material/icon';
 import {ThemeService} from "../theme.service";
 import {CommonModule} from '@angular/common';
@@ -11,17 +11,17 @@ import {CommonModule} from '@angular/common';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [
-    RouterModule,
-    ServertimeComponent,
-    BossComponent,
-    EventComponent,
-    CommonModule,
-    MatButton,
-    MatAnchor,
-    MatIconModule,
-    MatButtonModule,
-  ],
+    imports: [
+        RouterModule,
+        ServertimeComponent,
+        BossComponent,
+        EventComponent,
+        CommonModule,
+        MatButton,
+        MatAnchor,
+        MatIconModule,
+        MatButtonModule,
+    ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
