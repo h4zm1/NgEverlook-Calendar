@@ -1,22 +1,28 @@
 <div [ngClass]="themeService.themeSignal()" class="majorLogin">
 
 
-  <form action="">
+  <form action="" (ngSubmit)="formDone()">
     <mat-form-field appearance="fill" class="emailInput">
       <mat-label>Your e-mail address</mat-label>
-      <input matInput>
+      <input matInput [(ngModel)]="credentials.email" [ngModelOptions]="{standalone: true}">
     </mat-form-field>
     <mat-form-field appearance="fill" class="pwdInput">
-      <mat-label>Password</mat-label>
-      <button mat-icon-button matSuffix class="visBtn" [class.active]="passwordValue"
+      <mat-label>{{passwordInputText}}</mat-label>
+      <button mat-icon-button matSuffix class="visBtn" [class.active]="credentials.password"
               (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
       </button>
-      <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="passwordValue" (input)="checkPasswordInput()"
-             [type]="hide ? 'password' : 'text'">
+      <input matInput [ngModelOptions]="{standalone: true}" (input)="checkPasswordInput()"
+             [type]="hide ? 'password' : 'text'" [(ngModel)]="credentials.password">
     </mat-form-field>
     <div class="loginHolder">
-      <button mat-button [disableRipple]="false" class="loginBtn">Log in</button>
+      <button [disabled]="accessRequest" [ngStyle]="{width: joining?'50%':'25%'}"
+              type="submit" mat-button [disableRipple]="false"
+              class="loginBtn">{{signBtnText}}</button>
+    </div>
+    <div class="otherLinks" >
+      <a (click)="switchToRegister()">{{signLinkText}}</a>
+      <a [ngStyle]="{display: joining ? 'none' : 'inline'}">Forgot your password?</a>
     </div>
   </form>
 </div>

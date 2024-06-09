@@ -335,7 +335,7 @@ $dark-text-color: #181818;
     .mdc-text-field--filled:not(.mdc-text-field--disabled) {
       background-color: transparent;
       border-radius: 10px 10px 0 0;
-      border: thin solid #1314313F;
+      border: thin solid #DEDEDEDF;
       border-bottom-style: none;
     }
   }
@@ -344,7 +344,7 @@ $dark-text-color: #181818;
     .mdc-text-field--filled:not(.mdc-text-field--disabled) {
       background-color: transparent;
       border-radius: 0 0 10px 10px;
-      border: thin solid #1314313F;
+      border: thin solid #DEDEDEDF;
     }
 
   }
@@ -370,5 +370,9 @@ $dark-text-color: #181818;
   //.mdc-button .mdc-button__label {
   //  color: #656565;
   //}
+  // placeholder text color
+  .mat-mdc-form-field:not(.mat-form-field-disabled) .mat-mdc-floating-label.mdc-floating-label {
+    color: rgba(128, 128, 128, 0.8);
+  }
 
 }

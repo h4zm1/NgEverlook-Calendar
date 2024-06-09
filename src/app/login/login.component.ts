@@ -17,14 +17,27 @@ import {RouterLink} from "@angular/router";
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit{
-  themeService: ThemeService = inject(ThemeService);
-  hide = true;
-  passwordValue: string = '';
+  themeService: ThemeService = inject(ThemeService)
+  hide = true
+  joining=false
+  signLinkText="Sign up"
+  signBtnText="Log in"
+  accessRequest = false
+  passwordInputText="Password";
+  credentials = {email: "", password: ""};
 
   checkPasswordInput() {
-    this.passwordValue = this.passwordValue.trim();
+    this.credentials.password = this.credentials.password.trim();
   }
 
+  switchToRegister(){
+    this.joining = !this.joining
+    this.signLinkText=this.joining?"Already have account? Sign in":"Sign up"
+    this.signBtnText=this.joining?"Request Access":"Log in"
+    this.passwordInputText=this.joining?"Secured password":"Password"
+    console.log("test")
+
+  }
   ngOnInit() {
     // if no local storage theme var available, make it light and save it
     if (localStorage.getItem('theme') == null) {
@@ -35,6 +48,10 @@ export class LoginComponent implements OnInit{
     if (localStorage.getItem("theme") == "dark") {
       this.themeService.setTheme("dark")
     }
+  }
+
+  formDone(){
+    console.log(this.credentials.email, this.credentials.password);
   }
 }
 
