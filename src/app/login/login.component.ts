@@ -6,7 +6,10 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {CommonModule} from '@angular/common';
 import {ThemeService} from "../theme.service";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
+import {AuthService} from "./auth.service";
+import {routes} from "../app.routes";
+import {LoggerService} from "../logger.service";
 
 @Component({
   selector: 'app-login',
@@ -16,28 +19,35 @@ import {RouterLink} from "@angular/router";
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
+  logger: LoggerService = inject(LoggerService);
   themeService: ThemeService = inject(ThemeService)
   hide = true
-  joining=false
-  signLinkText="Sign up"
-  signBtnText="Log in"
+  isJoining = false
+  signLinkText = "Sign up"
+  signBtnText = "Log in"
   accessRequest = false
-  passwordInputText="Password";
+  passwordInputText = "Password";
   credentials = {email: "", password: ""};
+  authService = inject(AuthService);
+  router :Router = inject(Router);
+  correct = "";
 
   checkPasswordInput() {
     this.credentials.password = this.credentials.password.trim();
   }
 
-  switchToRegister(){
-    this.joining = !this.joining
-    this.signLinkText=this.joining?"Already have account? Sign in":"Sign up"
-    this.signBtnText=this.joining?"Request Access":"Log in"
-    this.passwordInputText=this.joining?"Secured password":"Password"
-    console.log("test")
-
+  signInOrUp() {
+    this.isJoining = !this.isJoining
+    this.signLinkText = this.isJoining ? "Already have account? Sign in" : "Sign up"
+    this.signBtnText = this.isJoining ? "Request Access" : "Log in"
+    this.passwordInputText = this.isJoining ? "Secured password" : "Password"
+    this.logger.log("test")
+    // resetting input fields
+    this.credentials.email = ""
+    this.credentials.password = ""
   }
+
   ngOnInit() {
     // if no local storage theme var available, make it light and save it
     if (localStorage.getItem('theme') == null) {
@@ -50,8 +60,33 @@ export class LoginComponent implements OnInit{
     }
   }
 
-  formDone(){
-    console.log(this.credentials.email, this.credentials.password);
+  onSubmit() {
+    this.logger.log(this.credentials.email, this.credentials.password);
+    if (this.isJoining) // register
+      this.authService.register(this.credentials.email, this.credentials.password)
+        .subscribe({
+          next: (data) => {
+            this.logger.log("*****" + data.toString());
+            // switch to sign in ui after successful registering
+            this.signInOrUp()
+          },
+          error: err => {
+            this.logger.log(err.error.message)
+          }
+        })
+    else // login
+    // this.router.navigate(['config'])
+      this.authService.login(this.credentials.email, this.credentials.password)
+        .subscribe({
+          next: data => {
+            this.router.navigate(['config'])
+            localStorage.setItem('isLoggedIn', 'true')
+            this.logger.log("*****11 " + data.token);
+          },
+          error: err => {
+            this.logger.log(err.error.message)
+          }
+        })
   }
 }
 

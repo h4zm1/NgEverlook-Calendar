@@ -70,7 +70,7 @@ input[type=password]::-ms-clear {
 // scale up login button
 .loginBtn {
   scale: 1.1;
-  background-color: rgba(241, 241, 241, 0.73);
+  //background-color: rgb(241 241 241 / 3%);
   //width: 50%;
 }
 .otherLinks{
@@ -78,11 +78,10 @@ input[type=password]::-ms-clear {
   text-align: center;
 a{
   padding: 5px;
-  color: #13143166;
+  //color: #13143166;
   text-decoration: none;
   cursor:pointer;
   font-size: 15px;
-
 }
   a:hover{
     //color: red;

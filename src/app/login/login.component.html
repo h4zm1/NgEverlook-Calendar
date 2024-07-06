@@ -1,28 +1,43 @@
 <div [ngClass]="themeService.themeSignal()" class="majorLogin">
 
 
-  <form action="" (ngSubmit)="formDone()">
+  <form action="" (ngSubmit)="onSubmit()">
+
+    <!--  email field  -->
     <mat-form-field appearance="fill" class="emailInput">
       <mat-label>Your e-mail address</mat-label>
       <input matInput [(ngModel)]="credentials.email" [ngModelOptions]="{standalone: true}">
     </mat-form-field>
+
+
+    <!--  password field  -->
     <mat-form-field appearance="fill" class="pwdInput">
-      <mat-label>{{passwordInputText}}</mat-label>
+      <mat-label>{{ passwordInputText }}</mat-label>
+      <!--  class.active    = for css visibility switching when the pwd field is empty-->
+      <!--  hide            = a variable in the component that's being read from the input bellow to switch between text and dots-->
+      <!--  attr.aria-label = for accessibility-->
+      <!--  type=button     = to prevent the browser from thinking this's a submit button-->
       <button mat-icon-button matSuffix class="visBtn" [class.active]="credentials.password"
-              (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
+              type="button">
         <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
       </button>
       <input matInput [ngModelOptions]="{standalone: true}" (input)="checkPasswordInput()"
              [type]="hide ? 'password' : 'text'" [(ngModel)]="credentials.password">
     </mat-form-field>
+
+    <!--  reg/login button  -->
     <div class="loginHolder">
-      <button [disabled]="accessRequest" [ngStyle]="{width: joining?'50%':'25%'}"
+      <button [disabled]="accessRequest" [ngStyle]="{width: isJoining?'50%':'25%'}"
               type="submit" mat-button [disableRipple]="false"
-              class="loginBtn">{{signBtnText}}</button>
+              class="loginBtn">{{ signBtnText }}
+      </button>
     </div>
-    <div class="otherLinks" >
-      <a (click)="switchToRegister()">{{signLinkText}}</a>
-      <a [ngStyle]="{display: joining ? 'none' : 'inline'}">Forgot your password?</a>
+
+
+    <div class="otherLinks">
+      <a (click)="signInOrUp()">{{ signLinkText }}</a>
+      <a [ngStyle]="{display: isJoining ? 'none' : 'inline'}">Forgot your password?</a>
     </div>
   </form>
 </div>

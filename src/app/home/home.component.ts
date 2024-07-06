@@ -7,6 +7,7 @@ import {MatButtonModule, MatAnchor, MatButton} from "@angular/material/button";
 import {MatIconModule} from '@angular/material/icon';
 import {ThemeService} from "../theme.service";
 import {CommonModule} from '@angular/common';
+import {LoggerService} from "../logger.service";
 
 @Component({
   selector: 'app-home',
@@ -26,6 +27,7 @@ import {CommonModule} from '@angular/common';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
+  logger: LoggerService = inject(LoggerService);
   title = 'NgEverlook-Calendar';
   themeService: ThemeService = inject(ThemeService);
   // activeTheme: string = "light"
@@ -37,7 +39,7 @@ export class HomeComponent implements OnInit {
       this.themeService.setTheme("light")
       localStorage.setItem('theme', 'light');
     }
-    console.log(localStorage.getItem("theme"));
+    this.logger.log(localStorage.getItem("theme"));
     // if local var is dark, open the curtain and set theme to dark
     if (localStorage.getItem("theme") == "dark") {
       this.state = 1;

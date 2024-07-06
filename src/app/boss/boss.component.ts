@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Boss} from "./boss";
 import {ZgbossService} from "./zgboss.service";
 import {NgIf} from "@angular/common";
+import {ConfigService} from "../config/config.service";
+import {LoggerService} from "../logger.service";
 
 @Component({
   selector: 'app-boss',
@@ -15,6 +17,7 @@ import {NgIf} from "@angular/common";
 })
 export class BossComponent implements OnInit{
   // zgBoss = inject(ZgbossService)
+  logger: LoggerService = inject(LoggerService);
   boss : string =""
   state: string = "ON";
   changeState(){
@@ -24,7 +27,7 @@ export class BossComponent implements OnInit{
     else
     if(this.state === "OFF")
       this.state = "ON";
-    console.log(this.state);
+    this.logger.log(this.state);
 
   }
   constructor(private bossService: ZgbossService) {
