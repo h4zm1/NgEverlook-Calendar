@@ -10,6 +10,7 @@ import {Router, RouterLink} from "@angular/router";
 import {AuthService} from "./auth.service";
 import {routes} from "../app.routes";
 import {LoggerService} from "../logger.service";
+import {UserInfo} from "./auth.service"
 
 @Component({
   selector: 'app-login',
@@ -59,14 +60,16 @@ export class LoginComponent implements OnInit {
       this.themeService.setTheme("dark")
     }
   }
-
+  getUserRolesAsString(userInfo: UserInfo): string {
+    return userInfo.role.map(r => r.authority).join(',');
+  }
   onSubmit() {
     this.logger.log(this.credentials.email, this.credentials.password);
     if (this.isJoining) // register
       this.authService.register(this.credentials.email, this.credentials.password)
         .subscribe({
           next: (data) => {
-            this.logger.log("*****" + data.toString());
+            this.logger.log("reg ***** " + data.toString());
             // switch to sign in ui after successful registering
             this.signInOrUp()
           },
@@ -75,13 +78,13 @@ export class LoginComponent implements OnInit {
           }
         })
     else // login
-    // this.router.navigate(['config'])
       this.authService.login(this.credentials.email, this.credentials.password)
         .subscribe({
           next: data => {
             this.router.navigate(['config'])
             localStorage.setItem('isLoggedIn', 'true')
-            this.logger.log("*****11 " + data.token);
+            localStorage.setItem('roles', this.getUserRolesAsString(data))
+            this.logger.log("login*** " + this.getUserRolesAsString(data));
           },
           error: err => {
             this.logger.log(err.error.message)

@@ -1,1 +1,23 @@
-<p>config works!</p>
+<div [ngClass]="themeService.themeSignal()" class="configPage">
+
+  <p>config works!</p>
+  <mat-form-field>
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="picker"
+           (dateInput)="dateChange($event)"
+           (dateChange)="dateChange($event)" [disabled]="!configAccess">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <!--  save button  -->
+  <div class="loginHolder">
+    <!--    enables save when savable and configAccess are both true-->
+    <button [disabled]="!configAccess || !savable" (click)="save()"
+            type="submit" mat-button [disableRipple]="false"
+            class="saveBtn">Save
+    </button>
+  </div>
+
+</div>

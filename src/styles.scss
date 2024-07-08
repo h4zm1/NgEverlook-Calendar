@@ -277,6 +277,12 @@ $dark-text-color: #181818;
   a{
     color: #4d4d4d;
   }
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: transparent;
+  }
+  .loginBtn, .saveBtn{
+    background-color: #2f2f2fba;
+  }
 }
 
 
@@ -380,4 +386,12 @@ $dark-text-color: #181818;
   a{
     color: #13143166;
   }
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: transparent;
+  }
+  .loginBtn, .saveBtn{
+    background-color: #f1f1f1ba;
+  }
 }
+
+

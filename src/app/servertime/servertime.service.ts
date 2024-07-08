@@ -25,6 +25,12 @@ export class ServertimeService {
       // skipping error handling since it seems like it's blocking the onmessage invoke
     });
   }
+  close(): void {
+    if (!this.eventSource) {
+      return;
+    }
 
+    this.eventSource.close();
+  }
 
 }

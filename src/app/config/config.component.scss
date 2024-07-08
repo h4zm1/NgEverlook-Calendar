@@ -1,0 +1,24 @@
+.configPage {
+  min-inline-size: fit-content;
+  display: flex;
+  height: -webkit-fill-available;
+  justify-content: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  flex-direction: column;
+  align-items: center;
+}
+.mat-mdc-form-field{
+  width: 300px;
+}
+
+//::ng-deep {
+//  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+//    background-color: red;
+//  }
+//}
+.saveBtn{
+  scale: 1.1;
+  margin-top: 100px;
+  width: 70px;
+}

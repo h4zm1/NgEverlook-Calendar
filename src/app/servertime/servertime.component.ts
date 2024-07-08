@@ -28,5 +28,6 @@ export class ServertimeComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.eventSourceSubscription.unsubscribe();
+    this.serverTimeService.close();
   }
 }

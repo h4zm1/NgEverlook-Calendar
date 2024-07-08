@@ -4,11 +4,12 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {LoggerService} from "../logger.service";
 
-interface LoginResponse {
-  token: string;
-  expiresIn: string;
-}
 
+export interface UserInfo {
+  role: Array<{
+    authority: string;
+  }>;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,8 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
-  login(email: String, password: String): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(environment.apiUrl + "/auth/login",
+  login(email: String, password: String): Observable<UserInfo> {
+    return this.http.post<UserInfo>(environment.apiUrl + "/auth/login",
       {email: email, password: password});
   }
 
