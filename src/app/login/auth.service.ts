@@ -36,12 +36,17 @@ export class AuthService {
   }
 
   refreshToken(): Observable<string> {
-    return this.http.post(environment.apiUrl + "/auth/refreshtoken", {}, { responseType: 'text' }).pipe(
+    return this.http.post(environment.apiUrl + "/auth/refreshtoken", {}, {responseType: 'text'}).pipe(
       tap((response: string) => this.logger.log('Token refresh response:', response)),
       catchError(error => {
         this.logger.log('Token refresh failed:', error);
         return throwError(() => error);
       })
     );
+  }
+
+  checkAuthStatus(): Observable<boolean> {
+    return this.http.get<boolean>(environment.apiUrl + "/auth/status",
+      {},);
   }
 }

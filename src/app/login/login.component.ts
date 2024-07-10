@@ -1,24 +1,25 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatIconModule} from '@angular/material/icon';
-import {CommonModule} from '@angular/common';
+import {Component, inject, OnInit} from "@angular/core";
+import {FormsModule} from "@angular/forms";
+import {MatButtonModule} from "@angular/material/button";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatIconModule} from "@angular/material/icon";
+import {CommonModule} from "@angular/common";
 import {ThemeService} from "../theme.service";
 import {Router, RouterLink} from "@angular/router";
 import {AuthService} from "./auth.service";
 import {routes} from "../app.routes";
 import {LoggerService} from "../logger.service";
 import {UserInfo} from "./auth.service"
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
-  selector: 'app-login',
+  selector: "app-login",
   standalone: true,
   imports: [FormsModule, MatInputModule, MatFormFieldModule
     , MatButtonModule, MatIconModule, CommonModule, RouterLink],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  templateUrl: "./login.component.html",
+  styleUrl: "./login.component.scss"
 })
 export class LoginComponent implements OnInit {
   logger: LoggerService = inject(LoggerService);
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
   passwordInputText = "Password";
   credentials = {email: "", password: ""};
   authService = inject(AuthService);
-  router :Router = inject(Router);
+  router: Router = inject(Router);
   correct = "";
 
   checkPasswordInput() {
@@ -50,19 +51,35 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (localStorage.getItem("isLoggedIn") != null) {
+      if (localStorage.getItem("isLoggedIn") == "true") {
+        this.authService.checkAuthStatus().subscribe(
+          isAuthenticated => {
+            if (isAuthenticated) {
+              this.logger.log("AUTO AUTHENTICATED")
+              this.router.navigate(["config"])
+            } else {
+              this.logger.log("FAILED AUTO  AUTHENTICATION")
+            }
+          }
+        );
+      }
+    }
     // if no local storage theme var available, make it light and save it
-    if (localStorage.getItem('theme') == null) {
+    if (localStorage.getItem("theme") == null) {
       this.themeService.setTheme("light")
-      localStorage.setItem('theme', 'light');
+      localStorage.setItem("theme", "light");
     }
     // if local var is dark, open the curtain and set theme to dark
     if (localStorage.getItem("theme") == "dark") {
       this.themeService.setTheme("dark")
     }
   }
+
   getUserRolesAsString(userInfo: UserInfo): string {
-    return userInfo.role.map(r => r.authority).join(',');
+    return userInfo.role.map(r => r.authority).join(",");
   }
+
   onSubmit() {
     this.logger.log(this.credentials.email, this.credentials.password);
     if (this.isJoining) // register
@@ -81,9 +98,9 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.credentials.email, this.credentials.password)
         .subscribe({
           next: data => {
-            this.router.navigate(['config'])
-            localStorage.setItem('isLoggedIn', 'true')
-            localStorage.setItem('roles', this.getUserRolesAsString(data))
+            this.router.navigate(["config"])
+            localStorage.setItem("isLoggedIn", "true")
+            localStorage.setItem("roles", this.getUserRolesAsString(data))
             this.logger.log("login*** " + this.getUserRolesAsString(data));
           },
           error: err => {
