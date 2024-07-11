@@ -20,9 +20,9 @@ export class ConfigService {
   constructor(private http: HttpClient) {
   }
 
-  updateStartDate(data: String): Observable<String> {
-    return this.http.post(environment.apiUrl + "/conf/testAuth",
-      {data: data}, {"withCredentials": true, responseType:"text"});
+  updateStartDate(date: String): Observable<String> {
+    return this.http.post(environment.apiUrl + "/conf/updateStartDate",
+      {date: date}, {"withCredentials": true, responseType:"text"});
   }
 
 }

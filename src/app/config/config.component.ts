@@ -36,6 +36,7 @@ export class ConfigComponent implements OnInit {
   date: String = ""
   configAccess = false
   savable = false
+  readonly minDate = new Date(2023,11,1);
 
   ngOnInit() {
     const roles = localStorage.getItem("roles");
@@ -54,7 +55,7 @@ export class ConfigComponent implements OnInit {
       this.logger.log("saving " + this.date)
       this.confService.updateStartDate(this.date).subscribe({
         next: data => {
-          this.logger.log("date from server " + data);
+          this.logger.log("server:: " + data);
         },
         error: err => {
           this.logger.log("conf error " + err.error.message)
