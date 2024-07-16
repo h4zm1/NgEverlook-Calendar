@@ -3,7 +3,7 @@ import {Observable, shareReplay} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Data} from "@angular/router";
-import {LoggerService} from "../logger.service";
+import {LoggerService} from "../core/logger.service";
 
 // interface LoginResponse {
 //   token: string;

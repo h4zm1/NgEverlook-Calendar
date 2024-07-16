@@ -7,8 +7,8 @@ import {
   HttpRequest
 } from "@angular/common/http";
 import {BehaviorSubject, catchError, filter, Observable, switchMap, take, throwError} from "rxjs";
-import {AuthService} from "./login/auth.service";
-import {EventBusService, EventData} from "./config/EventBus.service";
+import {AuthService} from "../login/auth.service";
+import {EventBusService, EventData} from "./EventBus.service";
 import {LoggerService} from "./logger.service";
 
 export const requestInterceptor: HttpInterceptorFn = (
@@ -27,10 +27,11 @@ export const requestInterceptor: HttpInterceptorFn = (
 
   return next(req).pipe(
     catchError((error) => {
-      if (
+      if ( // handling expired access token when sending a request, conditions that necessitate a refresh
         error instanceof HttpErrorResponse &&
         !req.url.includes('auth/signin') &&
-        error.status === 403
+        !req.url.includes('auth/status') &&
+        error.status === 403 // server will manually send 403 error, as specified in it
       ) {
         logger.log('Caught 403 error, attempting to refresh token');
         return handle403Error(req, next);
@@ -46,10 +47,10 @@ export const requestInterceptor: HttpInterceptorFn = (
 
       logger.log('Starting token refresh');
       return authService.refreshToken().pipe(
-        switchMap((response: string) => {
+        switchMap((response: string) => { // successful response from refreshtoken endpoint
           logger.log('Token refreshed, retrying original request');
           isRefreshing = false;
-          refreshTokenSubject.next(true);
+          refreshTokenSubject.next(true); // retrying original request
           return next(request);
         }),
         catchError((err) => {

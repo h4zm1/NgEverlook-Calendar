@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {SubscriptionLike} from "rxjs"
 import {ServertimeService} from "./servertime.service";
 import {OnDestroy} from "@angular/core";
-import {LoggerService} from "../logger.service";
+import {LoggerService} from "../core/logger.service";
 
 @Component({
   selector: 'app-servertime',

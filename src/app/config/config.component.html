@@ -1,8 +1,14 @@
 <div [ngClass]="themeService.themeSignal()" class="configPage">
 
-  <p>config works!</p>
+  <!--  Settings and dark mode buttons-->
+  <div class="button-container-config">
+    <button [matTooltip]="exitTip" mat-icon-button (click)="logout()" class="settings">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+
   <mat-form-field>
-    <mat-label>Choose a date</mat-label>
+    <mat-label>Change the starting date</mat-label>
     <input matInput [matDatepicker]="picker"
            [min]="minDate"
            (dateInput)="dateChange($event)"
@@ -13,7 +19,7 @@
   </mat-form-field>
 
   <!--  save button  -->
-  <div class="loginHolder">
+  <div class="saveHolder">
     <!--    enables save when savable and configAccess are both true-->
     <button [disabled]="!configAccess || !savable" (click)="save()"
             type="submit" mat-button [disableRipple]="false"

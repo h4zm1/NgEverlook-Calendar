@@ -199,7 +199,7 @@ $dark-text-color: #181818;
   }
 
   .mat-mdc-icon-button {
-    color: #cacaca;
+    color: #cacacab5;
   }
 
   .trail {
@@ -259,11 +259,14 @@ $dark-text-color: #181818;
   // label text on hover when input not active/focused
   --mdc-filled-text-field-hover-label-text-color: rgba(255, 255, 255, 0.94);
 
-  // login button text color
-  .mdc-button .mdc-button__label {
-    color: #d0d0d0;
+  // login/save button text color
+    .mat-mdc-button:not(:disabled) {
+      color: #d0d0d0;
   }
-
+  // login/save button text color disabled
+  .mat-mdc-button[disabled], .mat-mdc-button.mat-mdc-button-disabled {
+    color: rgba(105, 105, 105, 0.56);
+  }
   // placeholder text color
   .mat-mdc-form-field:not(.mat-form-field-disabled) .mat-mdc-floating-label.mdc-floating-label {
     color: rgba(169, 169, 169, 0.65);
@@ -275,7 +278,7 @@ $dark-text-color: #181818;
   }
 
   a{
-    color: #4d4d4d;
+    color: #7a7a7a;
   }
   .mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background-color: transparent;

@@ -3,7 +3,7 @@ import {Boss} from "./boss";
 import {ZgbossService} from "./zgboss.service";
 import {NgIf} from "@angular/common";
 import {ConfigService} from "../config/config.service";
-import {LoggerService} from "../logger.service";
+import {LoggerService} from "../core/logger.service";
 
 @Component({
   selector: 'app-boss',

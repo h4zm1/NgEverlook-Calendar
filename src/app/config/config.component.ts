@@ -1,8 +1,8 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ConfigService} from "./config.service";
-import {EventBusService} from "./EventBus.service";
+import {EventBusService} from "../core/EventBus.service";
 import {AuthService} from "../login/auth.service";
-import {LoggerService} from "../logger.service";
+import {LoggerService} from "../core/logger.service";
 import {FormsModule} from "@angular/forms";
 import {
   MatDatepicker,
@@ -11,18 +11,21 @@ import {
   MatDatepickerToggle
 } from "@angular/material/datepicker";
 import {MatFormFieldModule, MatHint, MatLabel} from "@angular/material/form-field";
-import {ThemeService} from "../theme.service";
+import {ThemeService} from "../core/theme.service";
 import {CommonModule} from '@angular/common';
 import {MatInput} from "@angular/material/input";
 import {MatNativeDateModule} from "@angular/material/core";
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
+import {MatIcon} from "@angular/material/icon";
+import {Router, RouterLink} from "@angular/router";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-config',
   standalone: true,
-  imports: [FormsModule, MatDatepicker,
+  imports: [FormsModule, MatDatepicker, MatTooltip,
     MatDatepickerToggle, MatFormFieldModule, MatNativeDateModule,
-    MatHint, MatLabel, CommonModule, MatDatepickerInput, MatInput, MatButton],
+    MatHint, MatLabel, CommonModule, MatDatepickerInput, MatInput, MatButton, MatIcon, MatIconButton, RouterLink],
   templateUrl: './config.component.html',
   styleUrl: './config.component.scss'
 })
@@ -32,21 +35,33 @@ export class ConfigComponent implements OnInit {
   authService: AuthService = inject(AuthService);
   logger: LoggerService = inject(LoggerService);
   themeService: ThemeService = inject(ThemeService);
-
+  router: Router = inject(Router);
+  exitTip = "Log out"
   date: String = ""
   configAccess = false
   savable = false
-  readonly minDate = new Date(2023,11,1);
+  readonly minDate = new Date(2023, 11, 1);
 
   ngOnInit() {
     const roles = localStorage.getItem("roles");
     if (roles && roles.includes("ADMIN")) {
-      this.configAccess=true
+      this.configAccess = true
     }
-    // subscribe to eventBusService logout event, if something get published we call the logout method
+    // subscribe to eventBusService logout event, if something get published under it we call the logout method
     this.eventBusService.sub("logout", () => {
       this.logout()
     })
+    // if no local storage theme var available, make it light and save it
+    if (localStorage.getItem("theme") == null) {
+      this.themeService.setTheme("light")
+      localStorage.setItem("theme", "light");
+    }
+    // if local var is dark, open the curtain and set theme to dark
+    else {
+      if (localStorage.getItem("theme") == "dark") {
+        this.themeService.setTheme("dark")
+      }
+    }// if none of the above then it should be light
   }
 
   save() {
@@ -83,9 +98,12 @@ export class ConfigComponent implements OnInit {
         this.logger.log("log out suc")
         this.logger.log(response)
         localStorage.removeItem("isLoggedIn")
+        localStorage.removeItem("roles")
+        this.router.navigate(["login"])
       },
       error: err => {
-        this.logger.log("logout error " + err.error.message)
+        this.logger.log("logout error")
+        this.logger.error(err)
       }
     })
   }

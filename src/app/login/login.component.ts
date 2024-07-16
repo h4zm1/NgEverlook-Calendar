@@ -5,13 +5,11 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {CommonModule} from "@angular/common";
-import {ThemeService} from "../theme.service";
+import {ThemeService} from "../core/theme.service";
 import {Router, RouterLink} from "@angular/router";
-import {AuthService} from "./auth.service";
-import {routes} from "../app.routes";
-import {LoggerService} from "../logger.service";
-import {UserInfo} from "./auth.service"
-import {error} from "@angular/compiler-cli/src/transformers/util";
+import {AuthService, UserInfo} from "./auth.service";
+import {routes} from "../core/app.routes";
+import {LoggerService} from "../core/logger.service";
 
 @Component({
   selector: "app-login",
@@ -53,13 +51,18 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if (localStorage.getItem("isLoggedIn") != null) {
       if (localStorage.getItem("isLoggedIn") == "true") {
-        this.authService.checkAuthStatus().subscribe(
-          isAuthenticated => {
-            if (isAuthenticated) {
-              this.logger.log("AUTO AUTHENTICATED")
-              this.router.navigate(["config"])
-            } else {
-              this.logger.log("FAILED AUTO  AUTHENTICATION")
+        this.authService.checkAuthStatus().subscribe({
+            next: isAuthenticated => {
+              if (isAuthenticated) {
+                this.logger.log("AUTO AUTHENTICATED")
+                this.router.navigate(["config"])
+              } else {
+                this.logger.log("AUTO AUTHENTICATION denied")
+              }
+            },
+            error: err => {
+              this.logger.log("FAILED AUTO AUTHENTICATION")
+              this.logger.error(err)
             }
           }
         );
@@ -71,13 +74,15 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("theme", "light");
     }
     // if local var is dark, open the curtain and set theme to dark
-    if (localStorage.getItem("theme") == "dark") {
-      this.themeService.setTheme("dark")
-    }
+    else {
+      if (localStorage.getItem("theme") == "dark") {
+        this.themeService.setTheme("dark")
+      }
+    }// if none of the above then it should be light
   }
 
   getUserRolesAsString(userInfo: UserInfo): string {
-    return userInfo.role.map(r => r.authority).join(",");
+    return userInfo.roles.map(role => role.authority).join(",");
   }
 
   onSubmit() {

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import {ThemeService} from "../theme.service";
+import {ThemeService} from "../core/theme.service";
 
 @Component({
   selector: 'app-enchant',

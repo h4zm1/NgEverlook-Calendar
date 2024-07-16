@@ -2,13 +2,15 @@ import {inject, Injectable} from '@angular/core';
 import {catchError, Observable, tap, throwError} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {LoggerService} from "../logger.service";
+import {LoggerService} from "../core/logger.service";
 
 
 export interface UserInfo {
-  role: Array<{
-    authority: string;
-  }>;
+  roles: Role[];
+}
+
+interface Role {
+  authority: string;
 }
 
 @Injectable({
@@ -30,9 +32,9 @@ export class AuthService {
       {email: email, password: password});
   }
 
-  logout(): Observable<any> {
-    return this.http.post(environment.apiUrl + "/auth/logout",
-      {},);
+  logout(): Observable<string> {
+    return this.http.post(environment.apiUrl + "/auth/signout",
+      {},{responseType: 'text'});
   }
 
   refreshToken(): Observable<string> {
@@ -45,8 +47,10 @@ export class AuthService {
     );
   }
 
+  // this will return 403 (false) if the request didn't contain
+  // jwt access token/cookie or ok (true)
   checkAuthStatus(): Observable<boolean> {
     return this.http.get<boolean>(environment.apiUrl + "/auth/status",
-      {},);
+      {},)
   }
 }
