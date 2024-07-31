@@ -32,9 +32,33 @@ export class LoginComponent implements OnInit {
   authService = inject(AuthService);
   router: Router = inject(Router);
   correct = "";
+  isPasswordFocused = false
+  lvlColors = ["lightgray", "lightgray", "lightgray", "lightgray"]
+  popoverMessage = "Must have at least 6 characters."
+
 
   checkPasswordInput() {
     this.credentials.password = this.credentials.password.trim();
+
+    length = this.credentials.password.length;
+    if (length < 6) {
+      this.popoverMessage = "Must have at least 6 \ncharacters."
+      this.lvlColors = ['lightgray', 'lightgray', 'lightgray', 'lightgray']
+    } else if (6 <= length && length < 9) {
+      this.popoverMessage = "Weak Password"
+    } else if (9 <= length && length < 11) {
+      this.popoverMessage = "Weak Password"
+      this.lvlColors = ['#ff5900', 'lightgray', 'lightgray', 'lightgray']
+    } else if (11 <= length && length < 14) {
+      this.popoverMessage = "Average Password"
+      this.lvlColors = ['#ffb807', '#ffb807', '#lightgray', 'lightgray']
+    } else if (14 <= length && length < 16) {
+      this.popoverMessage = "Good Password"
+      this.lvlColors = ['#00d25a', '#00d25a', '#00d25a', 'lightgray']
+    } else {
+      this.popoverMessage = "Strong Password"
+      this.lvlColors = ['#00a87e', '#00a87e', '#00a87e', '#00a87e']
+    }
   }
 
   signInOrUp() {
@@ -113,5 +137,18 @@ export class LoginComponent implements OnInit {
           }
         })
   }
+
+
+  passwordFocused() {
+    this.isPasswordFocused = true
+    console.log("focus called")
+  }
+
+  passwordUnFocused() {
+    this.isPasswordFocused = false
+    console.log("passwordUnFocused")
+  }
+
+
 }
 

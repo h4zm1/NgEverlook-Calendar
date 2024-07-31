@@ -1,32 +1,57 @@
 <div [ngClass]="themeService.themeSignal()" class="majorLogin">
 
-
   <form action="" (ngSubmit)="onSubmit()">
 
-    <!--  email field  -->
-    <mat-form-field appearance="fill" class="emailInput">
-      <mat-label>Your e-mail address</mat-label>
-      <input matInput [(ngModel)]="credentials.email" [ngModelOptions]="{standalone: true}">
-    </mat-form-field>
+    <div class="popupWrapper">
+
+      <!--  email field  -->
+      <mat-form-field appearance="fill" class="emailInput">
+        <mat-label>Your e-mail address</mat-label>
+        <input matInput [(ngModel)]="credentials.email" [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
 
 
-    <!--  password field  -->
-    <mat-form-field appearance="fill" class="pwdInput">
-      <mat-label>{{ passwordInputText }}</mat-label>
-      <!--  class.active    = for css visibility switching when the pwd field is empty-->
-      <!--  hide            = a variable in the component that's being read from the input bellow to switch between text and dots-->
-      <!--  attr.aria-label = for accessibility-->
-      <!--  type=button     = to prevent the browser from thinking this's a submit button-->
-      <button mat-icon-button matSuffix class="visBtn" [class.active]="credentials.password"
-              (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
-              type="button">
-        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
-      </button>
-      <input matInput [ngModelOptions]="{standalone: true}" (input)="checkPasswordInput()"
-             [type]="hide ? 'password' : 'text'" [(ngModel)]="credentials.password">
-    </mat-form-field>
+      <!--  password field  -->
+      <mat-form-field appearance="fill" class="pwdInput">
+        <mat-label>{{ passwordInputText }}</mat-label>
+        <!--  class.active    = for css visibility switching when the pwd field is empty-->
+        <!--  hide            = a variable in the component that's being read from the input bellow to switch between text and dots-->
+        <!--  attr.aria-label = for accessibility-->
+        <!--  type=button     = to prevent the browser from thinking this's a submit button-->
+        <button mat-icon-button matSuffix class="visBtn" [class.active]="credentials.password"
+                (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
+                type="button">
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <input matInput [ngModelOptions]="{standalone: true}" (input)="checkPasswordInput()"
+               [type]="hide ? 'password' : 'text'" [(ngModel)]="credentials.password"
+               (focus)="passwordFocused()" (focusout)="passwordUnFocused()">
+      </mat-form-field>
 
-    <!--  reg/login button  -->
+
+      <div class="popover" [class.visible]="isPasswordFocused">
+        <div class="closePopoverContainer">
+          <mat-icon class="close">close</mat-icon>
+        </div>
+        <div class="popoverTextWrapper">
+          <!--          {{popoverMessage}}-->
+          <pre class="popoverMessage">{{ popoverMessage }}</pre>
+          <div class="lvlContainer">
+            <div class="level" [style.background-color]="lvlColors[0]"></div>
+            <div class="level" [style.background-color]="lvlColors[1]"></div>
+            <div class="level" [style.background-color]="lvlColors[2]"></div>
+            <div class="level" [style.background-color]="lvlColors[3]"></div>
+          </div>
+          It's better to have:
+          <li class="bullet">Upper & lower case letters</li>
+          <li class="bullet">Symbols (#$&)</li>
+          <li class="bullet">A longer password</li>
+        </div>
+      </div>
+
+    </div>
+
+
     <div class="loginHolder">
       <button [disabled]="accessRequest" [ngStyle]="{width: isJoining?'50%':'25%'}"
               type="submit" mat-button [disableRipple]="false"
@@ -40,4 +65,5 @@
       <a [ngStyle]="{display: isJoining ? 'none' : 'inline'}">Forgot your password?</a>
     </div>
   </form>
+
 </div>

@@ -7,12 +7,13 @@
   padding-right: 20px;
 }
 
-form {
+form  {
   //background-color: gray;
   display: flex;
   flex-direction: column;
   width: 300px;
   align-self: center;
+
 }
 
 
@@ -46,10 +47,12 @@ form {
 
 .visBtn {
   visibility: hidden;
+  scale: 0.8;
 }
 
 .visBtn.active {
   visibility: visible;
+  scale: 0.8;
 }
 
 // hiding ms edge password eye
@@ -86,5 +89,113 @@ a{
   a:hover{
     //color: red;
     text-decoration: underline;
+  }
+}
+
+
+// container that holds the whole popover
+.popupWrapper{
+  //background-color: antiquewhite;
+  flex-direction: column;
+  display: flex;
+  width: 300px;
+  align-self: center;
+  position: relative;
+}
+// THE popover that appears when the password input is focused on account creation
+.popover {
+  position: absolute;
+  background-color: white;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  border: 0;
+  border-radius: 8px;
+  box-sizing: border-box;
+  box-shadow: 3px 4px 10px 0px rgb(146 146 146 / 39%);
+  font-size: medium;
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+}
+// popover arrow
+.popover:after{
+  content: "";
+  top: 56px;
+  left: -4px;
+  border-color: #c7838300 #ffffff61 #ffffff #00000000;
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: 0 0;
+  box-sizing: border-box;
+  transform: rotate(135deg);
+  border-style: solid;
+  box-shadow: 3px 3px 6px 0px rgb(0 0 0 / 12%);
+  border-width: 4px;
+  margin: 0px;
+  scale: 2.2;
+}
+
+// toggling the popover visibility on and off
+.popover.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+// the bars insides the popover
+.level{
+  width: 46px;
+  height: 2px;
+  transition: background-color 0.3s;
+}
+// container that holds the 4 bars inside the popover
+.lvlContainer{
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding-block: 7px;
+  padding-bottom: 15px;
+}
+// the wrapper around the text under the bars
+.popoverTextWrapper{
+  padding-right: 23px;
+  padding-bottom: 23px;
+  padding-left: 23px;
+}
+// div that contains the popover close
+.closePopoverContainer{
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 5px;
+  padding-top: 5px;
+}
+
+// close button inside the popover
+.close{
+  scale: 0.7;
+  cursor: pointer;
+}
+
+.popoverMessage{
+  margin-block: 0px;
+}
+.bullet{
+  padding-bottom: 1.5px;
+}
+@media (min-width: 400px) {
+  .popover {
+    left: 100%;
+    top: 22px;
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 399px) {
+  .popover {
+    top: 100%;
+    left: 0;
+    margin-top: 10px;
   }
 }
