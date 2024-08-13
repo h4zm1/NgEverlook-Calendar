@@ -2,9 +2,17 @@
 
   <!--  Settings and dark mode buttons-->
   <div class="button-container-config">
-    <button [matTooltip]="exitTip" mat-icon-button (click)="logout()" class="settings">
+    <button [matTooltip]="exitTip" mat-icon-button (click)="logout()" class="settingsButton">
       <mat-icon>logout</mat-icon>
     </button>
+    <div [matTooltip]="roleTip" mat-icon-button class="mailButton">
+      {{ getRole() }}
+    </div>
+    <span></span>
+    <div [matTooltip]="mailTip" mat-icon-button class="mailButton">
+      {{ loginStatus.mail }}
+    </div>
+
   </div>
 
   <mat-form-field>

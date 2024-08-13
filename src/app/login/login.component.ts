@@ -7,9 +7,10 @@ import {MatIconModule} from "@angular/material/icon";
 import {CommonModule} from "@angular/common";
 import {ThemeService} from "../core/theme.service";
 import {Router, RouterLink} from "@angular/router";
-import {AuthService, UserInfo} from "./auth.service";
+import {AuthService, UserInfo} from "../core/auth.service";
 import {routes} from "../core/app.routes";
 import {LoggerService} from "../core/logger.service";
+import {LoginStatusService} from "../core/login-status.service";
 
 @Component({
   selector: "app-login",
@@ -22,6 +23,7 @@ import {LoggerService} from "../core/logger.service";
 export class LoginComponent implements OnInit {
   logger: LoggerService = inject(LoggerService);
   themeService: ThemeService = inject(ThemeService)
+  loginStatus : LoginStatusService = inject(LoginStatusService)
   hide = true
   isJoining = false
   signLinkText = "Sign up"
@@ -40,6 +42,7 @@ export class LoginComponent implements OnInit {
   checkPasswordInput() {
     this.credentials.password = this.credentials.password.trim();
 
+    // this for the bars highlights inside the popover (basic)
     length = this.credentials.password.length;
     if (length < 6) {
       this.popoverMessage = "Must have at least 6 \ncharacters."
@@ -61,6 +64,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  // switching between sign in or sign up ui/events
   signInOrUp() {
     this.isJoining = !this.isJoining
     this.signLinkText = this.isJoining ? "Already have account? Sign in" : "Sign up"
@@ -77,8 +81,10 @@ export class LoginComponent implements OnInit {
       if (localStorage.getItem("isLoggedIn") == "true") {
         this.authService.checkAuthStatus().subscribe({
             next: isAuthenticated => {
-              if (isAuthenticated) {
+              if (isAuthenticated.status) { // this means that the jwt token still valid (or a valid token refresh happened)
                 this.logger.log("AUTO AUTHENTICATED")
+                this.loginStatus.mail=isAuthenticated.email
+                this.loginStatus.setJustLoggedIn(true)
                 this.router.navigate(["config"])
               } else {
                 this.logger.log("AUTO AUTHENTICATION denied")
@@ -127,10 +133,13 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.credentials.email, this.credentials.password)
         .subscribe({
           next: data => {
+            this.loginStatus.setJustLoggedIn(true)
+            this.loginStatus.mail=data.email
             this.router.navigate(["config"])
             localStorage.setItem("isLoggedIn", "true")
             localStorage.setItem("roles", this.getUserRolesAsString(data))
             this.logger.log("login*** " + this.getUserRolesAsString(data));
+            this.logger.log("email "+data.email)
           },
           error: err => {
             this.logger.log(err.error.message)
@@ -141,12 +150,12 @@ export class LoginComponent implements OnInit {
 
   passwordFocused() {
     this.isPasswordFocused = true
-    console.log("focus called")
+    this.logger.log("focus called")
   }
 
   passwordUnFocused() {
     this.isPasswordFocused = false
-    console.log("passwordUnFocused")
+    this.logger.log("passwordUnFocused")
   }
 
 

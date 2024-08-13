@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ConfigService} from "./config.service";
 import {EventBusService} from "../core/EventBus.service";
-import {AuthService} from "../login/auth.service";
+import {AuthService} from "../core/auth.service";
 import {LoggerService} from "../core/logger.service";
 import {FormsModule} from "@angular/forms";
 import {
@@ -17,8 +17,9 @@ import {MatInput} from "@angular/material/input";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
-import {Router, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {MatTooltip} from "@angular/material/tooltip";
+import {LoginStatusService} from "../core/login-status.service";
 
 @Component({
   selector: 'app-config',
@@ -36,14 +37,25 @@ export class ConfigComponent implements OnInit {
   logger: LoggerService = inject(LoggerService);
   themeService: ThemeService = inject(ThemeService);
   router: Router = inject(Router);
+  loginStatus: LoginStatusService = inject(LoginStatusService)
   exitTip = "Log out"
-  date: String = ""
+  roleTip = "Access Level"
+  mailTip = "Email"
+  date: string = ""
   configAccess = false
   savable = false
   readonly minDate = new Date(2023, 11, 1);
+  email: string = ""
+  protected readonly localStorage = localStorage;
+
+  constructor(private activatedRoute: ActivatedRoute) {
+    this.email = this.activatedRoute.snapshot.paramMap.get("email")!
+  }
 
   ngOnInit() {
+    this.logger.log("email from config " + this.loginStatus.mail);
     const roles = localStorage.getItem("roles");
+    // even if this get altered the back will still need to verify the token validity
     if (roles && roles.includes("ADMIN")) {
       this.configAccess = true
     }
@@ -62,6 +74,13 @@ export class ConfigComponent implements OnInit {
         this.themeService.setTheme("dark")
       }
     }// if none of the above then it should be light
+  }
+
+  getRole(): string {
+    if (localStorage.getItem("roles") != null && localStorage.getItem("roles") != "")
+      return localStorage.getItem("roles")!.toString().substring(5)
+    else
+      return ""
   }
 
   save() {
@@ -107,4 +126,5 @@ export class ConfigComponent implements OnInit {
       }
     })
   }
+
 }

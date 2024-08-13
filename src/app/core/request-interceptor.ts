@@ -7,7 +7,7 @@ import {
   HttpRequest
 } from "@angular/common/http";
 import {BehaviorSubject, catchError, filter, Observable, switchMap, take, throwError} from "rxjs";
-import {AuthService} from "../login/auth.service";
+import {AuthService} from "./auth.service";
 import {EventBusService, EventData} from "./EventBus.service";
 import {LoggerService} from "./logger.service";
 
@@ -21,16 +21,17 @@ export const requestInterceptor: HttpInterceptorFn = (
   let refreshTokenSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   let logger = inject(LoggerService);
 
-  req = req.clone({
+  req = req.clone({ // add withCredentials property to every request
     withCredentials: true
   });
 
+  logger.log("INTERCEPTOR")
   return next(req).pipe(
     catchError((error) => {
-      if ( // handling expired access token when sending a request, conditions that necessitate a refresh
+      if ( // handling expired access token when sending a request, conditions that necessitate a refresh:
         error instanceof HttpErrorResponse &&
         !req.url.includes('auth/signin') &&
-        !req.url.includes('auth/status') &&
+        // !req.url.includes('auth/status') &&
         error.status === 403 // server will manually send 403 error, as specified in it
       ) {
         logger.log('Caught 403 error, attempting to refresh token');

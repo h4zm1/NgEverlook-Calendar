@@ -2,15 +2,21 @@ import {inject, Injectable} from '@angular/core';
 import {catchError, Observable, tap, throwError} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {LoggerService} from "../core/logger.service";
+import {LoggerService} from "./logger.service";
 
 
 export interface UserInfo {
-  roles: Role[];
+  roles: Role[],
+  email : string
 }
 
 interface Role {
   authority: string;
+}
+
+export interface AuthStatus{
+  status : boolean,
+  email : string
 }
 
 @Injectable({
@@ -47,10 +53,10 @@ export class AuthService {
     );
   }
 
-  // this will return 403 (false) if the request didn't contain
-  // jwt access token/cookie or ok (true)
-  checkAuthStatus(): Observable<boolean> {
-    return this.http.get<boolean>(environment.apiUrl + "/auth/status",
+  // this will return (false) if the request didn't contain
+  // jwt access token/cookie, or it will return (true)
+  checkAuthStatus(): Observable<AuthStatus> {
+    return this.http.get<AuthStatus>(environment.apiUrl + "/auth/status",
       {},)
   }
 }
