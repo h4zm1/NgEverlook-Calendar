@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, map, switchMap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -11,5 +11,13 @@ export class LoginStatusService {
 
   setJustLoggedIn(value: boolean) {
     this.justLoggedInSource.next(value)
+  }
+  getJustLoggedIn(){
+    return this.justLoggedIn.pipe(
+      map(justLoggedIn => {
+        console.log("login status "+justLoggedIn)
+        return justLoggedIn
+      })
+    )
   }
 }

@@ -2,7 +2,7 @@
 
   <!--  Settings and dark mode buttons-->
   <div class="button-container">
-    <button [matTooltip]="configTip" mat-icon-button routerLink="/login" class="settings">
+    <button [matTooltip]="configTip" mat-icon-button (click)="goToConfig()"  [ngClass]="configClass">
       <mat-icon>settings</mat-icon>
     </button>
     <button [matTooltip]="themeModTip" mat-icon-button (click)="toggleTheme()">

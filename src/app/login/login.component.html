@@ -25,13 +25,13 @@
         </button>
         <input matInput [ngModelOptions]="{standalone: true}" (input)="checkPasswordInput()"
                [type]="hide ? 'password' : 'text'" [(ngModel)]="credentials.password"
-               (focus)="passwordFocused()" (focusout)="passwordUnFocused()">
+               (focusin)="passwordFocused()" (focusout)="passwordUnFocused()">
       </mat-form-field>
 
 
       <div class="popover" [class.visible]="isPasswordFocused">
         <div class="closePopoverContainer">
-          <mat-icon class="close">close</mat-icon>
+          <mat-icon class="close" >close</mat-icon>
         </div>
         <div class="popoverTextWrapper">
           <!--          {{popoverMessage}}-->

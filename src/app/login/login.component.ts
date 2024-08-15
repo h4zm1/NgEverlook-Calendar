@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from "@angular/core";
+import {Component, ElementRef, inject, OnInit} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -23,7 +23,7 @@ import {LoginStatusService} from "../core/login-status.service";
 export class LoginComponent implements OnInit {
   logger: LoggerService = inject(LoggerService);
   themeService: ThemeService = inject(ThemeService)
-  loginStatus : LoginStatusService = inject(LoginStatusService)
+  loginStatus: LoginStatusService = inject(LoginStatusService)
   hide = true
   isJoining = false
   signLinkText = "Sign up"
@@ -38,6 +38,8 @@ export class LoginComponent implements OnInit {
   lvlColors = ["lightgray", "lightgray", "lightgray", "lightgray"]
   popoverMessage = "Must have at least 6 characters."
 
+  constructor(private el: ElementRef) {
+  }
 
   checkPasswordInput() {
     this.credentials.password = this.credentials.password.trim();
@@ -77,27 +79,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (localStorage.getItem("isLoggedIn") != null) {
-      if (localStorage.getItem("isLoggedIn") == "true") {
-        this.authService.checkAuthStatus().subscribe({
-            next: isAuthenticated => {
-              if (isAuthenticated.status) { // this means that the jwt token still valid (or a valid token refresh happened)
-                this.logger.log("AUTO AUTHENTICATED")
-                this.loginStatus.mail=isAuthenticated.email
-                this.loginStatus.setJustLoggedIn(true)
-                this.router.navigate(["config"])
-              } else {
-                this.logger.log("AUTO AUTHENTICATION denied")
-              }
-            },
-            error: err => {
-              this.logger.log("FAILED AUTO AUTHENTICATION")
-              this.logger.error(err)
-            }
-          }
-        );
-      }
-    }
+// no need to force an auto login here in case an account switch is needed
     // if no local storage theme var available, make it light and save it
     if (localStorage.getItem("theme") == null) {
       this.themeService.setTheme("light")
@@ -134,12 +116,12 @@ export class LoginComponent implements OnInit {
         .subscribe({
           next: data => {
             this.loginStatus.setJustLoggedIn(true)
-            this.loginStatus.mail=data.email
+            this.loginStatus.mail = data.email
             this.router.navigate(["config"])
             localStorage.setItem("isLoggedIn", "true")
             localStorage.setItem("roles", this.getUserRolesAsString(data))
             this.logger.log("login*** " + this.getUserRolesAsString(data));
-            this.logger.log("email "+data.email)
+            this.logger.log("email " + data.email)
           },
           error: err => {
             this.logger.log(err.error.message)
@@ -157,7 +139,6 @@ export class LoginComponent implements OnInit {
     this.isPasswordFocused = false
     this.logger.log("passwordUnFocused")
   }
-
 
 }
 

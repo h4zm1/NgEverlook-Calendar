@@ -119,6 +119,16 @@ a.linkButton {
 
 }
 
+.configButton {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
 
 @media screen and (max-width: 600px) {
   .dark-mode {

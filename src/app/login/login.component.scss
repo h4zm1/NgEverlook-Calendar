@@ -7,7 +7,7 @@
   padding-right: 20px;
 }
 
-form  {
+form {
   //background-color: gray;
   display: flex;
   flex-direction: column;
@@ -76,17 +76,20 @@ input[type=password]::-ms-clear {
   //background-color: rgb(241 241 241 / 3%);
   //width: 50%;
 }
-.otherLinks{
+
+.otherLinks {
   margin-top: 45px;
   text-align: center;
-a{
-  padding: 5px;
-  //color: #13143166;
-  text-decoration: none;
-  cursor:pointer;
-  font-size: 15px;
-}
-  a:hover{
+
+  a {
+    padding: 5px;
+    //color: #13143166;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 15px;
+  }
+
+  a:hover {
     //color: red;
     text-decoration: underline;
   }
@@ -94,7 +97,7 @@ a{
 
 
 // container that holds the whole popover
-.popupWrapper{
+.popupWrapper {
   //background-color: antiquewhite;
   flex-direction: column;
   display: flex;
@@ -102,6 +105,7 @@ a{
   align-self: center;
   position: relative;
 }
+
 // THE popover that appears when the password input is focused on account creation
 .popover {
   position: absolute;
@@ -119,8 +123,9 @@ a{
   display: flex;
   flex-direction: column;
 }
+
 // popover arrow
-.popover:after{
+.popover:after {
   content: "";
   top: 56px;
   left: -4px;
@@ -145,27 +150,30 @@ a{
 }
 
 // the bars insides the popover
-.level{
+.level {
   width: 46px;
   height: 2px;
   transition: background-color 0.3s;
 }
+
 // container that holds the 4 bars inside the popover
-.lvlContainer{
+.lvlContainer {
   display: flex;
   gap: 8px;
   justify-content: center;
   padding-block: 7px;
   padding-bottom: 15px;
 }
+
 // the wrapper around the text under the bars
-.popoverTextWrapper{
+.popoverTextWrapper {
   padding-right: 23px;
   padding-bottom: 23px;
   padding-left: 23px;
 }
+
 // div that contains the popover close
-.closePopoverContainer{
+.closePopoverContainer {
   display: flex;
   justify-content: flex-end;
   padding-right: 5px;
@@ -173,17 +181,20 @@ a{
 }
 
 // close button inside the popover
-.close{
+.close {
   scale: 0.7;
   cursor: pointer;
 }
 
-.popoverMessage{
+.popoverMessage {
   margin-block: 0px;
 }
-.bullet{
+
+.bullet {
   padding-bottom: 1.5px;
 }
+
+
 @media (min-width: 400px) {
   .popover {
     left: 100%;

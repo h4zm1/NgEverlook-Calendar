@@ -20,6 +20,7 @@ import {MatIcon} from "@angular/material/icon";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {MatTooltip} from "@angular/material/tooltip";
 import {LoginStatusService} from "../core/login-status.service";
+import {map} from "rxjs";
 
 @Component({
   selector: 'app-config',
@@ -118,6 +119,7 @@ export class ConfigComponent implements OnInit {
         this.logger.log(response)
         localStorage.removeItem("isLoggedIn")
         localStorage.removeItem("roles")
+        this.loginStatus.setJustLoggedIn(false)
         this.router.navigate(["login"])
       },
       error: err => {
