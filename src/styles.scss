@@ -260,13 +260,15 @@ $dark-text-color: #181818;
   --mdc-filled-text-field-hover-label-text-color: rgba(255, 255, 255, 0.94);
 
   // login/save button text color
-    .mat-mdc-button:not(:disabled) {
-      color: #d0d0d0;
+  .mat-mdc-button:not(:disabled) {
+    color: #d0d0d0;
   }
+
   // login/save button text color disabled
   .mat-mdc-button[disabled], .mat-mdc-button.mat-mdc-button-disabled {
     color: rgba(105, 105, 105, 0.56);
   }
+
   // placeholder text color
   .mat-mdc-form-field:not(.mat-form-field-disabled) .mat-mdc-floating-label.mdc-floating-label {
     color: rgba(169, 169, 169, 0.65);
@@ -277,14 +279,27 @@ $dark-text-color: #181818;
     -webkit-text-fill-color: #ffffff;
   }
 
-  a{
+  a {
     color: #7a7a7a;
   }
+
   .mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background-color: transparent;
   }
-  .loginBtn, .saveBtn{
+
+  .loginBtn, .saveBtn {
     background-color: #2f2f2fba;
+  }
+
+  //login page stuff
+  .popover:after {
+    border-color: #c7838300 #252525 #252525 #00000000;
+    box-shadow: 7px 2px 6.5px -2px rgb(6 6 6);
+  }
+
+  .popover {
+    background-color: #252525;
+    box-shadow: 3px 4px 10px 0px #151515;
   }
 }
 
@@ -386,14 +401,29 @@ $dark-text-color: #181818;
     color: rgba(128, 128, 128, 0.8);
   }
 
-  a{
+  a {
     color: #13143166;
   }
+
   .mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background-color: transparent;
   }
-  .loginBtn, .saveBtn{
+
+  //login config page stuff
+
+  .loginBtn, .saveBtn {
     background-color: #f1f1f1ba;
+  }
+
+  // changing popover arrow color
+  .popover:after {
+    border-color: #c7838300 #ffffff61 #ffffff #00000000;
+    box-shadow: 3px 3px 6px 0px rgb(0 0 0 / 12%);
+  }
+
+  .popover {
+    background-color: white;
+    box-shadow: 3px 4px 10px 0px rgb(146 146 146 / 39%);
   }
 }
 

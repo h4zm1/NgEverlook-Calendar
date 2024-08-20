@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   hide = true
   isJoining = false
   signLinkText = "Sign up"
-  signBtnText = "Log in"
+  signBtnText = "Log In"
   accessRequest = false
   passwordInputText = "Password";
   credentials = {email: "", password: ""};

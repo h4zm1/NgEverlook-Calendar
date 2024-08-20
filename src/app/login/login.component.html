@@ -51,8 +51,8 @@
 
     </div>
 
-
-    <div class="loginHolder">
+<!-- Setting class.active here is for position change when the popover is under the password field-->
+    <div class="loginHolder" [class.active]="isPasswordFocused">
       <button [disabled]="accessRequest" [ngStyle]="{width: isJoining?'50%':'25%'}"
               type="submit" mat-button [disableRipple]="false"
               class="loginBtn">{{ signBtnText }}
@@ -60,7 +60,7 @@
     </div>
 
 
-    <div class="otherLinks">
+    <div class="otherLinks" [class.active]="isPasswordFocused">
       <a (click)="signInOrUp()">{{ signLinkText }}</a>
       <a [ngStyle]="{display: isJoining ? 'none' : 'inline'}">Forgot your password?</a>
     </div>

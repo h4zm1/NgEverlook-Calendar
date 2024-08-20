@@ -67,7 +67,9 @@ input[type=password]::-ms-clear {
   flex-direction: column;
   align-items: center;
   position: relative;
-  top: 25px;
+  top: 45px;
+  transition: 0.4s;
+
 }
 
 // scale up login button
@@ -78,8 +80,10 @@ input[type=password]::-ms-clear {
 }
 
 .otherLinks {
-  margin-top: 45px;
+  position: relative;
+  top: 59px;
   text-align: center;
+  transition: 0.4s;
 
   a {
     padding: 5px;
@@ -109,19 +113,22 @@ input[type=password]::-ms-clear {
 // THE popover that appears when the password input is focused on account creation
 .popover {
   position: absolute;
-  background-color: white;
+  //background-color: white;
   z-index: 1000;
-  opacity: 0;
+  //opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
+  transition: left 0.4s;
   border: 0;
   border-radius: 8px;
   box-sizing: border-box;
-  box-shadow: 3px 4px 10px 0px rgb(146 146 146 / 39%);
+  //box-shadow: 3px 4px 10px 0px rgb(146 146 146 / 39%);
   font-size: medium;
   width: max-content;
   display: flex;
   flex-direction: column;
+  left: 100%;
+  top: 22px;
+  margin-left: 10px;
 }
 
 // popover arrow
@@ -129,7 +136,7 @@ input[type=password]::-ms-clear {
   content: "";
   top: 56px;
   left: -4px;
-  border-color: #c7838300 #ffffff61 #ffffff #00000000;
+  //border-color: #c7838300 #ffffff61 #ffffff #00000000;
   position: absolute;
   width: 8px;
   height: 8px;
@@ -137,7 +144,7 @@ input[type=password]::-ms-clear {
   box-sizing: border-box;
   transform: rotate(135deg);
   border-style: solid;
-  box-shadow: 3px 3px 6px 0px rgb(0 0 0 / 12%);
+  //box-shadow: 3px 3px 6px 0px rgb(0 0 0 / 12%);
   border-width: 4px;
   margin: 0px;
   scale: 2.2;
@@ -195,18 +202,30 @@ input[type=password]::-ms-clear {
 }
 
 
-@media (min-width: 400px) {
-  .popover {
-    left: 100%;
-    top: 22px;
-    margin-left: 10px;
+@media (max-width: 840px) {
+  .loginHolder.active{
+    top: 212px;
   }
-}
-
-@media (max-width: 399px) {
+  .otherLinks.active{
+    top:230px
+  }
   .popover {
     top: 100%;
     left: 0;
     margin-top: 10px;
+    box-shadow: unset;
+  }
+  .popoverTextWrapper{
+    padding-left: 5px;
+  }
+  .lvlContainer{
+    visibility: hidden;
+  }
+
+  .popover:after{
+    visibility: hidden;
+  }
+  .closePopoverContainer{
+    visibility: hidden;
   }
 }
