@@ -1,31 +1,30 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {ConfigService} from "./config.service";
-import {EventBusService} from "../core/EventBus.service";
-import {AuthService} from "../core/auth.service";
-import {LoggerService} from "../core/logger.service";
-import {FormsModule} from "@angular/forms";
+import { Component, inject, OnInit } from '@angular/core';
+import { ConfigService } from "./config.service";
+import { EventBusService } from "../core/EventBus.service";
+import { AuthService } from "../core/auth.service";
+import { LoggerService } from "../core/logger.service";
+import { FormsModule } from "@angular/forms";
 import {
   MatDatepicker,
   MatDatepickerInput,
-  MatDatepickerInputEvent,
   MatDatepickerToggle
 } from "@angular/material/datepicker";
-import {MatFormFieldModule, MatHint, MatLabel} from "@angular/material/form-field";
-import {ThemeService} from "../core/theme.service";
-import {CommonModule} from '@angular/common';
-import {MatInput} from "@angular/material/input";
-import {MatNativeDateModule} from "@angular/material/core";
-import {MatButton, MatIconButton} from "@angular/material/button";
-import {MatIcon} from "@angular/material/icon";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {MatTooltip} from "@angular/material/tooltip";
-import {LoginStatusService} from "../core/login-status.service";
-import {map} from "rxjs";
+import { MatFormFieldModule, MatHint, MatLabel } from "@angular/material/form-field";
+import { ThemeService } from "../core/theme.service";
+import { CommonModule } from '@angular/common';
+import { MatInput } from "@angular/material/input";
+import { MatNativeDateModule } from "@angular/material/core";
+import { MatButton, MatIconButton } from "@angular/material/button";
+import { MatIcon } from "@angular/material/icon";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { MatTooltip } from "@angular/material/tooltip";
+import { LoginStatusService } from "../core/login-status.service";
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-config',
   standalone: true,
-  imports: [FormsModule, MatDatepicker, MatTooltip,
+  imports: [FormsModule, MatDatepicker, MatTooltip, MatButtonToggleModule,
     MatDatepickerToggle, MatFormFieldModule, MatNativeDateModule,
     MatHint, MatLabel, CommonModule, MatDatepickerInput, MatInput, MatButton, MatIcon, MatIconButton, RouterLink],
   templateUrl: './config.component.html',
@@ -100,14 +99,17 @@ export class ConfigComponent implements OnInit {
 
   }
 
-  dateChange(event: MatDatepickerInputEvent<Date>) {
+  inputChange(event: any, type: String) {
     this.date = event.value?.toString()!!
-    if (event.value) {
-      const year = event.value.getFullYear();
-      const month = (event.value.getMonth() + 1).toString().padStart(2, '0');
-      const day = event.value.getDate().toString().padStart(2, '0');
+    if (event instanceof Date) {
+      this.logger.log("event type" + type)
+      const year = event.getFullYear();
+      const month = (event.getMonth() + 1).toString().padStart(2, '0');
+      const day = event.getDate().toString().padStart(2, '0');
       this.date = year + "-" + month + "-" + day
       this.logger.log(this.date)
+    } else if (type === 'dmf location') {
+      this.logger.log("event type" + type)
     }
     this.savable = !!event.value;
   }

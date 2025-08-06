@@ -20,8 +20,7 @@ $fkn-m3-mono: (
   98: #F9F9F9,
   99: #FCFCFC,
   100:#FFFFFF,
-  secondary: (
-    0: #000000,
+  secondary: (0: #000000,
     10: #131c2b,
     20: #283041,
     25: #333c4d,
@@ -38,8 +37,7 @@ $fkn-m3-mono: (
     99: #fdfbff,
     100: #ffffff,
   ),
-  neutral: (
-    0: #000000,
+  neutral: (0: #000000,
     10: #1a1b1f,
     20: #2f3033,
     25: #3b3b3f,
@@ -66,8 +64,7 @@ $fkn-m3-mono: (
     94: #efedf1,
     96: #f5f3f7,
   ),
-  neutral-variant: (
-    0: #000000,
+  neutral-variant: (0: #000000,
     10: #181c22,
     20: #2d3038,
     25: #383b43,
@@ -84,8 +81,7 @@ $fkn-m3-mono: (
     99: #fdfbff,
     100: #ffffff,
   ),
-  error: (
-    0: #000000,
+  error: (0: #000000,
     10: #410002,
     20: #690005,
     25: #7e0007,
@@ -107,16 +103,12 @@ $fkn-m3-mono: (
 @include mat.core();
 
 // Light theme
-$light-theme: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: $fkn-m3-mono,
-    tertiary: $fkn-m3-mono,
-  ),
-  density: (
-    scale: 0,
-  )
-));
+$light-theme: mat.define-theme((color: (theme-type: light,
+        primary: $fkn-m3-mono,
+        tertiary: $fkn-m3-mono,
+      ),
+      density: (scale: 0,
+      )));
 
 
 // Include theme styles for core and each component used in your app.
@@ -138,7 +130,8 @@ $light-theme: mat.define-theme((
   font-style: normal;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -265,7 +258,8 @@ $dark-text-color: #181818;
   }
 
   // login/save button text color disabled
-  .mat-mdc-button[disabled], .mat-mdc-button.mat-mdc-button-disabled {
+  .mat-mdc-button[disabled],
+  .mat-mdc-button.mat-mdc-button-disabled {
     color: rgba(105, 105, 105, 0.56);
   }
 
@@ -287,7 +281,8 @@ $dark-text-color: #181818;
     background-color: transparent;
   }
 
-  .loginBtn, .saveBtn {
+  .loginBtn,
+  .saveBtn {
     background-color: #2f2f2fba;
   }
 
@@ -301,7 +296,16 @@ $dark-text-color: #181818;
     background-color: #252525;
     box-shadow: 3px 4px 10px 0px #151515;
   }
+
+  .mat-button-toggle button {
+    color: white;
+  }
+
+  .mat-button-toggle-checked button {
+    color: black;
+  }
 }
+
 
 
 ////////////////////////////////////
@@ -411,7 +415,8 @@ $dark-text-color: #181818;
 
   //login config page stuff
 
-  .loginBtn, .saveBtn {
+  .loginBtn,
+  .saveBtn {
     background-color: #f1f1f1ba;
   }
 
@@ -426,5 +431,3 @@ $dark-text-color: #181818;
     box-shadow: 3px 4px 10px 0px rgb(146 146 146 / 39%);
   }
 }
-
-
