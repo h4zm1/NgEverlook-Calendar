@@ -1,19 +1,16 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {Boss} from "./boss";
 import {ZgbossService} from "./zgboss.service";
-import {NgIf} from "@angular/common";
+
 import {ConfigService} from "../config/config.service";
 import {LoggerService} from "../core/logger.service";
 
 @Component({
-  selector: 'app-boss',
-  standalone: true,
-  imports: [
-    NgIf
-  ],
-  templateUrl: './boss.component.html',
-  styleUrl: './boss.component.scss',
-  providers:[ZgbossService]
+    selector: 'app-boss',
+    imports: [],
+    templateUrl: './boss.component.html',
+    styleUrl: './boss.component.scss',
+    providers: [ZgbossService]
 })
 export class BossComponent implements OnInit{
   // zgBoss = inject(ZgbossService)

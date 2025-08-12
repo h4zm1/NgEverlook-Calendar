@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ConfigService } from "./config.service";
 import { EventBusService } from "../core/EventBus.service";
 import { AuthService } from "../core/auth.service";
@@ -9,10 +9,11 @@ import {
   MatDatepickerInput,
   MatDatepickerToggle
 } from "@angular/material/datepicker";
+import { MatTimepickerModule } from '@angular/material/timepicker';
 import { MatFormFieldModule, MatHint, MatLabel } from "@angular/material/form-field";
 import { ThemeService } from "../core/theme.service";
 import { CommonModule } from '@angular/common';
-import { MatInput } from "@angular/material/input";
+import { MatInput, MatInputModule } from "@angular/material/input";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatButton, MatIconButton } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
@@ -22,13 +23,13 @@ import { LoginStatusService } from "../core/login-status.service";
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @Component({
-  selector: 'app-config',
-  standalone: true,
-  imports: [FormsModule, MatDatepicker, MatTooltip, MatButtonToggleModule,
-    MatDatepickerToggle, MatFormFieldModule, MatNativeDateModule,
-    MatHint, MatLabel, CommonModule, MatDatepickerInput, MatInput, MatButton, MatIcon, MatIconButton, RouterLink],
-  templateUrl: './config.component.html',
-  styleUrl: './config.component.scss'
+    selector: 'app-config',
+    imports: [FormsModule, MatDatepicker, MatTooltip, MatButtonToggleModule,
+        MatDatepickerToggle, MatFormFieldModule, MatNativeDateModule, MatTimepickerModule, MatInputModule,
+        MatHint, MatLabel, CommonModule, MatDatepickerInput, MatInput, MatButton, MatIcon, MatIconButton, RouterLink],
+    templateUrl: './config.component.html',
+    styleUrl: './config.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConfigComponent implements OnInit {
   confService: ConfigService = inject(ConfigService);

@@ -3,11 +3,10 @@ import { Component, OnInit, inject } from '@angular/core';
 import {ThemeService} from "../core/theme.service";
 
 @Component({
-  selector: 'app-enchant',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './enchant.component.html',
-  styleUrl: './enchant.component.scss'
+    selector: 'app-enchant',
+    imports: [CommonModule],
+    templateUrl: './enchant.component.html',
+    styleUrl: './enchant.component.scss'
 })
 export class EnchantComponent implements OnInit{
   themeService: ThemeService = inject(ThemeService);

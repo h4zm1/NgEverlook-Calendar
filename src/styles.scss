@@ -100,7 +100,8 @@ $fkn-m3-mono: (
   ),
 );
 
-@include mat.core();
+@include mat.elevation-classes();
+@include mat.app-background();
 
 // Light theme
 $light-theme: mat.define-theme((color: (theme-type: light,
@@ -297,12 +298,32 @@ $dark-text-color: #181818;
     box-shadow: 3px 4px 10px 0px #151515;
   }
 
+  //dmf location toggle button
+  //button text (not including the check mark)
   .mat-button-toggle button {
     color: white;
   }
 
-  .mat-button-toggle-checked button {
-    color: black;
+  //making the toggle group larger without weird gaps
+  .mat-button-toggle:first-child:nth-last-child(2) button {
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+
+  .mat-button-toggle:last-child:nth-child(2) button {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  //ugly but was the easist way to get change the bg color of individual buttons
+  .mat-button-toggle-appearance-standard.mat-button-toggle-checked {
+    background-color: transparent;
+    color: white;
+  }
+
+  //change the color of the check mark on selected button
+  .mat-button-toggle-group-appearance-standard .mat-pseudo-checkbox {
+    --mat-minimal-pseudo-checkbox-selected-checkmark-color: white;
   }
 }
 

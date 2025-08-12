@@ -14,51 +14,77 @@
     </div>
 
   </div>
+  <div class="mid-section">
+    <mat-form-field>
+      <mat-label>Change 20 man reset day</mat-label>
+      <input matInput [matDatepicker]="picker1" [min]="minDate" (dateInput)="inputChange($event.value,'20')"
+        (dateChange)="inputChange($event.value,'20')" [disabled]="!configAccess">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Pick a time</mat-label>
+      <input matInput [matTimepicker]="picker">
+      <mat-timepicker-toggle matIconSuffix [for]="picker" />
+      <mat-timepicker #picker />
+    </mat-form-field>
 
-  <mat-form-field>
     <mat-label>Change 20 man reset day</mat-label>
-    <input matInput [matDatepicker]="picker1" [min]="minDate" (dateInput)="inputChange($event.value,'20')"
-      (dateChange)="inputChange($event.value,'20')" [disabled]="!configAccess">
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
-    <mat-datepicker #picker1></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field>
+    <mat-button-toggle-group name="dmf" aria-label="Font Style">
+      <mat-button-toggle>Su</mat-button-toggle>
+      <mat-button-toggle>Mo</mat-button-toggle>
+      <mat-button-toggle>Tu</mat-button-toggle>
+      <mat-button-toggle>We</mat-button-toggle>
+      <mat-button-toggle>Th</mat-button-toggle>
+      <mat-button-toggle>Fr</mat-button-toggle>
+      <mat-button-toggle>Sa</mat-button-toggle>
+    </mat-button-toggle-group>
     <mat-label>Change 40 man reset day</mat-label>
-    <input matInput [matDatepicker]="picker2" [min]="minDate" (dateInput)="inputChange($event.value,'40')"
-      (dateChange)="inputChange($event.value,'40')" [disabled]="!configAccess">
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
-    <mat-datepicker #picker2></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field>
+    <mat-button-toggle-group name="dmf" aria-label="Font Style">
+      <mat-button-toggle>Su</mat-button-toggle>
+      <mat-button-toggle>Mo</mat-button-toggle>
+      <mat-button-toggle>Tu</mat-button-toggle>
+      <mat-button-toggle>We</mat-button-toggle>
+      <mat-button-toggle>Th</mat-button-toggle>
+      <mat-button-toggle>Fr</mat-button-toggle>
+      <mat-button-toggle>Sa</mat-button-toggle>
+    </mat-button-toggle-group>
+
     <mat-label>Change ony reset day</mat-label>
-    <input matInput [matDatepicker]="picker3" [min]="minDate" (dateInput)="inputChange($event.value,'ony')"
-      (dateChange)="inputChange($event.value,'ony')" [disabled]="!configAccess">
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
-    <mat-datepicker #picker3></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Change dmf switch date</mat-label>
-    <input matInput [matDatepicker]="picker4" [min]="minDate" (dateInput)="inputChange($event.value,'dmf')"
-      (dateChange)="inputChange($event.value,'dmf')" [disabled]="!configAccess">
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker4"></mat-datepicker-toggle>
-    <mat-datepicker #picker4></mat-datepicker>
-  </mat-form-field>
+    <mat-button-toggle-group name="dmf" aria-label="Font Style">
+      <mat-button-toggle>Su</mat-button-toggle>
+      <mat-button-toggle>Mo</mat-button-toggle>
+      <mat-button-toggle>Tu</mat-button-toggle>
+      <mat-button-toggle>We</mat-button-toggle>
+      <mat-button-toggle>Th</mat-button-toggle>
+      <mat-button-toggle>Fr</mat-button-toggle>
+      <mat-button-toggle>Sa</mat-button-toggle>
+    </mat-button-toggle-group>
 
-  <mat-button-toggle-group name="dmf" aria-label="Font Style">
-    <mat-button-toggle>Mulgor</mat-button-toggle>
-    <mat-button-toggle>Elwyn</mat-button-toggle>
-  </mat-button-toggle-group>
+    <mat-label>Change dmf switch day</mat-label>
+    <mat-button-toggle-group name="dmf" aria-label="Font Style">
+      <mat-button-toggle>Su</mat-button-toggle>
+      <mat-button-toggle>Mo</mat-button-toggle>
+      <mat-button-toggle>Tu</mat-button-toggle>
+      <mat-button-toggle>We</mat-button-toggle>
+      <mat-button-toggle>Th</mat-button-toggle>
+      <mat-button-toggle>Fr</mat-button-toggle>
+      <mat-button-toggle>Sa</mat-button-toggle>
+    </mat-button-toggle-group>
+    <mat-label>Change where dmf is now</mat-label>
+    <mat-button-toggle-group name="dmf" aria-label="Font Style">
+      <mat-button-toggle>Mulgor</mat-button-toggle>
+      <mat-button-toggle>Elwyn</mat-button-toggle>
+    </mat-button-toggle-group>
 
-  <!--  save button  -->
-  <div class="saveHolder">
-    <!--    enables save when savable and configAccess are both true-->
-    <button [disabled]="!configAccess || !savable" (click)="save()" type="submit" mat-button [disableRipple]="false"
-      class="saveBtn">Save
-    </button>
+    <!--  save button  -->
+    <div class="saveHolder">
+      <!--    enables save when savable and configAccess are both true-->
+      <button [disabled]="!configAccess || !savable" (click)="save()" type="submit" mat-button [disableRipple]="false"
+        class="saveBtn">Save
+      </button>
+    </div>
+
   </div>
-
 </div>

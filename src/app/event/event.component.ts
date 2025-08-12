@@ -7,16 +7,15 @@ import {ServertimeComponent} from "../servertime/servertime.component";
 import {CommonModule} from "@angular/common";
 
 @Component({
-  selector: 'app-event',
-  standalone: true,
-  imports: [
-    CommonModule,
-    BossComponent,
-    ServertimeComponent
-  ],
-  providers: [EventService],
-  templateUrl: './event.component.html',
-  styleUrl: './event.component.scss'
+    selector: 'app-event',
+    imports: [
+        CommonModule,
+        BossComponent,
+        ServertimeComponent
+    ],
+    providers: [EventService],
+    templateUrl: './event.component.html',
+    styleUrl: './event.component.scss'
 })
 export class EventComponent implements OnInit {
   events: EVENT[] | undefined;

@@ -13,22 +13,21 @@ import {AuthService} from "../core/auth.service";
 import {LoginStatusService} from "../core/login-status.service";
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [
-    RouterModule,
-    ServertimeComponent,
-    BossComponent,
-    EventComponent,
-    CommonModule,
-    MatButton,
-    MatAnchor,
-    MatIconModule,
-    MatButtonModule,
-    MatTooltip
-  ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+    selector: 'app-home',
+    imports: [
+        RouterModule,
+        ServertimeComponent,
+        BossComponent,
+        EventComponent,
+        CommonModule,
+        MatButton,
+        MatAnchor,
+        MatIconModule,
+        MatButtonModule,
+        MatTooltip
+    ],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
   logger: LoggerService = inject(LoggerService);

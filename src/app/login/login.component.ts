@@ -13,12 +13,11 @@ import {LoggerService} from "../core/logger.service";
 import {LoginStatusService} from "../core/login-status.service";
 
 @Component({
-  selector: "app-login",
-  standalone: true,
-  imports: [FormsModule, MatInputModule, MatFormFieldModule
-    , MatButtonModule, MatIconModule, CommonModule, RouterLink],
-  templateUrl: "./login.component.html",
-  styleUrl: "./login.component.scss"
+    selector: "app-login",
+    imports: [FormsModule, MatInputModule, MatFormFieldModule,
+        MatButtonModule, MatIconModule, CommonModule, RouterLink],
+    templateUrl: "./login.component.html",
+    styleUrl: "./login.component.scss"
 })
 export class LoginComponent implements OnInit {
   logger: LoggerService = inject(LoggerService);
