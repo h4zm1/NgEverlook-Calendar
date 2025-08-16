@@ -23,13 +23,13 @@ import { LoginStatusService } from "../core/login-status.service";
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @Component({
-    selector: 'app-config',
-    imports: [FormsModule, MatDatepicker, MatTooltip, MatButtonToggleModule,
-        MatDatepickerToggle, MatFormFieldModule, MatNativeDateModule, MatTimepickerModule, MatInputModule,
-        MatHint, MatLabel, CommonModule, MatDatepickerInput, MatInput, MatButton, MatIcon, MatIconButton, RouterLink],
-    templateUrl: './config.component.html',
-    styleUrl: './config.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-config',
+  imports: [FormsModule, MatDatepicker, MatTooltip, MatButtonToggleModule,
+    MatDatepickerToggle, MatFormFieldModule, MatNativeDateModule, MatTimepickerModule, MatInputModule,
+    MatHint, MatLabel, CommonModule, MatDatepickerInput, MatInput, MatButton, MatIcon, MatIconButton, RouterLink],
+  templateUrl: './config.component.html',
+  styleUrl: './config.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConfigComponent implements OnInit {
   confService: ConfigService = inject(ConfigService);
@@ -48,6 +48,25 @@ export class ConfigComponent implements OnInit {
   readonly minDate = new Date(2023, 11, 1);
   email: string = ""
   protected readonly localStorage = localStorage;
+
+  //days table for toggle groups
+  daysOfWeek = [
+    { value: 'Su', label: 'Su' },
+    { value: 'Mo', label: 'Mo' },
+    { value: 'Tu', label: 'Tu' },
+    { value: 'We', label: 'We' },
+    { value: 'Th', label: 'Th' },
+    { value: 'Fr', label: 'Fr' },
+    { value: 'Sa', label: 'Sa' }
+  ];
+
+  //tracking selected value for each group
+  selectedDays = {
+    group40: '',
+    group20: '',
+    groupOny: '',
+    groupDmf: ''
+  };
 
   constructor(private activatedRoute: ActivatedRoute) {
     this.email = this.activatedRoute.snapshot.paramMap.get("email")!
@@ -85,18 +104,19 @@ export class ConfigComponent implements OnInit {
   }
 
   save() {
-    const roles = localStorage.getItem("roles");
-    if (roles && roles.includes("ADMIN")) {
-      this.logger.log("saving " + this.date)
-      this.confService.updateStartDate(this.date).subscribe({
-        next: data => {
-          this.logger.log("server:: " + data);
-        },
-        error: err => {
-          this.logger.log("conf error " + err.error.message)
-        }
-      })
-    }
+    console.log('Selected days:', this.selectedDays);
+    // const roles = localStorage.getItem("roles");
+    // if (roles && roles.includes("ADMIN")) {
+    //   this.logger.log("saving " + this.date)
+    //   this.confService.updateStartDate(this.date).subscribe({
+    //     next: data => {
+    //       this.logger.log("server:: " + data);
+    //     },
+    //     error: err => {
+    //       this.logger.log("conf error " + err.error.message)
+    //     }
+    //   })
+    // }
 
   }
 

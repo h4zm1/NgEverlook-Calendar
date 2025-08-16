@@ -251,7 +251,7 @@ $dark-text-color: #181818;
   }
 
   // label text on hover when input not active/focused
-  --mdc-filled-text-field-hover-label-text-color: rgba(255, 255, 255, 0.94);
+  --mat-form-field-filled-hover-label-text-color: rgba(255, 255, 255, 0.94);
 
   // login/save button text color
   .mat-mdc-button:not(:disabled) {
@@ -323,7 +323,7 @@ $dark-text-color: #181818;
 
   //change the color of the check mark on selected button
   .mat-button-toggle-group-appearance-standard .mat-pseudo-checkbox {
-    --mat-minimal-pseudo-checkbox-selected-checkmark-color: white;
+    --mat-pseudo-checkbox-minimal-selected-checkmark-color: white;
   }
 }
 
@@ -416,7 +416,7 @@ $dark-text-color: #181818;
   }
 
   // label text on hover when input not active/focused
-  --mdc-filled-text-field-hover-label-text-color: rgba(0, 0, 0, 0.94);
+  --mat-form-field-filled-hover-label-text-color: rgba(0, 0, 0, 0.94);
 
   //.mdc-button .mdc-button__label {
   //  color: #656565;
