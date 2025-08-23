@@ -4,11 +4,6 @@ import { EventBusService } from "../core/EventBus.service";
 import { AuthService } from "../core/auth.service";
 import { LoggerService } from "../core/logger.service";
 import { FormsModule } from "@angular/forms";
-import {
-  MatDatepicker,
-  MatDatepickerInput,
-  MatDatepickerToggle
-} from "@angular/material/datepicker";
 import { MatTimepickerModule } from '@angular/material/timepicker';
 import { MatFormFieldModule, MatHint, MatLabel } from "@angular/material/form-field";
 import { ThemeService } from "../core/theme.service";
@@ -24,15 +19,15 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-config',
-  imports: [FormsModule, MatDatepicker, MatTooltip, MatButtonToggleModule,
-    MatDatepickerToggle, MatFormFieldModule, MatNativeDateModule, MatTimepickerModule, MatInputModule,
-    MatHint, MatLabel, CommonModule, MatDatepickerInput, MatInput, MatButton, MatIcon, MatIconButton, RouterLink],
+  imports: [FormsModule, MatTooltip, MatButtonToggleModule,
+    MatFormFieldModule, MatNativeDateModule, MatTimepickerModule, MatInputModule,
+    MatHint, MatLabel, CommonModule, MatInput, MatButton, MatIcon, MatIconButton, RouterLink],
   templateUrl: './config.component.html',
   styleUrl: './config.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConfigComponent implements OnInit {
-  confService: ConfigService = inject(ConfigService);
+  configService: ConfigService = inject(ConfigService);
   eventBusService: EventBusService = inject(EventBusService);
   authService: AuthService = inject(AuthService);
   logger: LoggerService = inject(LoggerService);
@@ -61,11 +56,14 @@ export class ConfigComponent implements OnInit {
   ];
 
   //tracking selected value for each group
-  selectedDays = {
-    group40: '',
-    group20: '',
-    groupOny: '',
-    groupDmf: ''
+  selectedValues = {
+    m40: '',
+    m20: '',
+    ony: '',
+    dmf: '',
+    dmfLocation: '',
+    madnessBoss: '',
+    madnessWeek: ''
   };
 
   constructor(private activatedRoute: ActivatedRoute) {
@@ -104,19 +102,19 @@ export class ConfigComponent implements OnInit {
   }
 
   save() {
-    console.log('Selected days:', this.selectedDays);
-    // const roles = localStorage.getItem("roles");
-    // if (roles && roles.includes("ADMIN")) {
-    //   this.logger.log("saving " + this.date)
-    //   this.confService.updateStartDate(this.date).subscribe({
-    //     next: data => {
-    //       this.logger.log("server:: " + data);
-    //     },
-    //     error: err => {
-    //       this.logger.log("conf error " + err.error.message)
-    //     }
-    //   })
-    // }
+    console.log('Selected days:', this.selectedValues.toString());
+    const roles = localStorage.getItem("roles");
+    if (roles && roles.includes("ADMIN")) {
+      // this.logger.log("saving " + this.date)
+      this.configService.updateConfig(this.selectedValues).subscribe({
+        next: data => {
+          this.logger.log("server:: " + data);
+        },
+        error: err => {
+          this.logger.log("conf error " + err.error.message)
+        }
+      })
+    }
 
   }
 

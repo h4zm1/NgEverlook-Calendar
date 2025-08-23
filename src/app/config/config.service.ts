@@ -1,9 +1,9 @@
-import {inject, Injectable} from '@angular/core';
-import {Observable, shareReplay} from "rxjs";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {environment} from "../../environments/environment";
-import {Data} from "@angular/router";
-import {LoggerService} from "../core/logger.service";
+import { inject, Injectable } from '@angular/core';
+import { Observable, shareReplay } from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { environment } from "../../environments/environment";
+import { Data } from "@angular/router";
+import { LoggerService } from "../core/logger.service";
 
 // interface LoginResponse {
 //   token: string;
@@ -20,9 +20,9 @@ export class ConfigService {
   constructor(private http: HttpClient) {
   }
 
-  updateStartDate(date: String): Observable<String> {
-    return this.http.post(environment.apiUrl + "/conf/updateStartDate",
-      {date: date}, {"withCredentials": true, responseType:"text"});
+  updateConfig(config: any): Observable<String> {
+    return this.http.post(environment.apiUrl + "/conf/updateConfig",
+      config, { "withCredentials": true, responseType: "text" });
   }
 
 }

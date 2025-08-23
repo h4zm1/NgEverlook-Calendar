@@ -1,12 +1,7 @@
 <div [ngClass]="themeService.themeSignal()" class="configPage">
   <!--  Settings and dark mode buttons-->
   <div class="button-container-config">
-    <button
-      [matTooltip]="exitTip"
-      mat-icon-button
-      (click)="logout()"
-      class="exitButton"
-    >
+    <button [matTooltip]="exitTip" mat-icon-button (click)="logout()" class="exitButton">
       <mat-icon>logout</mat-icon>
     </button>
     <div [matTooltip]="roleTip" mat-icon-button class="mailButton">
@@ -18,23 +13,6 @@
     </div>
   </div>
   <div class="mid-section">
-    <!-- <mat-form-field> -->
-    <!--   <mat-label>Change 20 man reset day</mat-label> -->
-    <!--   <input -->
-    <!--     matInput -->
-    <!--     [matDatepicker]="picker1" -->
-    <!--     [min]="minDate" -->
-    <!--     (dateInput)="inputChange($event.value, '20')" -->
-    <!--     (dateChange)="inputChange($event.value, '20')" -->
-    <!--     [disabled]="!configAccess" -->
-    <!--   /> -->
-    <!--   <mat-hint>MM/DD/YYYY</mat-hint> -->
-    <!--   <mat-datepicker-toggle -->
-    <!--     matIconSuffix -->
-    <!--     [for]="picker1" -->
-    <!--   ></mat-datepicker-toggle> -->
-    <!--   <mat-datepicker #picker1></mat-datepicker> -->
-    <!-- </mat-form-field> -->
     <mat-form-field>
       <mat-label>Reset time</mat-label>
       <input matInput [matTimepicker]="picker" />
@@ -44,7 +22,7 @@
 
     <mat-label>20 man reset day</mat-label>
     <!-- 20 man -->
-    <mat-button-toggle-group [(ngModel)]="selectedDays.group40" name="group40">
+    <mat-button-toggle-group [(ngModel)]="selectedValues.m40">
       <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
         {{ day.label }}
       </mat-button-toggle>
@@ -52,7 +30,7 @@
 
     <!-- 40 man -->
     <mat-label>40 man reset day</mat-label>
-    <mat-button-toggle-group [(ngModel)]="selectedDays.group20" name="group20">
+    <mat-button-toggle-group [(ngModel)]="selectedValues.m20">
       <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
         {{ day.label }}
       </mat-button-toggle>
@@ -60,10 +38,7 @@
 
     <!-- ONY -->
     <mat-label>Next ONY reset day</mat-label>
-    <mat-button-toggle-group
-      [(ngModel)]="selectedDays.groupOny"
-      name="groupOny"
-    >
+    <mat-button-toggle-group [(ngModel)]="selectedValues.ony">
       <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
         {{ day.label }}
       </mat-button-toggle>
@@ -71,45 +46,35 @@
 
     <!-- DMF -->
     <mat-label>Dmf switch day</mat-label>
-    <mat-button-toggle-group
-      [(ngModel)]="selectedDays.groupDmf"
-      name="groupDmf"
-    >
+    <mat-button-toggle-group [(ngModel)]="selectedValues.dmf">
       <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
         {{ day.label }}
       </mat-button-toggle>
     </mat-button-toggle-group>
-    <mat-label>Where dmf is now</mat-label>
-    <mat-button-toggle-group name="dmf" aria-label="Font Style">
-      <mat-button-toggle>Mulgor</mat-button-toggle>
-      <mat-button-toggle>Elwyn</mat-button-toggle>
+    <mat-label>DMF now at</mat-label>
+    <mat-button-toggle-group [(ngModel)]="selectedValues.dmfLocation" aria-label="Font Style">
+      <mat-button-toggle value="mulgor">Mulgor</mat-button-toggle>
+      <mat-button-toggle value="elwyn">Elwyn</mat-button-toggle>
     </mat-button-toggle-group>
 
-    <mat-label>Which madness boss is now active</mat-label>
-    <mat-button-toggle-group name="madness" aria-label="Font Style">
-      <mat-button-toggle>Gri'lek</mat-button-toggle>
-      <mat-button-toggle>Renataki</mat-button-toggle>
-      <mat-button-toggle>Hazza'rah</mat-button-toggle>
-      <mat-button-toggle>Wushoolay</mat-button-toggle>
+    <mat-label>Current active madness boss</mat-label>
+    <mat-button-toggle-group [(ngModel)]="selectedValues.madnessBoss" aria-label="Font Style">
+      <mat-button-toggle value="gri'lek">Gri'lek</mat-button-toggle>
+      <mat-button-toggle value="ranataki">Renataki</mat-button-toggle>
+      <mat-button-toggle value="hazza'rah">Hazza'rah</mat-button-toggle>
+      <mat-button-toggle value="wushoolay">Wushoolay</mat-button-toggle>
     </mat-button-toggle-group>
 
-    <mat-label>Which madness week currently in</mat-label>
-    <mat-button-toggle-group name="madness" aria-label="Font Style">
-      <mat-button-toggle>First week</mat-button-toggle>
-      <mat-button-toggle>Second week</mat-button-toggle>
+    <mat-label>Madness week currently in</mat-label>
+    <mat-button-toggle-group [(ngModel)]="selectedValues.madnessWeek" aria-label="Font Style">
+      <mat-button-toggle value="first">First week</mat-button-toggle>
+      <mat-button-toggle value="second">Second week</mat-button-toggle>
     </mat-button-toggle-group>
 
     <!--  save button  -->
     <div class="saveHolder">
       <!--    enables save when savable and configAccess are both true-->
-      <button
-        [disabled]="!configAccess || !savable"
-        (click)="save()"
-        type="submit"
-        mat-button
-        [disableRipple]="false"
-        class="saveBtn"
-      >
+      <button (click)="save()" type="submit" mat-button [disableRipple]="false" class="saveBtn">
         Save
       </button>
     </div>
