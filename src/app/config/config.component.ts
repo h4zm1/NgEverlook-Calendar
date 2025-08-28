@@ -57,6 +57,7 @@ export class ConfigComponent implements OnInit {
 
   //tracking selected value for each group
   selectedValues = {
+    resetTime: '',
     m40: '',
     m20: '',
     ony: '',
@@ -102,21 +103,32 @@ export class ConfigComponent implements OnInit {
   }
 
   save() {
-    console.log('Selected days:', this.selectedValues.toString());
-    const roles = localStorage.getItem("roles");
-    if (roles && roles.includes("ADMIN")) {
-      // this.logger.log("saving " + this.date)
-      this.configService.updateConfig(this.selectedValues).subscribe({
-        next: data => {
-          this.logger.log("server:: " + data);
-        },
-        error: err => {
-          this.logger.log("conf error " + err.error.message)
-        }
-      })
-    }
+    console.log('Selected days:', this.selectedValues);
+    // const roles = localStorage.getItem("roles");
+    // if (roles && roles.includes("ADMIN")) {
+    //   // this.logger.log("saving " + this.date)
+    //   this.configService.updateConfig(this.selectedValues).subscribe({
+    //     next: data => {
+    //       this.logger.log("server:: " + data);
+    //     },
+    //     error: err => {
+    //       this.logger.log("conf error " + err.error.message)
+    //     }
+    //   })
+    // }
 
   }
+  // get 12 hour format from the time input field cause apparently it returns a long date format
+  getTime12Hour(date: Date) {
+    if (!date) this.selectedValues.resetTime = '';
+    else
+      this.selectedValues.resetTime = date.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      });
+  }
+
 
   inputChange(event: any, type: String) {
     this.date = event.value?.toString()!!

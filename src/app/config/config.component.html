@@ -1,7 +1,12 @@
 <div [ngClass]="themeService.themeSignal()" class="configPage">
   <!--  Settings and dark mode buttons-->
   <div class="button-container-config">
-    <button [matTooltip]="exitTip" mat-icon-button (click)="logout()" class="exitButton">
+    <button
+      [matTooltip]="exitTip"
+      mat-icon-button
+      (click)="logout()"
+      class="exitButton"
+    >
       <mat-icon>logout</mat-icon>
     </button>
     <div [matTooltip]="roleTip" mat-icon-button class="mailButton">
@@ -15,7 +20,12 @@
   <div class="mid-section">
     <mat-form-field>
       <mat-label>Reset time</mat-label>
-      <input matInput [matTimepicker]="picker" />
+      <input
+        matInput
+        [matTimepicker]="picker"
+        [(ngModel)]="selectedValues.resetTime"
+        (ngModelChange)="getTime12Hour($event)"
+      />
       <mat-timepicker-toggle matIconSuffix [for]="picker" />
       <mat-timepicker #picker />
     </mat-form-field>
@@ -52,13 +62,19 @@
       </mat-button-toggle>
     </mat-button-toggle-group>
     <mat-label>DMF now at</mat-label>
-    <mat-button-toggle-group [(ngModel)]="selectedValues.dmfLocation" aria-label="Font Style">
+    <mat-button-toggle-group
+      [(ngModel)]="selectedValues.dmfLocation"
+      aria-label="Font Style"
+    >
       <mat-button-toggle value="mulgor">Mulgor</mat-button-toggle>
       <mat-button-toggle value="elwyn">Elwyn</mat-button-toggle>
     </mat-button-toggle-group>
 
     <mat-label>Current active madness boss</mat-label>
-    <mat-button-toggle-group [(ngModel)]="selectedValues.madnessBoss" aria-label="Font Style">
+    <mat-button-toggle-group
+      [(ngModel)]="selectedValues.madnessBoss"
+      aria-label="Font Style"
+    >
       <mat-button-toggle value="gri'lek">Gri'lek</mat-button-toggle>
       <mat-button-toggle value="ranataki">Renataki</mat-button-toggle>
       <mat-button-toggle value="hazza'rah">Hazza'rah</mat-button-toggle>
@@ -66,7 +82,10 @@
     </mat-button-toggle-group>
 
     <mat-label>Madness week currently in</mat-label>
-    <mat-button-toggle-group [(ngModel)]="selectedValues.madnessWeek" aria-label="Font Style">
+    <mat-button-toggle-group
+      [(ngModel)]="selectedValues.madnessWeek"
+      aria-label="Font Style"
+    >
       <mat-button-toggle value="first">First week</mat-button-toggle>
       <mat-button-toggle value="second">Second week</mat-button-toggle>
     </mat-button-toggle-group>
@@ -74,7 +93,13 @@
     <!--  save button  -->
     <div class="saveHolder">
       <!--    enables save when savable and configAccess are both true-->
-      <button (click)="save()" type="submit" mat-button [disableRipple]="false" class="saveBtn">
+      <button
+        (click)="save()"
+        type="submit"
+        mat-button
+        [disableRipple]="false"
+        class="saveBtn"
+      >
         Save
       </button>
     </div>
