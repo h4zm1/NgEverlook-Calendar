@@ -16,6 +16,7 @@ import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { MatTooltip } from "@angular/material/tooltip";
 import { LoginStatusService } from "../core/login-status.service";
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { ConfigValue, createEmptyConfig } from './config-value.interface';
 
 @Component({
   selector: 'app-config',
@@ -24,7 +25,6 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatHint, MatLabel, CommonModule, MatInput, MatButton, MatIcon, MatIconButton, RouterLink],
   templateUrl: './config.component.html',
   styleUrl: './config.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConfigComponent implements OnInit {
   configService: ConfigService = inject(ConfigService);
@@ -56,16 +56,7 @@ export class ConfigComponent implements OnInit {
   ];
 
   //tracking selected value for each group
-  selectedValues = {
-    resetTime: '',
-    m40: '',
-    m20: '',
-    ony: '',
-    dmf: '',
-    dmfLocation: '',
-    madnessBoss: '',
-    madnessWeek: ''
-  };
+  selectedValues: ConfigValue = createEmptyConfig()
 
   constructor(private activatedRoute: ActivatedRoute) {
     this.email = this.activatedRoute.snapshot.paramMap.get("email")!
@@ -94,7 +85,10 @@ export class ConfigComponent implements OnInit {
       }
     }// if none of the above then it should be light
   }
+  ngAfterViewInit() {
 
+    this.loadConfig()
+  }
   getRole(): string {
     if (localStorage.getItem("roles") != null && localStorage.getItem("roles") != "")
       return localStorage.getItem("roles")!.toString().substring(5)
@@ -104,18 +98,18 @@ export class ConfigComponent implements OnInit {
 
   save() {
     console.log('Selected days:', this.selectedValues);
-    // const roles = localStorage.getItem("roles");
-    // if (roles && roles.includes("ADMIN")) {
-    //   // this.logger.log("saving " + this.date)
-    //   this.configService.updateConfig(this.selectedValues).subscribe({
-    //     next: data => {
-    //       this.logger.log("server:: " + data);
-    //     },
-    //     error: err => {
-    //       this.logger.log("conf error " + err.error.message)
-    //     }
-    //   })
-    // }
+    const roles = localStorage.getItem("roles");
+    if (roles && roles.includes("ADMIN")) {
+      // this.logger.log("saving " + this.date)
+      this.configService.updateConfig(this.selectedValues).subscribe({
+        next: data => {
+          this.logger.log("server:: " + data);
+        },
+        error: err => {
+          this.logger.log("conf error " + err.error.message)
+        }
+      })
+    }
 
   }
   // get 12 hour format from the time input field cause apparently it returns a long date format
@@ -129,7 +123,25 @@ export class ConfigComponent implements OnInit {
       });
   }
 
+  convertStringToDate(value: String) {
+    const timestamp = Date.parse("1/1/2000 " + value);
+    const date = new Date(timestamp)
+    this.selectedValues.resetTime = date as any
+  }
 
+  loadConfig() {
+    this.configService.getConfig().subscribe({
+      next: (config) => {
+        console.log("loaded configs:", config);
+        this.selectedValues = config;
+        // mat-timepicker expecting a Date object so need to convert the string to Date
+        this.convertStringToDate(this.selectedValues.resetTime)
+      },
+      error: (error) => {
+        console.error("error loading configs: ", error);
+      }
+    });
+  }
   inputChange(event: any, type: String) {
     this.date = event.value?.toString()!!
     if (event instanceof Date) {
