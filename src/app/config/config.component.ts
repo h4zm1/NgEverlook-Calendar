@@ -98,7 +98,22 @@ export class ConfigComponent implements OnInit {
 
   save() {
     console.log('Selected days:', this.selectedValues);
+    // since the mat-timepicker need to be fed a Date value to be able to display time (apprently)
+    // and since we need to have only the time in the database,
+    // this result in converting back and forth between full Date value and time only value
+    // when time get picked from ui it get converted and saved as a time (03:00 AM)
+    // on save (here) normally we'd just take the saved value and sand it to back
+    // but on load we need to have the input show the saved value so we need to convert that value to full date
+    // the problem arise when we try to save without touching the input while it already have a value
+    // now save (here) will pick up the full date format and not the time only
+    // so need to invoke the convert to time method while considering both cases; 1: full date from load and 2: time only
+    var date: any
+    if (this.selectedValues.resetTime.toString().includes('Jan'))
+      date = new Date(Date.parse(this.selectedValues.resetTime));
+    else
+      date = new Date(Date.parse("1/1/2000 " + this.selectedValues.resetTime));
     const roles = localStorage.getItem("roles");
+    this.getTime12Hour(date)
     if (roles && roles.includes("ADMIN")) {
       // this.logger.log("saving " + this.date)
       this.configService.updateConfig(this.selectedValues).subscribe({
@@ -110,9 +125,9 @@ export class ConfigComponent implements OnInit {
         }
       })
     }
-
+    this.convertStringToDate(this.selectedValues.resetTime)
   }
-  // get 12 hour format from the time input field cause apparently it returns a long date format
+  // get 12 hour format from the time input field cause apparently it returns a long date format e.g.; 2000-01-01T03:30:00.000Z
   getTime12Hour(date: Date) {
     if (!date) this.selectedValues.resetTime = '';
     else
@@ -142,6 +157,7 @@ export class ConfigComponent implements OnInit {
       }
     });
   }
+
   inputChange(event: any, type: String) {
     this.date = event.value?.toString()!!
     if (event instanceof Date) {

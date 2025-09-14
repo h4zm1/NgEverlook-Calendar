@@ -18,6 +18,7 @@
     </div>
   </div>
   <div class="mid-section">
+    <!-- reset time -->
     <mat-form-field>
       <mat-label>Reset time</mat-label>
       <input
@@ -30,16 +31,16 @@
       <mat-timepicker #picker />
     </mat-form-field>
 
-    <mat-label>20 man reset day</mat-label>
-    <!-- 20 man -->
+    <!-- 40 man -->
+    <mat-label>40 man reset day</mat-label>
     <mat-button-toggle-group [(ngModel)]="selectedValues.m40">
       <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
         {{ day.label }}
       </mat-button-toggle>
     </mat-button-toggle-group>
 
-    <!-- 40 man -->
-    <mat-label>40 man reset day</mat-label>
+    <!-- zg/aq20 -->
+    <mat-label>zg/aq20 reset day</mat-label>
     <mat-button-toggle-group [(ngModel)]="selectedValues.m20">
       <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
         {{ day.label }}
@@ -54,13 +55,23 @@
       </mat-button-toggle>
     </mat-button-toggle-group>
 
-    <!-- DMF -->
+    <!-- K10 -->
+    <mat-label>Next Kara10 reset day</mat-label>
+    <mat-button-toggle-group [(ngModel)]="selectedValues.k10">
+      <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
+        {{ day.label }}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <!-- DMF switch day -->
     <mat-label>Dmf switch day</mat-label>
     <mat-button-toggle-group [(ngModel)]="selectedValues.dmf">
       <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
         {{ day.label }}
       </mat-button-toggle>
     </mat-button-toggle-group>
+
+    <!-- DMF location -->
     <mat-label>DMF now at</mat-label>
     <mat-button-toggle-group
       [(ngModel)]="selectedValues.dmfLocation"
@@ -70,6 +81,15 @@
       <mat-button-toggle value="elwyn">Elwyn</mat-button-toggle>
     </mat-button-toggle-group>
 
+    <!-- madness start day -->
+    <mat-label>Madness start day</mat-label>
+    <mat-button-toggle-group [(ngModel)]="selectedValues.madnessStart">
+      <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
+        {{ day.label }}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <!-- madness boss -->
     <mat-label>Current active madness boss</mat-label>
     <mat-button-toggle-group
       [(ngModel)]="selectedValues.madnessBoss"
