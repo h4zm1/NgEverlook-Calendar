@@ -31,6 +31,19 @@
       <mat-timepicker #picker />
     </mat-form-field>
 
+    <!-- server time -->
+    <mat-form-field>
+      <mat-label>Reset time</mat-label>
+      <input
+        matInput
+        [matTimepicker]="picker"
+        [(ngModel)]="selectedValues.resetTime"
+        (ngModelChange)="getTime12Hour($event)"
+      />
+      <mat-timepicker-toggle matIconSuffix [for]="picker" />
+      <mat-timepicker #picker />
+    </mat-form-field>
+
     <!-- 40 man -->
     <mat-label>40 man reset day</mat-label>
     <mat-button-toggle-group [(ngModel)]="selectedValues.m40">
@@ -95,10 +108,10 @@
       [(ngModel)]="selectedValues.madnessBoss"
       aria-label="Font Style"
     >
-      <mat-button-toggle value="gri'lek">Gri'lek</mat-button-toggle>
-      <mat-button-toggle value="ranataki">Renataki</mat-button-toggle>
-      <mat-button-toggle value="hazza'rah">Hazza'rah</mat-button-toggle>
-      <mat-button-toggle value="wushoolay">Wushoolay</mat-button-toggle>
+      <mat-button-toggle value="0">Gri'lek</mat-button-toggle>
+      <mat-button-toggle value="1">Renataki</mat-button-toggle>
+      <mat-button-toggle value="2">Hazza'rah</mat-button-toggle>
+      <mat-button-toggle value="3">Wushoolay</mat-button-toggle>
     </mat-button-toggle-group>
 
     <mat-label>Madness week currently in</mat-label>

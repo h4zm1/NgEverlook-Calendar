@@ -1,33 +1,33 @@
-import {Component, OnInit, inject} from '@angular/core';
-import {ServertimeComponent} from "../servertime/servertime.component";
-import {BossComponent} from "../boss/boss.component";
-import {EventComponent} from "../event/event.component";
-import {Router, RouterModule} from '@angular/router';
-import {MatButtonModule, MatAnchor, MatButton} from "@angular/material/button";
-import {MatIconModule} from '@angular/material/icon';
-import {ThemeService} from "../core/theme.service";
-import {CommonModule} from '@angular/common';
-import {LoggerService} from "../core/logger.service";
-import {MatTooltip} from "@angular/material/tooltip";
-import {AuthService} from "../core/auth.service";
-import {LoginStatusService} from "../core/login-status.service";
+import { Component, OnInit, inject } from '@angular/core';
+import { ServertimeComponent } from "../servertime/servertime.component";
+import { BossComponent } from "../boss/boss.component";
+import { EventComponent } from "../event/event.component";
+import { Router, RouterModule } from '@angular/router';
+import { MatButtonModule, MatAnchor, MatButton } from "@angular/material/button";
+import { MatIconModule } from '@angular/material/icon';
+import { ThemeService } from "../core/theme.service";
+import { CommonModule } from '@angular/common';
+import { LoggerService } from "../core/logger.service";
+import { MatTooltip } from "@angular/material/tooltip";
+import { AuthService } from "../core/auth.service";
+import { LoginStatusService } from "../core/login-status.service";
 
 @Component({
-    selector: 'app-home',
-    imports: [
-        RouterModule,
-        ServertimeComponent,
-        BossComponent,
-        EventComponent,
-        CommonModule,
-        MatButton,
-        MatAnchor,
-        MatIconModule,
-        MatButtonModule,
-        MatTooltip
-    ],
-    templateUrl: './home.component.html',
-    styleUrl: './home.component.scss'
+  selector: 'app-home',
+  imports: [
+    RouterModule,
+    ServertimeComponent,
+    BossComponent,
+    EventComponent,
+    CommonModule,
+    MatButton,
+    MatAnchor,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltip
+  ],
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
   logger: LoggerService = inject(LoggerService);
@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit {
   state = 0;
   configTip = "Settings";
   themeModTip = "Dark mode"
+  gotoTip = "Jump to today"
   configClass = ""
 
   ngOnInit() {
@@ -74,31 +75,39 @@ export class HomeComponent implements OnInit {
 
   goToConfig() {
     // start config button spin animation on click
-    this.configClass="configButton"
+    this.configClass = "configButton"
     const storedLogin = localStorage.getItem("isLoggedIn");
-      // this to avoid calling checkAuthStatus if isLoggedIn = false
+    // this to avoid calling checkAuthStatus if isLoggedIn = false
     if (storedLogin != null && storedLogin == "true") {
       this.authService.checkAuthStatus().subscribe({
-          next: isAuthenticated => {
-            if (isAuthenticated.status) { // this means that the jwt token still valid (or a valid token refresh happened)
-              this.logger.log("AUTO AUTHENTICATED")
-              this.loginStatus.mail = isAuthenticated.email
-              this.loginStatus.setJustLoggedIn(true)
-              this.router.navigate(["config"])
-            } else {
-              this.logger.log("AUTO AUTHENTICATION denied")
-              this.router.navigate(["login"])
-            }
-          },
-          error: err => {
-            this.logger.log("FAILED AUTO AUTHENTICATION")
-            this.logger.error(err)
+        next: isAuthenticated => {
+          if (isAuthenticated.status) { // this means that the jwt token still valid (or a valid token refresh happened)
+            this.logger.log("AUTO AUTHENTICATED")
+            this.loginStatus.mail = isAuthenticated.email
+            this.loginStatus.setJustLoggedIn(true)
+            this.router.navigate(["config"])
+          } else {
+            this.logger.log("AUTO AUTHENTICATION denied")
             this.router.navigate(["login"])
           }
+        },
+        error: err => {
+          this.logger.log("FAILED AUTO AUTHENTICATION")
+          this.logger.error(err)
+          this.router.navigate(["login"])
         }
+      }
       );
     } else {
       this.router.navigate(["login"])
     }
+  }
+  scrollToToday() {
+    const element = document.querySelector('[class="row first"]')
+    console.log("found element to go", element);
+    element?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
   }
 }

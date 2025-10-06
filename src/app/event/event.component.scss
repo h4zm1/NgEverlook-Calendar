@@ -103,6 +103,7 @@ a:hover {
 }
 
 @media only screen and (max-width: 587px) {
+
   /* to make the page display correctly on phones */
   .row {
     position: relative;
@@ -116,6 +117,7 @@ a:hover {
     right: 180px;
     top: 25px;
   }
+
   .subject {
     font-size: small;
     width: 170px;

@@ -1,15 +1,15 @@
-import {Component, inject} from '@angular/core';
-import {SubscriptionLike} from "rxjs"
-import {ServertimeService} from "./servertime.service";
-import {OnDestroy} from "@angular/core";
-import {LoggerService} from "../core/logger.service";
+import { Component, inject } from '@angular/core';
+import { SubscriptionLike } from "rxjs"
+import { ServertimeService } from "./servertime.service";
+import { OnDestroy } from "@angular/core";
+import { LoggerService } from "../core/logger.service";
 
 @Component({
-    selector: 'app-servertime',
-    imports: [],
-    providers: [ServertimeService],
-    templateUrl: './servertime.component.html',
-    styleUrl: './servertime.component.css'
+  selector: 'app-servertime',
+  imports: [],
+  providers: [ServertimeService],
+  templateUrl: './servertime.component.html',
+  styleUrl: './servertime.component.css'
 })
 export class ServertimeComponent implements OnDestroy {
   logger: LoggerService = inject(LoggerService);
