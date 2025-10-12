@@ -325,6 +325,29 @@ $dark-text-color: #181818;
   .mat-button-toggle-group-appearance-standard .mat-pseudo-checkbox {
     --mat-pseudo-checkbox-minimal-selected-checkmark-color: white;
   }
+
+  .mat-button-toggle {
+    border-left: unset !important;
+    font-weight: bold !important;
+    color: gray !important;
+  }
+
+  .mat-mdc-menu-panel {
+    min-width: unset !important;
+    background-color: #ffffff0f !important;
+    margin-left: -0.6rem; // make the menu appear under the button that pops it
+  }
+
+  .mat-button-toggle-appearance-standard.mat-button-toggle-checked {
+    color: black !important;
+    background-color: unset !important;
+  }
+
+  // need to unset the bg color cause cdk overlay container will auto pick up dark mode bg color (firs line at top here)
+  // to be it's own bg color which result in the whole screen getting covered up
+  .cdk-overlay-container {
+    background-color: unset;
+  }
 }
 
 
@@ -450,5 +473,22 @@ $dark-text-color: #181818;
   .popover {
     background-color: white;
     box-shadow: 3px 4px 10px 0px rgb(146 146 146 / 39%);
+  }
+
+  .mat-button-toggle {
+    border-left: unset !important;
+    font-weight: bold !important;
+    color: gray !important;
+  }
+
+  .mat-mdc-menu-panel {
+    min-width: unset !important;
+    background-color: #ffffff0f !important;
+    margin-left: -0.6rem; // make the menu appear under the button that pops it
+  }
+
+  .mat-button-toggle-appearance-standard.mat-button-toggle-checked {
+    color: black !important;
+    background-color: unset !important;
   }
 }

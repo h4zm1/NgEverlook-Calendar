@@ -11,6 +11,7 @@ a.linkButton {
 }
 
 .linkButton::ng-deep {
+
   .mat-mdc-button-ripple,
   .mdc-button__ripple {
     display: none !important;
@@ -40,6 +41,7 @@ a.linkButton {
 }
 
 @media only screen and (max-width: 518px) {
+
   /* to make the page display correctly on phones */
   .topText {
     //position: relative;
@@ -123,6 +125,12 @@ a.linkButton {
   animation: spin 2s linear infinite;
 }
 
+.mat-button-toggle-group {
+  border: unset;
+  border-radius: unset;
+  flex-direction: column;
+}
+
 @keyframes spin {
   100% {
     -webkit-transform: rotate(360deg);
@@ -135,6 +143,7 @@ a.linkButton {
     width: 250vh;
     height: 350vh;
   }
+
   .button-container {
     transform: scale(.8);
     padding: 10px 0 0 0;

@@ -5,6 +5,8 @@ import { EventComponent } from "../event/event.component";
 import { Router, RouterModule } from '@angular/router';
 import { MatButtonModule, MatAnchor, MatButton } from "@angular/material/button";
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonToggleChange, MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ThemeService } from "../core/theme.service";
 import { CommonModule } from '@angular/common';
 import { LoggerService } from "../core/logger.service";
@@ -24,7 +26,9 @@ import { LoginStatusService } from "../core/login-status.service";
     MatAnchor,
     MatIconModule,
     MatButtonModule,
-    MatTooltip
+    MatTooltip,
+    MatMenuModule,
+    MatButtonToggleModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -56,6 +60,11 @@ export class HomeComponent implements OnInit {
         this.state = 1;
         this.themeService.setTheme("dark")
         this.themeModTip = "Light mode"
+      }
+      else if (localStorage.getItem("theme") == "light") {
+        this.state = 0;
+        this.themeService.setTheme("light")
+        this.themeModTip = "Dark Mode"
       }
     }// if none of the above then it should be light
   }
@@ -109,5 +118,8 @@ export class HomeComponent implements OnInit {
       behavior: 'smooth',
       block: 'center'
     });
+  }
+  onToggleChange(event: MatButtonToggleChange) {
+    console.log('toggled value ', event.source.value)
   }
 }
