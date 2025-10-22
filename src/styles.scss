@@ -301,7 +301,7 @@ $dark-text-color: #181818;
   //dmf location toggle button
   //button text (not including the check mark)
   .mat-button-toggle button {
-    color: white;
+    // color: white;
   }
 
   //making the toggle group larger without weird gaps
@@ -329,17 +329,18 @@ $dark-text-color: #181818;
   .mat-button-toggle {
     border-left: unset !important;
     font-weight: bold !important;
-    color: gray !important;
+    color: dimgray !important;
   }
 
   .mat-mdc-menu-panel {
     min-width: unset !important;
     background-color: #ffffff0f !important;
     margin-left: -0.6rem; // make the menu appear under the button that pops it
+    border-radius: 1rem;
   }
 
   .mat-button-toggle-appearance-standard.mat-button-toggle-checked {
-    color: black !important;
+    color: white !important;
     background-color: unset !important;
   }
 
@@ -478,13 +479,14 @@ $dark-text-color: #181818;
   .mat-button-toggle {
     border-left: unset !important;
     font-weight: bold !important;
-    color: gray !important;
+    color: darkgray !important;
   }
 
   .mat-mdc-menu-panel {
     min-width: unset !important;
     background-color: #ffffff0f !important;
     margin-left: -0.6rem; // make the menu appear under the button that pops it
+    border-radius: 1rem;
   }
 
   .mat-button-toggle-appearance-standard.mat-button-toggle-checked {

@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { EventService } from "./event.service";
 import { EVENT } from "./event";
 import { BossComponent } from "../boss/boss.component";
 import { ServertimeComponent } from "../servertime/servertime.component";
 import { CommonModule } from "@angular/common";
+import { EventToggleService } from '../core/event-toggle.service';
 
 @Component({
   selector: 'app-event',
@@ -18,7 +19,9 @@ import { CommonModule } from "@angular/common";
   styleUrl: './event.component.scss'
 })
 export class EventComponent implements OnInit {
-  events: EVENT[] | undefined;
+  // events: EVENT[] | undefined;
+  eventToggleService = inject(EventToggleService)
+  events = this.eventToggleService.events;
   pre_events: EVENT[] | undefined;
 
   constructor(private eventService: EventService) {
@@ -34,6 +37,7 @@ export class EventComponent implements OnInit {
   // mark first new date to apply css class on it later
   // for blinking animation
   markFirstNewDate() {
+    console.log(this.pre_events)
     if (this.pre_events) {
       for (let event of this.pre_events) {
         if (event.old == null) {
@@ -41,7 +45,9 @@ export class EventComponent implements OnInit {
           break;
         }
       }
-      this.events = this.pre_events;
+      // this.events = this.pre_events;
+      this.eventToggleService.setEvents(this.pre_events)
+      this.events = this.eventToggleService.events
     }
   }
 }

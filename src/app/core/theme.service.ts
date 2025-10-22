@@ -11,11 +11,13 @@ export class ThemeService {
 
   setTheme(theme: String) {
     this.themeSignal.set(theme);
+    // force theme on CDK overlay container
     this.forceOverlayTheme()
   }
   updateTheme() {
     console.log("THEME UPDATED")
     this.themeSignal.update((value) => (value === "light" ? "dark" : "light"));
+    // force theme on CDK overlay container
     this.forceOverlayTheme()
   }
   forceOverlayTheme() {

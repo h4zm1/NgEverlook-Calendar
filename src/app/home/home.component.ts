@@ -13,6 +13,7 @@ import { LoggerService } from "../core/logger.service";
 import { MatTooltip } from "@angular/material/tooltip";
 import { AuthService } from "../core/auth.service";
 import { LoginStatusService } from "../core/login-status.service";
+import { EventToggleService } from '../core/event-toggle.service';
 
 @Component({
   selector: 'app-home',
@@ -38,6 +39,7 @@ export class HomeComponent implements OnInit {
   title = 'NgEverlook-Calendar';
   themeService: ThemeService = inject(ThemeService);
   authService = inject(AuthService);
+  toggleService = inject(EventToggleService);
   loginStatus = inject(LoginStatusService);
   router = inject(Router)
   // controlling Dark curtain style state: 1 = dark, 0 = light
@@ -76,6 +78,7 @@ export class HomeComponent implements OnInit {
     setTimeout(() => {
       this.themeService.updateTheme()
       localStorage.setItem("theme", this.themeService.themeSignal().toString());
+      // 500 is how long the page wait till dark mode get applied (after curtain animation)
     }, this.themeService.themeSignal() === "light" ? 500 : 100)
     // to trigger the active state on the curtain html element
     this.state = this.state === 1 ? 0 : 1;
@@ -120,6 +123,11 @@ export class HomeComponent implements OnInit {
     });
   }
   onToggleChange(event: MatButtonToggleChange) {
-    console.log('toggled value ', event.source.value)
+    // console.log('toggled value ', event.source.value)
+    console.log(event.source.value, ' is now ', event.source.checked)
+    if (event.source.checked == true)
+      this.toggleService.enableEvent(event.source.value)
+    else
+      this.toggleService.disableEvent(event.source.value)
   }
 }

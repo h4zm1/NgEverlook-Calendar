@@ -1,8 +1,8 @@
-import {Injectable, isDevMode} from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
-import {EVENT} from './event';
-import {environment} from "../../environments/environment";
+import { Injectable, isDevMode } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { EVENT } from './event';
+import { environment } from "../../environments/environment";
 
 @Injectable()
 export class EventService {
@@ -13,6 +13,6 @@ export class EventService {
   }
 
   getEvents(): Observable<EVENT[]> {
-    return this.http.get<EVENT[]>(this.url+"/api/events");
+    return this.http.get<EVENT[]>(this.url + "/api/events");
   }
 }

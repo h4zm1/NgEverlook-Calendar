@@ -1,54 +1,70 @@
 <ul>
-  @for (event of events; track event.id) {
-<!--    <div [ngClass]="event.old ? 'row old' : 'row' ">-->
-      <div [ngClass]="{
-        'row': true,
-        'old': event.old === 1,
-        'first': event.old === 2
-      }">
-      <div class="date">
-        {{ event.date }}
-      </div>
-      <div class="dot"></div>
-      <div class="trail"></div>
-      @if (event.ony || event.mc || event.bwl || event.aq40 || event.naxx || event.zg || event.aq20 || event.dmf || event.pvp || event.madness) {
-        <div [ngClass]="{
-        'subject': true,
-        'old': event.old === 1,
-        'first': event.old === 2
-      }">
+  @for (event of events(); track event.id) {
+    <!--    <div [ngClass]="event.old ? 'row old' : 'row' ">-->
+    @if (
+      event.ony ||
+      event.mc ||
+      event.bwl ||
+      event.aq40 ||
+      event.naxx ||
+      event.zg ||
+      event.aq20 ||
+      event.dmf ||
+      event.pvp ||
+      event.madness
+    ) {
+      <div
+        [ngClass]="{
+          row: true,
+          old: event.old === 1,
+          first: event.old === 2,
+        }"
+      >
+        <div class="date">
+          {{ event.date }}
+        </div>
+        <div class="dot"></div>
+        <div class="trail"></div>
+        <div
+          [ngClass]="{
+            subject: true,
+            old: event.old === 1,
+            first: event.old === 2,
+          }"
+        >
           @if (event.ony) {
-            Onyxia<br>
+            Onyxia<br />
           }
           @if (event.mc) {
-            Molten Core<br>
+            Molten Core<br />
           }
           @if (event.bwl) {
-            Blackwing Lair<br>
+            Blackwing Lair<br />
           }
           @if (event.aq40) {
-            AQ40<br>
+            AQ40<br />
           }
           @if (event.naxx) {
-            Naxxramas<br>
+            Naxxramas<br />
           }
           @if (event.zg) {
-            Zul'Gurub<br>
+            Zul'Gurub<br />
           }
           @if (event.aq20) {
-            AQ20<br>
+            AQ20<br />
           }
           @if (event.dmf) {
-            {{ event.dmf }}<br>
+            {{ event.dmf }}<br />
           }
           @if (event.pvp) {
-            {{ event.pvp }}<br>(not sure about exact time)
+            {{ event.pvp }}<br />(not sure about exact time)
           }
           @if (event.madness) {
-            ZG Edge of Madness: {{ event.madnessBoss }}<br>(not sure about exact time)
+            ZG Edge of Madness: {{ event.madnessBoss }}<br />(not sure about
+            exact time)
           }
         </div>
-      }
-    </div>
+      </div>
+    }
   }
 </ul>
