@@ -12,16 +12,14 @@
       <mat-icon>settings</mat-icon>
     </button>
     <mat-menu #menu="matMenu" xPosition="after">
+      <!-- prevent clicking the buttons from closing the menu -->
       <div (click)="$event.stopPropagation()">
         <mat-button-toggle-group multiple hideMultipleSelectionIndicator="true" (change)="onToggleChange($event)">
-          <mat-button-toggle value="ony" [checked]=true>ONY</mat-button-toggle>
-          <mat-button-toggle value="aq20" [checked]=true>AQ20</mat-button-toggle>
-          <mat-button-toggle value="naxx" [checked]=true>NAXX</mat-button-toggle>
-          <mat-button-toggle value="aq40" [checked]=true>AQ40</mat-button-toggle>
-          <mat-button-toggle value="zg" [checked]=true>ZG</mat-button-toggle>
-          <mat-button-toggle value="k40" [checked]=true>K40</mat-button-toggle>
-          <mat-button-toggle value="k10" [checked]=true>K10</mat-button-toggle>
-          <mat-button-toggle value="dmf" [checked]=true>DMF</mat-button-toggle>
+          <!-- pipe buttonStates into a keyvalue list and loop through it (buttonStes => [{key: "ony", value: true},{},{}])  -->
+          <mat-button-toggle *ngFor="let item of this.toggleService.buttonStates | keyvalue" [value]="item.key"
+            [checked]="item.value">
+            {{item.key.toUpperCase()}}
+          </mat-button-toggle>
         </mat-button-toggle-group>
       </div>
     </mat-menu>

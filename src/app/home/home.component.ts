@@ -69,6 +69,9 @@ export class HomeComponent implements OnInit {
         this.themeModTip = "Dark Mode"
       }
     }// if none of the above then it should be light
+
+    // load toggle state from localstorage (if they exist)
+    this.toggleService.loadStateFromStorage()
   }
 
 
@@ -129,5 +132,7 @@ export class HomeComponent implements OnInit {
       this.toggleService.enableEvent(event.source.value)
     else
       this.toggleService.disableEvent(event.source.value)
+    // save to storage
+    this.toggleService.saveStateToStorage(event.source.value, event.source.checked)
   }
 }
