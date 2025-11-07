@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, TemplateRef, ViewChild } from '@angular/core';
 import { ServertimeComponent } from "../servertime/servertime.component";
 import { BossComponent } from "../boss/boss.component";
 import { EventComponent } from "../event/event.component";
@@ -14,6 +14,8 @@ import { MatTooltip } from "@angular/material/tooltip";
 import { AuthService } from "../core/auth.service";
 import { LoginStatusService } from "../core/login-status.service";
 import { EventToggleService } from '../core/event-toggle.service';
+import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+
 
 @Component({
   selector: 'app-home',
@@ -44,11 +46,15 @@ export class HomeComponent implements OnInit {
   router = inject(Router)
   // controlling Dark curtain style state: 1 = dark, 0 = light
   state = 0;
+  filterTip = "Filter events";
   configTip = "Settings";
   themeModTip = "Dark mode"
   gotoTip = "Jump to today"
   configClass = ""
+  // look for "buttonsheettemplate" element in html, this
+  @ViewChild('bottomSheetTemplate') bottomSheetTemplate!: TemplateRef<any>;
 
+  constructor(private bottomSheet: MatBottomSheet) { }
   ngOnInit() {
     // if no local storage theme var available, make it light and save it
     if (localStorage.getItem('theme') == null) {
@@ -69,12 +75,15 @@ export class HomeComponent implements OnInit {
         this.themeModTip = "Dark Mode"
       }
     }// if none of the above then it should be light
-
-    // load toggle state from localstorage (if they exist)
-    this.toggleService.loadStateFromStorage()
   }
-
-
+  openBottomSheet() {
+    // open a bottom sheet and pass the template into it
+    this.bottomSheet.open(this.bottomSheetTemplate, {
+      // config options
+      disableClose: false, // allow closing by swiping down (doesn't seems to work) or clicking background
+      ariaLabel: "Event filter" // for accicibilty
+    });
+  }
   toggleTheme() {
     // wait a while till the dark curtain finish its animation then apply dark mode changes
     // and only wait 100ms when the curtain is turning off
@@ -128,6 +137,9 @@ export class HomeComponent implements OnInit {
   onToggleChange(event: MatButtonToggleChange) {
     // console.log('toggled value ', event.source.value)
     console.log(event.source.value, ' is now ', event.source.checked)
+    // update button states, so when the bottom sheet get pop'd back up is shows updated button states
+    this.toggleService.buttonStates[event.source.value] = event.source.checked
+    // per button state change
     if (event.source.checked == true)
       this.toggleService.enableEvent(event.source.value)
     else

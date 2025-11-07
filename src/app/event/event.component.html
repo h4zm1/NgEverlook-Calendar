@@ -11,6 +11,9 @@
       event.aq20 ||
       event.dmf ||
       event.pvp ||
+      event.k10 ||
+      event.k40 ||
+      event.es ||
       event.madness
     ) {
       <div
@@ -46,6 +49,15 @@
           }
           @if (event.naxx) {
             Naxxramas<br />
+          }
+          @if (event.k40) {
+            Karazhan (40)<br />
+          }
+          @if (event.k10) {
+            Karazhan (20)<br />
+          }
+          @if (event.es) {
+            Emerald Sanctum<br />
           }
           @if (event.zg) {
             Zul'Gurub<br />

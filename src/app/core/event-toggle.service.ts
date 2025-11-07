@@ -15,14 +15,24 @@ export class EventToggleService {
   events = this.toggleSignals.asReadonly()
   OG_events: EVENT[] = []
 
-  // object to track toggle buttons states (in drop menu); to add new button just add new entry here
+  // object to track toggle buttons states (in bottom sheet); to add new button just add new entry here and in buttonOrder
   // needed type annotation cause without it there was some type errors
   buttonStates: { [key: string]: boolean } = {
     ony: true,
     aq20: true,
+    zg: true,
+    mc: true,
     bwl: true,
-    mc: true
+    naxx: true,
+    k40: true,
+    es: true,
+    dmf: true,
+    aq40: true,
+    k10: true,
+    mad: true // madness
   }
+  // this to force an order into the displayed button toggle group, since using only the obove object with a pip wasn't doing it
+  buttonOrder = [{ k: 'aq20', n: "Ruins of Ahn'Qiraj" }, { k: 'ony', n: "Onyxia" }, { k: 'zg', n: "Zul'Gurub" }, { k: 'es', n: "Onyxia" }, { k: 'mc', n: "Molten Core" }, { k: 'bwl', n: "Blackwing Lair" }, { k: 'aq40', n: "Temple of Ahn'Qiraj" }, { k: 'naxx', n: "Naxxramas" }, { k: 'k40', n: "Tower of Karazhan" }, { k: 'k10', n: "Lower Karazhan Halls" }, { k: 'dmf', n: "Darkmoon Fair" }, { k: 'madness', n: "Edge of Madness" }];
   setEvents(events: EVENT[]) {
     this.toggleSignals.set(events);
     this.OG_events = [...events];
@@ -35,7 +45,7 @@ export class EventToggleService {
       events.map(event => { // .map will go through every event, modify them and return new list wit all changed events
 
         // getting the same event from og_events (untouched event list)
-        const ogEvent = this.OG_events.find(og => og.id === event.id);
+        const ogEvent = this.OG_events.find(og => og.id === event.id)!;
         // (event as any)[e] = ogEvent[e]
         // return event
 
@@ -43,13 +53,14 @@ export class EventToggleService {
         // or else i could'v made it like this:    events.map(event => ({ ...event, [e]: this.OG_events...etc })) which is less clearer
         return { // so this's object spreading, direct modification (with type assertion) is commented up, both works the same
           ...event, // this will copy ALL preperties
-          [e]: ogEvent // this will override the [e] property only
+          [e]: ogEvent[e] // this will override the [e] property only
         }
       })
     );
   }
 
   disableEvent(e: keyof EVENT) {
+    console.log("diabled event", e)
     this.toggleSignals.update(events =>
       events.map(event => ({ // opening paranthesis here since we'r not doing explicit return, cause there only one statement
         ...event, // spread the object
@@ -102,10 +113,12 @@ export class EventToggleService {
       // then loop over each property
       Object.entries(states).forEach(([property, enabled]) => {
         if (enabled) {
+          console.log("inside enabled")
           this.enableEvent(property as keyof EVENT)
           this.buttonStates[property] = enabled as boolean
         }
         else {
+          console.log("inside disabled")
           this.disableEvent(property as keyof EVENT)
           this.buttonStates[property] = enabled as boolean
         }

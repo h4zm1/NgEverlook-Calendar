@@ -17,6 +17,7 @@ import { MatTooltip } from "@angular/material/tooltip";
 import { LoginStatusService } from "../core/login-status.service";
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ConfigValue, createEmptyConfig } from './config-value.interface';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 
 @Component({
   selector: 'app-config',

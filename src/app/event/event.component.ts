@@ -20,8 +20,8 @@ import { EventToggleService } from '../core/event-toggle.service';
 })
 export class EventComponent implements OnInit {
   // events: EVENT[] | undefined;
-  eventToggleService = inject(EventToggleService)
-  events = this.eventToggleService.events;
+  toggleService = inject(EventToggleService)
+  events = this.toggleService.events;
   pre_events: EVENT[] | undefined;
 
   constructor(private eventService: EventService) {
@@ -46,8 +46,11 @@ export class EventComponent implements OnInit {
         }
       }
       // this.events = this.pre_events;
-      this.eventToggleService.setEvents(this.pre_events)
-      this.events = this.eventToggleService.events
+      this.toggleService.setEvents(this.pre_events)
+      this.events = this.toggleService.events
     }
+    // load toggle state from localstorage (if they exist)
+    // this had to be put here cause in oninit it wasn't triggering (on time)
+    this.toggleService.loadStateFromStorage()
   }
 }

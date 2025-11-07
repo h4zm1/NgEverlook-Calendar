@@ -59,7 +59,7 @@ a.linkButton {
 
 .button-container {
   display: flex;
-  position: absolute;
+  position: fixed;
   //right: 0;
   top: 0;
   gap: 10px;
@@ -126,6 +126,7 @@ a.linkButton {
 }
 
 .mat-button-toggle-group {
+  display: flex;
   border: unset;
   border-radius: unset;
   flex-direction: column;

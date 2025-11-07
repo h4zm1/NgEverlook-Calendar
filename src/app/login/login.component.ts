@@ -1,23 +1,23 @@
-import {Component, ElementRef, inject, OnInit} from "@angular/core";
-import {FormsModule} from "@angular/forms";
-import {MatButtonModule} from "@angular/material/button";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatIconModule} from "@angular/material/icon";
-import {CommonModule} from "@angular/common";
-import {ThemeService} from "../core/theme.service";
-import {Router, RouterLink} from "@angular/router";
-import {AuthService, UserInfo} from "../core/auth.service";
-import {routes} from "../core/app.routes";
-import {LoggerService} from "../core/logger.service";
-import {LoginStatusService} from "../core/login-status.service";
+import { Component, ElementRef, inject, OnInit } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { MatIconModule } from "@angular/material/icon";
+import { CommonModule } from "@angular/common";
+import { ThemeService } from "../core/theme.service";
+import { Router, RouterLink } from "@angular/router";
+import { AuthService, UserInfo } from "../core/auth.service";
+import { routes } from "../core/app.routes";
+import { LoggerService } from "../core/logger.service";
+import { LoginStatusService } from "../core/login-status.service";
 
 @Component({
-    selector: "app-login",
-    imports: [FormsModule, MatInputModule, MatFormFieldModule,
-        MatButtonModule, MatIconModule, CommonModule, RouterLink],
-    templateUrl: "./login.component.html",
-    styleUrl: "./login.component.scss"
+  selector: "app-login",
+  imports: [FormsModule, MatInputModule, MatFormFieldModule,
+    MatButtonModule, MatIconModule, CommonModule, RouterLink],
+  templateUrl: "./login.component.html",
+  styleUrl: "./login.component.scss"
 })
 export class LoginComponent implements OnInit {
   logger: LoggerService = inject(LoggerService);
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   signBtnText = "Log In"
   accessRequest = false
   passwordInputText = "Password";
-  credentials = {email: "", password: ""};
+  credentials = { email: "", password: "" };
   authService = inject(AuthService);
   router: Router = inject(Router);
   correct = "";
@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
   // switching between sign in or sign up ui/events
   signInOrUp() {
     this.isJoining = !this.isJoining
-    this.signLinkText = this.isJoining ? "Already have account? Sign in" : "Sign up"
+    this.signLinkText = this.isJoining ? "Already have account? Sign in" : "Need access?"
     this.signBtnText = this.isJoining ? "Request Access" : "Log in"
     this.passwordInputText = this.isJoining ? "Secured password" : "Password"
     this.logger.log("test")
@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-// no need to force an auto login here in case an account switch is needed
+    // no need to force an auto login here in case an account switch is needed
     // if no local storage theme var available, make it light and save it
     if (localStorage.getItem("theme") == null) {
       this.themeService.setTheme("light")
@@ -130,7 +130,9 @@ export class LoginComponent implements OnInit {
 
 
   passwordFocused() {
-    this.isPasswordFocused = true
+    // only shows password helped when demanding access
+    if (this.isJoining)
+      this.isPasswordFocused = true
     this.logger.log("focus called")
   }
 

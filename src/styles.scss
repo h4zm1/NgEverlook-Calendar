@@ -135,6 +135,12 @@ html,
 body {
   height: 100%;
   margin: 0;
+  min-width: 31rem;
+}
+
+html.cdk-global-scrollblock {
+  position: initial !important;
+  overflow: hidden !important;
 }
 
 // Dark theme variables
@@ -339,10 +345,47 @@ $dark-text-color: #181818;
     border-radius: 1rem;
   }
 
-  .mat-button-toggle-appearance-standard.mat-button-toggle-checked {
-    color: white !important;
-    background-color: unset !important;
+  .mat-bottom-sheet-container {
+    background-color: unset;
+    backdrop-filter: blur(27px) !important;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
   }
+
+  .sheet-header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mat-button-toggle-appearance-standard.mat-button-toggle-checked {
+    color: #e4e4e4 !important;
+    background-color: unset !important;
+    font-size: large;
+  }
+
+  .mat-button-toggle-label-content {
+    display: flex;
+    // justify-content: space-between;
+    padding: unset !important;
+  }
+
+  .btn-name {
+    margin: auto;
+    padding-left: 2.5rem;
+  }
+
+  .btn-key {
+    font-size: small;
+    color: #cdcdcd8f;
+  }
+
+  h3 {
+    color: #ababab;
+    align-self: center;
+    font-size: x-large;
+    padding-left: 0.3rem;
+  }
+
 
   // need to unset the bg color cause cdk overlay container will auto pick up dark mode bg color (firs line at top here)
   // to be it's own bg color which result in the whole screen getting covered up
@@ -479,7 +522,9 @@ $dark-text-color: #181818;
   .mat-button-toggle {
     border-left: unset !important;
     font-weight: bold !important;
-    color: darkgray !important;
+    color: #6a6a6a !important;
+    --mat-button-toggle-hover-state-layer-opacity: 0;
+    --mat-ripple-color: #75757521;
   }
 
   .mat-mdc-menu-panel {
@@ -489,8 +534,46 @@ $dark-text-color: #181818;
     border-radius: 1rem;
   }
 
-  .mat-button-toggle-appearance-standard.mat-button-toggle-checked {
-    color: black !important;
-    background-color: unset !important;
+  .mat-bottom-sheet-container {
+    background-color: unset;
+    backdrop-filter: blur(12px) !important;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
   }
+
+  .sheet-header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mat-button-toggle-appearance-standard.mat-button-toggle-checked {
+    color: #323232 !important;
+    background-color: unset !important;
+    font-size: large;
+    --mat-button-toggle-hover-state-layer-opacity: 0;
+    --mat-ripple-color: #75757521;
+  }
+
+  .mat-button-toggle-label-content {
+    display: flex;
+    padding: unset !important;
+  }
+
+  .btn-name {
+    margin: auto;
+    padding-left: 2.5rem;
+  }
+
+  .btn-key {
+    font-size: small;
+    color: #2020208f;
+  }
+
+  h3 {
+    color: #4b4b4b;
+    align-self: center;
+    font-size: x-large;
+    padding-left: 0.3rem;
+  }
+
 }
