@@ -32,7 +32,8 @@ export class EventToggleService {
     mad: true // madness
   }
   // this to force an order into the displayed button toggle group, since using only the obove object with a pip wasn't doing it
-  buttonOrder = [{ k: 'aq20', n: "Ruins of Ahn'Qiraj" }, { k: 'ony', n: "Onyxia" }, { k: 'zg', n: "Zul'Gurub" }, { k: 'es', n: "Onyxia" }, { k: 'mc', n: "Molten Core" }, { k: 'bwl', n: "Blackwing Lair" }, { k: 'aq40', n: "Temple of Ahn'Qiraj" }, { k: 'naxx', n: "Naxxramas" }, { k: 'k40', n: "Tower of Karazhan" }, { k: 'k10', n: "Lower Karazhan Halls" }, { k: 'dmf', n: "Darkmoon Fair" }, { k: 'madness', n: "Edge of Madness" }];
+  buttonOrder = [{ k: 'aq20', n: "Ruins of Ahn'Qiraj" }, { k: 'ony', n: "Onyxia" }, { k: 'zg', n: "Zul'Gurub" }, { k: 'es', n: "Emerald Sanctum" }, { k: 'mc', n: "Molten Core" }, { k: 'bwl', n: "Blackwing Lair" }, { k: 'aq40', n: "Temple of Ahn'Qiraj" }, { k: 'naxx', n: "Naxxramas" }, { k: 'k40', n: "Tower of Karazhan" }, { k: 'k10', n: "Lower Karazhan Halls" }, { k: 'dmf', n: "Darkmoon Fair" }, { k: 'madness', n: "Edge of Madness" }];
+
   setEvents(events: EVENT[]) {
     this.toggleSignals.set(events);
     this.OG_events = [...events];

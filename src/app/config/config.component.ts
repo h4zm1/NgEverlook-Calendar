@@ -1,10 +1,15 @@
-import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { ConfigService } from "./config.service";
 import { EventBusService } from "../core/EventBus.service";
 import { AuthService } from "../core/auth.service";
 import { LoggerService } from "../core/logger.service";
 import { FormsModule } from "@angular/forms";
 import { MatTimepickerModule } from '@angular/material/timepicker';
+import {
+  MatDatepickerInput,
+  MatDatepickerToggle,
+  MatDatepickerModule
+} from "@angular/material/datepicker";
 import { MatFormFieldModule, MatHint, MatLabel } from "@angular/material/form-field";
 import { ThemeService } from "../core/theme.service";
 import { CommonModule } from '@angular/common';
@@ -17,12 +22,11 @@ import { MatTooltip } from "@angular/material/tooltip";
 import { LoginStatusService } from "../core/login-status.service";
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ConfigValue, createEmptyConfig } from './config-value.interface';
-import { trigger, transition, style, animate, state } from '@angular/animations';
 
 @Component({
   selector: 'app-config',
-  imports: [FormsModule, MatTooltip, MatButtonToggleModule,
-    MatFormFieldModule, MatNativeDateModule, MatTimepickerModule, MatInputModule,
+  imports: [FormsModule, MatTooltip, MatButtonToggleModule, MatDatepickerInput, MatDatepickerToggle, MatDatepickerInput,
+    MatFormFieldModule, MatNativeDateModule, MatTimepickerModule, MatInputModule, MatDatepickerModule,
     MatHint, MatLabel, CommonModule, MatInput, MatButton, MatIcon, MatIconButton, RouterLink],
   templateUrl: './config.component.html',
   styleUrl: './config.component.scss',
@@ -58,6 +62,8 @@ export class ConfigComponent implements OnInit {
 
   //tracking selected value for each group
   selectedValues: ConfigValue = createEmptyConfig()
+  // will hold og config values
+  ogConfigValues: ConfigValue = createEmptyConfig()
 
   constructor(private activatedRoute: ActivatedRoute) {
     this.email = this.activatedRoute.snapshot.paramMap.get("email")!
@@ -84,7 +90,9 @@ export class ConfigComponent implements OnInit {
       if (localStorage.getItem("theme") == "dark") {
         this.themeService.setTheme("dark")
       }
-    }// if none of the above then it should be light
+      else
+        this.themeService.setTheme("light")
+    }
   }
   ngAfterViewInit() {
 
@@ -96,27 +104,17 @@ export class ConfigComponent implements OnInit {
     else
       return ""
   }
-
   save() {
     console.log('Selected days:', this.selectedValues);
-    // since the mat-timepicker need to be fed a Date value to be able to display time (apprently)
-    // and since we need to have only the time in the database,
-    // this result in converting back and forth between full Date value and time only value
-    // when time get picked from ui it get converted and saved as a time (03:00 AM)
-    // on save (here) normally we'd just take the saved value and sand it to back
-    // but on load we need to have the input show the saved value so we need to convert that value to full date
-    // the problem arise when we try to save without touching the input while it already have a value
-    // now save (here) will pick up the full date format and not the time only
-    // so need to invoke the convert to time method while considering both cases; 1: full date from load and 2: time only
-    var date: any
-    if (this.selectedValues.resetTime.toString().includes('Jan'))
-      date = new Date(Date.parse(this.selectedValues.resetTime));
-    else
-      date = new Date(Date.parse("1/1/2000 " + this.selectedValues.resetTime));
+
     const roles = localStorage.getItem("roles");
-    this.getTime12Hour(date)
+    // convert time to short format for DB
+    this.setTime12Hour()
+    console.log("SELECTED VALUES:", this.selectedValues)
     if (roles && roles.includes("ADMIN")) {
       // this.logger.log("saving " + this.date)
+
+
       this.configService.updateConfig(this.selectedValues).subscribe({
         next: data => {
           this.logger.log("server:: " + data);
@@ -126,54 +124,78 @@ export class ConfigComponent implements OnInit {
         }
       })
     }
-    this.convertStringToDate(this.selectedValues.resetTime)
+    // set time value back to full date format
+    this.convertStringToDate()
+    // update og values
+    this.ogConfigValues = { ...this.selectedValues }
   }
   // get 12 hour format from the time input field cause apparently it returns a long date format e.g.; 2000-01-01T03:30:00.000Z
-  getTime12Hour(date: Date) {
-    if (!date) this.selectedValues.resetTime = '';
-    else
-      this.selectedValues.resetTime = date.toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true
-      });
+  setTime12Hour() {
+    var Rdate: Date
+    Rdate = new Date(Date.parse(this.selectedValues.resetTime));
+    this.selectedValues.resetTime = Rdate.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    });
   }
 
-  convertStringToDate(value: String) {
-    const timestamp = Date.parse("1/1/2000 " + value);
-    const date = new Date(timestamp)
-    this.selectedValues.resetTime = date as any
+  convertStringToDate() {
+    // prepend 1/1/2000 to make it the time (string) from db parseable
+    // ex: "3:30 PM" => "1/1/2000 3:30 PM" => Date object
+    const Rtimestamp = Date.parse("1/1/2000 " + this.selectedValues.resetTime);
+    this.selectedValues.resetTime = new Date(Rtimestamp) as any
+    const startDate = Date.parse(this.selectedValues.startDate)
+    this.selectedValues.startDate = new Date(startDate) as any
   }
 
   loadConfig() {
     this.configService.getConfig().subscribe({
       next: (config) => {
-        console.log("loaded configs:", config);
-        this.selectedValues = config;
+        this.selectedValues = { ...config };
         // mat-timepicker expecting a Date object so need to convert the string to Date
-        this.convertStringToDate(this.selectedValues.resetTime)
+        this.convertStringToDate()
+        this.ogConfigValues = { ...this.selectedValues }
+        this.createChangeDetectionProxy()
       },
       error: (error) => {
         console.error("error loading configs: ", error);
       }
     });
   }
-
-  inputChange(event: any, type: String) {
-    this.date = event.value?.toString()!!
-    if (event instanceof Date) {
-      this.logger.log("event type" + type)
-      const year = event.getFullYear();
-      const month = (event.getMonth() + 1).toString().padStart(2, '0');
-      const day = event.getDate().toString().padStart(2, '0');
-      this.date = year + "-" + month + "-" + day
-      this.logger.log(this.date)
-    } else if (type === 'dmf location') {
-      this.logger.log("event type" + type)
-    }
-    this.savable = !!event.value;
+  // create a handler that define what happen when a property change (intercept changes)
+  createChangeDetectionProxy() {
+    const handler = {
+      set: (target: any, property: any, value: any) => {
+        console.log(`Property ${property} changed from ${target[property]} to ${value}`);
+        // target = this will be selectedValues
+        // property = this will be resetTime, m40, ony..
+        // value = this's the new value being set
+        target[property] = value; // update property
+        this.detectChanges(); //run change detection
+        return true;
+      }
+    };
+    // wrape object with a proxy
+    this.selectedValues = new Proxy(this.selectedValues, handler);
   }
 
+  detectChanges() {
+    // savable = true when both objects are different
+    this.savable = JSON.stringify(this.selectedValues) !== JSON.stringify(this.ogConfigValues)
+    // console.log("reset ", this.selectedValues.resetTime, "OG reset ", this.ogConfigValues.resetTime, " savable:: ", this.savable)
+  }
+  isFieldChanged(value: keyof ConfigValue): boolean {
+    // apparently the initial date parse am doing at lead is adding an extra hour to the date
+    // and dates from picker don't have that extra hour, so here we needed to compared only date values (.toSateString())
+    if (value === "startDate") {
+      const og = new Date(this.ogConfigValues.startDate)
+      const current = new Date(this.selectedValues.startDate)
+      return og.toDateString() !== current.toDateString();
+    }
+    // .toString is needed or else the comparison won't work right
+    return this.selectedValues[value]?.toString() !== this.ogConfigValues[value]?.toString()
+  }
   logout(): void {
     this.authService.logout().subscribe({
       next: response => {

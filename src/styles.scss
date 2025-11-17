@@ -110,7 +110,14 @@ $light-theme: mat.define-theme((color: (theme-type: light,
       ),
       density: (scale: 0,
       )));
-
+$dark-theme: mat.define-theme((color: (theme-type: dark,
+        // predefined palettes from material website (top right theme option)
+        // primary: mat.$magenta-palette,
+        // tertiary: mat.$violet-palette,
+        primary: $fkn-m3-mono,
+        tertiary: $fkn-m3-mono,
+      ),
+    ));
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -158,6 +165,7 @@ $dark-text-color: #181818;
 ////////////////////////////////////
 
 .dark {
+  @include mat.all-component-themes($dark-theme);
   //@include mat.all-component-colors($dark-theme);
   //
   background-color: $semi-dark-bg-color;
@@ -332,6 +340,13 @@ $dark-text-color: #181818;
     --mat-pseudo-checkbox-minimal-selected-checkmark-color: white;
   }
 
+  // toggle buttons hover hightlight
+  .mat-button-toggle:hover {
+    color: lightgrey !important;
+    --mat-button-toggle-hover-state-layer-opacity: 0;
+  }
+
+
   .mat-button-toggle {
     border-left: unset !important;
     font-weight: bold !important;
@@ -347,7 +362,7 @@ $dark-text-color: #181818;
 
   .mat-bottom-sheet-container {
     background-color: unset;
-    backdrop-filter: blur(27px) !important;
+    backdrop-filter: blur(9px) !important;
     border-top-left-radius: 2rem;
     border-top-right-radius: 2rem;
   }
@@ -386,6 +401,37 @@ $dark-text-color: #181818;
     padding-left: 0.3rem;
   }
 
+  // time picker drop down menu
+  .mat-timepicker-panel {
+    background-color: #2d2d2d00;
+    backdrop-filter: blur(12px) !important;
+    scrollbar-width: none;
+  }
+
+  // text color of time picker drop down options
+  .mat-mdc-option {
+    color: white;
+  }
+
+  // current selected option in time picker drop down menu
+  .mat-mdc-option-active {
+    background-color: #9d9d9d59 !important;
+
+    .mdc-list-item__primary-text {
+      color: #ffffff !important;
+    }
+  }
+
+  // check mark for the selected option in time picker drop down menu
+  .mat-mdc-option .mat-pseudo-checkbox {
+    --mat-pseudo-checkbox-minimal-selected-checkmark-color: #ffffff;
+  }
+
+  // date picker bg
+  .mat-datepicker-content {
+    background-color: #4141412b;
+    backdrop-filter: blur(12px) !important;
+  }
 
   // need to unset the bg color cause cdk overlay container will auto pick up dark mode bg color (firs line at top here)
   // to be it's own bg color which result in the whole screen getting covered up
@@ -505,6 +551,7 @@ $dark-text-color: #181818;
 
   .loginBtn,
   .saveBtn {
+    color: black !important;
     background-color: #f1f1f1ba;
   }
 
@@ -561,12 +608,14 @@ $dark-text-color: #181818;
 
   .btn-name {
     margin: auto;
-    padding-left: 2.5rem;
+    // padding-left: 2.5rem;
   }
 
   .btn-key {
     font-size: small;
     color: #2020208f;
+    position: fixed;
+    right: 0;
   }
 
   h3 {
@@ -575,5 +624,43 @@ $dark-text-color: #181818;
     font-size: x-large;
     padding-left: 0.3rem;
   }
+
+  .mat-button-toggle-button {
+    padding-inline: 6px;
+  }
+
+  // time picker drop down menu
+  .mat-timepicker-panel {
+    background-color: #2d2d2d40;
+    backdrop-filter: blur(8px) !important;
+    scrollbar-width: none;
+  }
+
+  // text color of time picker drop down options
+  .mat-mdc-option {
+    color: #000000bf;
+  }
+
+  // current selected option in time picker drop down menu
+  .mat-mdc-option-active {
+    background-color: #3939398f !important;
+
+    .mdc-list-item__primary-text {
+      color: #ffffff !important;
+    }
+  }
+
+  // check mark for the selected option in time picker drop down menu
+  .mat-mdc-option .mat-pseudo-checkbox {
+    --mat-pseudo-checkbox-minimal-selected-checkmark-color: #ffffff;
+  }
+
+  // date picker bg
+  .mat-datepicker-content {
+    background-color: #4141412b;
+    backdrop-filter: blur(12px) !important;
+  }
+
+
 
 }

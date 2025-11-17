@@ -10,6 +10,7 @@ export interface ConfigValue {
   madnessBoss: string;
   madnessWeek: string;
   resetTime: string;
+  startDate: string;
 }
 export const createEmptyConfig = (): ConfigValue => ({
   resetTime: '',
@@ -21,5 +22,6 @@ export const createEmptyConfig = (): ConfigValue => ({
   dmfLocation: '',
   madnessStart: '',
   madnessBoss: '',
-  madnessWeek: ''
+  madnessWeek: '',
+  startDate: ''
 });

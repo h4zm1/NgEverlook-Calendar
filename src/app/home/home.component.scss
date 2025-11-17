@@ -30,7 +30,7 @@ a.linkButton {
 }
 
 .topText {
-  margin-top: 10px;
+  margin-top: 4rem;
   text-align: center;
 }
 
@@ -66,6 +66,9 @@ a.linkButton {
   justify-content: end;
   margin: 0;
   padding: 10px 20px 0 0;
+  z-index: 3;
+  background-color: #4e4e4e00;
+  backdrop-filter: blur(1.5px);
 }
 
 .home {
