@@ -18,6 +18,7 @@ form {
 
 
 ::ng-deep {
+
   // remove underline
   .mat-mdc-form-field {
     .mdc-line-ripple {
@@ -77,6 +78,10 @@ input[type=password]::-ms-clear {
   scale: 1.1;
   //background-color: rgb(241 241 241 / 3%);
   //width: 50%;
+}
+
+.loginBtn:disabled {
+  color: gray !important
 }
 
 .otherLinks {
@@ -163,6 +168,10 @@ input[type=password]::-ms-clear {
   transition: background-color 0.3s;
 }
 
+.strikethrough {
+  text-decoration: line-through;
+}
+
 // container that holds the 4 bars inside the popover
 .lvlContainer {
   display: flex;
@@ -203,29 +212,44 @@ input[type=password]::-ms-clear {
 
 
 @media (max-width: 840px) {
-  .loginHolder.active{
+  .loginHolder.active {
     top: 212px;
   }
-  .otherLinks.active{
-    top:230px
+
+  .otherLinks.active {
+    top: 230px
   }
+
   .popover {
     top: 100%;
     left: 0;
     margin-top: 10px;
     box-shadow: unset;
   }
-  .popoverTextWrapper{
+
+  .popoverTextWrapper {
     padding-left: 5px;
   }
-  .lvlContainer{
+
+  .lvlContainer {
     visibility: hidden;
   }
 
-  .popover:after{
+  .popover:after {
     visibility: hidden;
   }
-  .closePopoverContainer{
+
+  .closePopoverContainer {
     visibility: hidden;
   }
+}
+
+.accessNotif {
+  color: #000000;
+  font-size: medium;
+  inline-size: max-content;
+  align-self: center;
+  background-color: yellow;
+  position: absolute;
+  top: -5rem;
 }

@@ -438,6 +438,21 @@ $dark-text-color: #181818;
   .cdk-overlay-container {
     background-color: unset;
   }
+
+  // user cards in config page (for admin)
+  .user {
+    border: #5e5e5e61 1px solid;
+    box-shadow: 4px 5px 10px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  .user-role-header {
+    box-shadow: 4px 5px 10px 0 rgb(0 0 0 / 16%);
+  }
+
+  // role buttons inside user cards
+  .btn-role {
+    color: white !important;
+  }
 }
 
 
@@ -583,7 +598,7 @@ $dark-text-color: #181818;
 
   .mat-bottom-sheet-container {
     background-color: unset;
-    backdrop-filter: blur(12px) !important;
+    backdrop-filter: blur(9px) !important;
     border-top-left-radius: 2rem;
     border-top-right-radius: 2rem;
   }
@@ -661,6 +676,20 @@ $dark-text-color: #181818;
     backdrop-filter: blur(12px) !important;
   }
 
+  // user cards in config page (for admin)
+  .user {
+    box-shadow: 5px 10px 20px 0 rgb(146 146 146 / 11%);
+    border: #5e5e5e61 1px solid;
+  }
+
+  .user-role-header {
+    box-shadow: 5px 10px 20px 0 #92929247;
+  }
+
+  // role buttons inside user cards
+  .btn-role {
+    color: #2b2b2b !important;
+  }
 
 
 }

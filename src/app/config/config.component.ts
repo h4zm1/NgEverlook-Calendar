@@ -20,8 +20,9 @@ import { MatIcon } from "@angular/material/icon";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { MatTooltip } from "@angular/material/tooltip";
 import { LoginStatusService } from "../core/login-status.service";
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatButtonToggleChange, MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ConfigValue, createEmptyConfig } from './config-value.interface';
+import { userToVet } from './config.service';
 
 @Component({
   selector: 'app-config',
@@ -48,7 +49,7 @@ export class ConfigComponent implements OnInit {
   readonly minDate = new Date(2023, 11, 1);
   email: string = ""
   protected readonly localStorage = localStorage;
-
+  usersToVet: userToVet[] = []
   //days table for toggle groups
   daysOfWeek = [
     { value: 'Su', label: 'Su' },
@@ -93,6 +94,15 @@ export class ConfigComponent implements OnInit {
       else
         this.themeService.setTheme("light")
     }
+
+    this.configService.getUsers().subscribe({
+      next: (users: userToVet[]) => {
+        this.usersToVet = users.map(user => ({
+          ...user,
+          role: user.role.replace('ROLE_', '')
+        }))
+      }
+    })
   }
   ngAfterViewInit() {
 
@@ -104,6 +114,21 @@ export class ConfigComponent implements OnInit {
     else
       return ""
   }
+
+  roleChanged(event: MatButtonToggleChange, email: string, id: number) {
+    const role: string = "ROLE_" + event.value
+    console.log("change roll for ", id, " to ", role, " with this email ", email)
+    var userVetted: userToVet = { id: id, role: role, email: email }
+    this.configService.setRole(userVetted).subscribe({
+      next: data => {
+        this.logger.log("role change server::" + data)
+      },
+      error: err => {
+        this.logger.log("role change error" + err.error.message)
+      }
+    })
+  }
+
   save() {
     console.log('Selected days:', this.selectedValues);
 

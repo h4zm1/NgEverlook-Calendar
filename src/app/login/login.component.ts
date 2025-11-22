@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   loginStatus: LoginStatusService = inject(LoginStatusService)
   hide = true
   isJoining = false
-  signLinkText = "Sign up"
+  signLinkText = "Need access?"
   signBtnText = "Log In"
   accessRequest = false
   passwordInputText = "Password";
@@ -36,37 +36,70 @@ export class LoginComponent implements OnInit {
   isPasswordFocused = false
   lvlColors = ["lightgray", "lightgray", "lightgray", "lightgray"]
   popoverMessage = "Must have at least 6 characters."
-
+  validPwd = false
+  validMail = false
+  upperLowerCaseCheck = false
+  symbolCheck = false
+  numberCheck = false
+  showNotif = false
   constructor(private el: ElementRef) {
   }
 
   checkPasswordInput() {
     this.credentials.password = this.credentials.password.trim();
+    this.validPwd = false;
 
-    // this for the bars highlights inside the popover (basic)
-    length = this.credentials.password.length;
+    // check all conditions
+    const length = this.credentials.password.length;
+    this.upperLowerCaseCheck = /[A-Z]/.test(this.credentials.password);
+    this.numberCheck = /[0-9]/.test(this.credentials.password);
+    this.symbolCheck = /[^a-zA-Z0-9]/.test(this.credentials.password);
+
+    // this will return how many conditions all true
+    const specialConditions = [
+      this.upperLowerCaseCheck,
+      this.numberCheck,
+      this.symbolCheck
+    ].filter(Boolean).length;
+
     if (length < 6) {
-      this.popoverMessage = "Must have at least 6 \ncharacters."
-      this.lvlColors = ['lightgray', 'lightgray', 'lightgray', 'lightgray']
-    } else if (6 <= length && length < 9) {
-      this.popoverMessage = "Weak Password"
-    } else if (9 <= length && length < 11) {
-      this.popoverMessage = "Weak Password"
-      this.lvlColors = ['#ff5900', 'lightgray', 'lightgray', 'lightgray']
-    } else if (11 <= length && length < 14) {
-      this.popoverMessage = "Average Password"
-      this.lvlColors = ['#ffb807', '#ffb807', '#lightgray', 'lightgray']
-    } else if (14 <= length && length < 16) {
-      this.popoverMessage = "Good Password"
-      this.lvlColors = ['#00d25a', '#00d25a', '#00d25a', 'lightgray']
-    } else {
-      this.popoverMessage = "Strong Password"
-      this.lvlColors = ['#00a87e', '#00a87e', '#00a87e', '#00a87e']
+      this.popoverMessage = "Must have at least 6 characters.";
+      this.lvlColors = ['lightgray', 'lightgray', 'lightgray', 'lightgray'];
+      this.validPwd = false;
+    }
+    else if (length >= 6 && specialConditions === 0) {
+      // only length condition is met
+      this.popoverMessage = "Weak Password";
+      this.lvlColors = ['#ff5900', 'lightgray', 'lightgray', 'lightgray'];
+      this.validPwd = true;
+    }
+    else if (specialConditions === 1) {
+      // only one of the special conditions is met
+      this.popoverMessage = "Average Password";
+      this.lvlColors = ['#ffb807', '#ffb807', 'lightgray', 'lightgray'];
+      this.validPwd = true;
+    }
+    else if (specialConditions == 2) {
+      // only 2 specials are mets
+      this.popoverMessage = "Good Password";
+      this.lvlColors = ['#00d25a', '#00d25a', '#00d25a', 'lightgray'];
+      this.validPwd = true;
+    }
+    else if (this.symbolCheck) {
+      // all conditions are met
+      this.popoverMessage = "Strong Password";
+      this.lvlColors = ['#00a87e', '#00a87e', '#00a87e', '#00a87e'];
+      this.validPwd = true;
     }
   }
-
+  checkMailInput(input: HTMLInputElement) {
+    console.log("valid mail? ", input.validity.valid)
+    this.validMail = input.validity.valid
+  }
   // switching between sign in or sign up ui/events
   signInOrUp() {
+    // unfocus any selected element (needed for uncofusing password after hitting enter on registering)
+    (document.activeElement as HTMLElement)?.blur();
     this.isJoining = !this.isJoining
     this.signLinkText = this.isJoining ? "Already have account? Sign in" : "Need access?"
     this.signBtnText = this.isJoining ? "Request Access" : "Log in"
@@ -75,6 +108,10 @@ export class LoginComponent implements OnInit {
     // resetting input fields
     this.credentials.email = ""
     this.credentials.password = ""
+    this.validMail = false
+    this.validPwd = false
+    // make sure the pop is updated to an empty field
+    this.checkPasswordInput()
   }
 
   ngOnInit() {
@@ -97,9 +134,17 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    const email = this.credentials.email
+    const password = this.credentials.password
     this.logger.log(this.credentials.email, this.credentials.password);
-    if (this.isJoining) // register
-      this.authService.register(this.credentials.email, this.credentials.password)
+    this.showNotif = true
+    setTimeout(() => {
+      this.showNotif = false
+    }, 8000)
+
+    if (this.isJoining) {// register
+      this.signInOrUp()
+      this.authService.register(email, password)
         .subscribe({
           next: (data) => {
             this.logger.log("reg ***** " + data.toString());
@@ -110,7 +155,7 @@ export class LoginComponent implements OnInit {
             this.logger.log(err.error.message)
           }
         })
-    else // login
+    } else // login
       this.authService.login(this.credentials.email, this.credentials.password)
         .subscribe({
           next: data => {
