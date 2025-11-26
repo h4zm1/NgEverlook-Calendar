@@ -1,4 +1,4 @@
-import {inject} from "@angular/core";
+import { inject } from "@angular/core";
 import {
   HttpErrorResponse,
   HttpEvent,
@@ -6,10 +6,10 @@ import {
   HttpInterceptorFn,
   HttpRequest
 } from "@angular/common/http";
-import {BehaviorSubject, catchError, filter, Observable, switchMap, take, throwError} from "rxjs";
-import {AuthService} from "./auth.service";
-import {EventBusService, EventData} from "./EventBus.service";
-import {LoggerService} from "./logger.service";
+import { BehaviorSubject, catchError, filter, Observable, switchMap, take, throwError } from "rxjs";
+import { AuthService } from "./auth.service";
+import { EventBusService, EventData } from "./EventBus.service";
+import { LoggerService } from "./logger.service";
 
 export const requestInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
@@ -20,19 +20,23 @@ export const requestInterceptor: HttpInterceptorFn = (
   const eventBusService = inject(EventBusService);
   let refreshTokenSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   let logger = inject(LoggerService);
+  const excludedEndpoints = [
+    'getUsers',
+    'auth/signin'
+  ]
 
-  req = req.clone({ // add withCredentials property to every request
+  req = req.clone({ // add withCredentials property to every request (send cookies with every request)
     withCredentials: true
   });
 
   logger.log("INTERCEPTOR")
   return next(req).pipe(
     catchError((error) => {
+      const shouldSkip = excludedEndpoints.some(endpoint => req.url.includes(endpoint))
       if ( // handling expired access token when sending a request, conditions that necessitate a refresh:
         error instanceof HttpErrorResponse &&
-        !req.url.includes('auth/signin') &&
-        // !req.url.includes('auth/status') &&
-        error.status === 403 // server will manually send 403 error, as specified in it
+        !shouldSkip &&
+        error.status === 403 // server will manually send 403 error, as specified in it, this should mean token expired
       ) {
         logger.log('Caught 403 error, attempting to refresh token');
         return handle403Error(req, next);
@@ -42,6 +46,7 @@ export const requestInterceptor: HttpInterceptorFn = (
   );
 
   function handle403Error(request: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
+    // prevent multiple refresh attempts
     if (!isRefreshing) {
       isRefreshing = true;
       refreshTokenSubject.next(false);
@@ -51,12 +56,13 @@ export const requestInterceptor: HttpInterceptorFn = (
         switchMap((response: string) => { // successful response from refreshtoken endpoint
           logger.log('Token refreshed, retrying original request');
           isRefreshing = false;
-          refreshTokenSubject.next(true); // retrying original request
+          refreshTokenSubject.next(true); // retrying original request with new token
           return next(request);
         }),
         catchError((err) => {
           console.error('Token refresh failed:', err);
           isRefreshing = false;
+          // refresh token also expired, so force logout
           if (err.status === 403) {
             eventBusService.emit(new EventData('logout', null));
           }
@@ -64,6 +70,7 @@ export const requestInterceptor: HttpInterceptorFn = (
         })
       );
     } else {
+      // wait for the the current refresh to complete before retrying
       logger.log('Waiting for token refresh to complete');
       return refreshTokenSubject.pipe(
         filter(refreshed => refreshed),

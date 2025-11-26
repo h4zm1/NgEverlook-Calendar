@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
   symbolCheck = false
   numberCheck = false
   showNotif = false
+  statusNotif = ""
   constructor(private el: ElementRef) {
   }
 
@@ -132,17 +133,20 @@ export class LoginComponent implements OnInit {
   getUserRolesAsString(userInfo: UserInfo): string {
     return userInfo.roles.map(role => role.authority).join(",");
   }
-
-  onSubmit() {
-    const email = this.credentials.email
-    const password = this.credentials.password
-    this.logger.log(this.credentials.email, this.credentials.password);
+  notif(value: string) {
+    this.statusNotif = value
     this.showNotif = true
     setTimeout(() => {
       this.showNotif = false
     }, 8000)
 
+  }
+  onSubmit() {
+    const email = this.credentials.email
+    const password = this.credentials.password
+    this.logger.log(this.credentials.email, this.credentials.password);
     if (this.isJoining) {// register
+      this.notif("You will receive an email notification once access has been granted.")
       this.signInOrUp()
       this.authService.register(email, password)
         .subscribe({
@@ -168,7 +172,14 @@ export class LoginComponent implements OnInit {
             this.logger.log("email " + data.email)
           },
           error: err => {
-            this.logger.log(err.error.message)
+            if (err.status === 401 && err.error?.errorCode === 'ROLE_RESTRICTED') {
+              // user logged in with "USER" role
+              this.logger.log("Access restricted: ", err.error.error)
+              this.notif(err.error.error)
+            } else if (err.status === 401) {
+              // bad credentials
+              this.logger.log("Invalid credentials")
+            }
           }
         })
   }

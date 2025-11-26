@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, ViewChild, ElementRef } from '@angular/core';
 import { ConfigService } from "./config.service";
 import { EventBusService } from "../core/EventBus.service";
 import { AuthService } from "../core/auth.service";
@@ -95,6 +95,7 @@ export class ConfigComponent implements OnInit {
         this.themeService.setTheme("light")
     }
 
+    // retrieve user list for role change
     this.configService.getUsers().subscribe({
       next: (users: userToVet[]) => {
         this.usersToVet = users.map(user => ({
@@ -105,7 +106,6 @@ export class ConfigComponent implements OnInit {
     })
   }
   ngAfterViewInit() {
-
     this.loadConfig()
   }
   getRole(): string {
@@ -237,5 +237,4 @@ export class ConfigComponent implements OnInit {
       }
     })
   }
-
 }

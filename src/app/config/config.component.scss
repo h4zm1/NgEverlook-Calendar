@@ -60,7 +60,7 @@
   flex-direction: row-reverse;
   font-size: large;
   //font-weight: bold;
-  padding-bottom: 7rem;
+  padding-bottom: 3rem;
   color: #808080;
 }
 
@@ -91,18 +91,28 @@
   align-items: center;
   margin-left: auto;
   margin-right: auto;
+  padding-block: 2rem;
 }
 
 .vetting-section {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  overflow: auto;
+  overflow: hidden;
   height: 70vh;
   scrollbar-width: thin;
   padding: 2rem;
+  transition: 2.5s ease-in-out;
   // position: absolute;
   // margin-left: 6rem;
+}
+
+.vetting-section::-webkit-scrollbar {
+  display: none;
+}
+
+.vetting-section:hover {
+  overflow: auto;
 }
 
 .vet-holder {
@@ -129,7 +139,11 @@
   // box-shadow: 5px 10px 20px 0 #92929245;
   border-radius: 10px;
   height: fit-content;
-  min-width: 19rem;
+  min-width: 21rem;
+}
+
+.user-email {
+  padding-bottom: 0.6rem;
 }
 
 .role-toggle {
@@ -143,8 +157,14 @@
 .user-role-header {
   width: 5rem;
   padding: 10px 24px 10px 15px;
-  // box-shadow: 5px 10px 20px 0 #92929245;
   border-radius: 10px;
+}
+
+.calendar-header {
+  width: 7rem;
+  padding: 10px 24px 10px 15px;
+  border-radius: 10px;
+  margin-bottom: 1rem;
 }
 
 mat-button-toggle-group {
@@ -175,7 +195,7 @@ h1 {
 
 
 
-@media only screen and (max-width: 1600px) {
+@media only screen and (max-width: 1650px) {
   .mid-vet-holder {
     flex-direction: column;
   }
@@ -185,7 +205,7 @@ h1 {
   }
 }
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 1450px) {
   .mid-vet-holder {
     flex-direction: column;
   }

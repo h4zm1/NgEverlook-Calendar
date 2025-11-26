@@ -18,12 +18,13 @@
     </div>
   </div>
   <div class="mid-vet-holder">
-    <div class="vet-holder">
+    <!-- user role section -->
+    <div *ngIf="usersToVet?.length" class="vet-holder">
       <div class="user-role-header">Users roles</div>
       <div class="vetting-section">
         @for (user of usersToVet; track user.id) {
           <div class="user">
-            Email: {{ user.email }} <br />
+            <div class="user-email">Email: {{ user.email }}</div>
             Current Role:
             <mat-button-toggle-group
               class="role-toggle"
@@ -38,7 +39,9 @@
         }
       </div>
     </div>
+    <!-- actual config section -->
     <div class="mid-section">
+      <div class="calendar-header">Calander config</div>
       <!-- starting date -->
       <mat-form-field [attr.data-changed]="isFieldChanged('startDate')">
         <mat-label>Starting date</mat-label>
@@ -62,6 +65,7 @@
         <mat-label>Reset time</mat-label>
         <input
           matInput
+          [disabled]="!configAccess"
           [matTimepicker]="picker2"
           [(ngModel)]="selectedValues.resetTime"
         />
@@ -73,6 +77,7 @@
       <mat-label>40 man reset day</mat-label>
       <mat-button-toggle-group
         [(ngModel)]="selectedValues.m40"
+        [disabled]="!configAccess"
         [attr.data-changed]="isFieldChanged('m40')"
       >
         <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
@@ -84,6 +89,7 @@
       <mat-label>zg/aq20 reset day</mat-label>
       <mat-button-toggle-group
         [(ngModel)]="selectedValues.m20"
+        [disabled]="!configAccess"
         [attr.data-changed]="isFieldChanged('m20')"
       >
         <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
@@ -95,6 +101,7 @@
       <mat-label>Next ONY reset day</mat-label>
       <mat-button-toggle-group
         [(ngModel)]="selectedValues.ony"
+        [disabled]="!configAccess"
         [attr.data-changed]="isFieldChanged('ony')"
       >
         <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
@@ -106,6 +113,7 @@
       <mat-label>Next Kara10 reset day</mat-label>
       <mat-button-toggle-group
         [(ngModel)]="selectedValues.k10"
+        [disabled]="!configAccess"
         [attr.data-changed]="isFieldChanged('k10')"
       >
         <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
@@ -118,6 +126,7 @@
       <mat-button-toggle-group
         [(ngModel)]="selectedValues.dmf"
         [attr.data-changed]="isFieldChanged('dmf')"
+        [disabled]="!configAccess"
       >
         <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
           {{ day.label }}
@@ -130,6 +139,7 @@
         [(ngModel)]="selectedValues.dmfLocation"
         aria-label="Font Style"
         [attr.data-changed]="isFieldChanged('dmfLocation')"
+        [disabled]="!configAccess"
       >
         <mat-button-toggle value="mulgor">Mulgor</mat-button-toggle>
         <mat-button-toggle value="elwyn">Elwynn</mat-button-toggle>
@@ -140,6 +150,7 @@
       <mat-button-toggle-group
         [(ngModel)]="selectedValues.madnessStart"
         [attr.data-changed]="isFieldChanged('madnessStart')"
+        [disabled]="!configAccess"
       >
         <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
           {{ day.label }}
@@ -150,6 +161,7 @@
       <mat-label>Current active madness boss</mat-label>
       <mat-button-toggle-group
         [(ngModel)]="selectedValues.madnessBoss"
+        [disabled]="!configAccess"
         aria-label="Font Style"
         [attr.data-changed]="isFieldChanged('madnessBoss')"
       >
@@ -163,6 +175,7 @@
       <mat-button-toggle-group
         [(ngModel)]="selectedValues.madnessWeek"
         aria-label="Font Style"
+        [disabled]="!configAccess"
         [attr.data-changed]="isFieldChanged('madnessWeek')"
       >
         <mat-button-toggle value="first">First week</mat-button-toggle>

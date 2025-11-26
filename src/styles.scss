@@ -646,7 +646,7 @@ $dark-text-color: #181818;
 
   // time picker drop down menu
   .mat-timepicker-panel {
-    background-color: #2d2d2d40;
+    background-color: unset;
     backdrop-filter: blur(8px) !important;
     scrollbar-width: none;
   }
@@ -672,7 +672,7 @@ $dark-text-color: #181818;
 
   // date picker bg
   .mat-datepicker-content {
-    background-color: #4141412b;
+    background-color: unset;
     backdrop-filter: blur(12px) !important;
   }
 
@@ -682,7 +682,8 @@ $dark-text-color: #181818;
     border: #5e5e5e61 1px solid;
   }
 
-  .user-role-header {
+  .user-role-header,
+  .calendar-header {
     box-shadow: 5px 10px 20px 0 #92929247;
   }
 

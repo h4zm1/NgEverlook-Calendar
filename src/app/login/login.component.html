@@ -1,17 +1,19 @@
 <div [ngClass]="themeService.themeSignal()" class="majorLogin">
-
   <form action="" (ngSubmit)="onSubmit()">
-
     <div class="popupWrapper">
-      <h1 class="accessNotif" *ngIf="showNotif">You will receive an email notification once access has been granted.
-      </h1>
+      <h1 class="accessNotif" *ngIf="showNotif">{{ statusNotif }}</h1>
       <!--  email field  -->
       <mat-form-field appearance="fill" class="emailInput">
         <mat-label>Your e-mail address</mat-label>
-        <input type="email" matInput [(ngModel)]="credentials.email" #emailInput (input)="checkMailInput(emailInput)"
-          [ngModelOptions]="{standalone: true}">
+        <input
+          type="email"
+          matInput
+          [(ngModel)]="credentials.email"
+          #emailInput
+          (input)="checkMailInput(emailInput)"
+          [ngModelOptions]="{ standalone: true }"
+        />
       </mat-form-field>
-
 
       <!--  password field  -->
       <mat-form-field appearance="fill" class="pwdInput">
@@ -20,15 +22,30 @@
         <!--  hide            = a variable in the component that's being read from the input bellow to switch between text and dots-->
         <!--  attr.aria-label = for accessibility-->
         <!--  type=button     = to prevent the browser from thinking this's a submit button-->
-        <button mat-icon-button matSuffix class="visBtn" [class.active]="credentials.password" (click)="hide = !hide"
-          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
-          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        <button
+          mat-icon-button
+          matSuffix
+          class="visBtn"
+          [class.active]="credentials.password"
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+          type="button"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
         </button>
-        <input matInput [ngModelOptions]="{standalone: true}" (input)="checkPasswordInput()"
-          [type]="hide ? 'password' : 'text'" [(ngModel)]="credentials.password" (focusin)="passwordFocused()"
-          (focusout)="passwordUnFocused()" #required #pwdInput>
+        <input
+          matInput
+          [ngModelOptions]="{ standalone: true }"
+          (input)="checkPasswordInput()"
+          [type]="hide ? 'password' : 'text'"
+          [(ngModel)]="credentials.password"
+          (focusin)="passwordFocused()"
+          (focusout)="passwordUnFocused()"
+          #required
+          #pwdInput
+        />
       </mat-form-field>
-
 
       <div class="popover" [class.visible]="isPasswordFocused">
         <div class="closePopoverContainer">
@@ -44,26 +61,34 @@
             <div class="level" [style.background-color]="lvlColors[3]"></div>
           </div>
           It's better to have:
-          <li class="bullet1" [class.strikethrough]="upperLowerCaseCheck">Upper & lower case letters</li>
+          <li class="bullet1" [class.strikethrough]="upperLowerCaseCheck">
+            Upper & lower case letters
+          </li>
           <li class="bullet2" [class.strikethrough]="numberCheck">Numbers</li>
-          <li class="bullet3" [class.strikethrough]="symbolCheck">Symbols (#$&)</li>
+          <li class="bullet3" [class.strikethrough]="symbolCheck">
+            Symbols (#$&)
+          </li>
         </div>
       </div>
-
     </div>
 
     <!-- Setting class.active here is for position change when the popover is under the password field-->
     <div class="loginHolder" [class.active]="isPasswordFocused">
-      <button [disabled]="!validPwd || !validMail" [ngStyle]="{width: isJoining?'50%':'25%'}" type="submit" mat-button
-        [disableRipple]="false" class="loginBtn">{{ signBtnText }}
+      <button
+        [disabled]="!validPwd || !validMail"
+        [ngStyle]="{ width: isJoining ? '50%' : '25%' }"
+        type="submit"
+        mat-button
+        [disableRipple]="false"
+        class="loginBtn"
+      >
+        {{ signBtnText }}
       </button>
     </div>
 
-
     <div class="otherLinks" [class.active]="isPasswordFocused">
       <a (click)="signInOrUp()">{{ signLinkText }}</a>
-      <a [ngStyle]="{display: isJoining ? 'none' : 'inline'}">Forgot your password?</a>
+      <!-- <a [ngStyle]="{display: isJoining ? 'none' : 'inline'}">Forgot your password?</a> -->
     </div>
   </form>
-
 </div>
