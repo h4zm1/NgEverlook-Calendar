@@ -15,5 +15,5 @@ jobs:
         username: ubuntu
         key: ${{ secrets.EC2_KEY }}
         script: |
-          echo "Running deploy-all.sh..."
+          echo "Running front.sh..."
           bash /home/ubuntu/front.sh
