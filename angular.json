@@ -51,7 +51,12 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              {
+    "glob": "tc.ico",
+    "input": "src/assets",
+    "output": "/"
+  }
             ],
             "styles": [
               "src/styles.scss"
