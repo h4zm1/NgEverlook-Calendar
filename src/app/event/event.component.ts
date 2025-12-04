@@ -6,6 +6,7 @@ import { BossComponent } from "../boss/boss.component";
 import { ServertimeComponent } from "../servertime/servertime.component";
 import { CommonModule } from "@angular/common";
 import { EventToggleService } from '../core/event-toggle.service';
+import { LoggerService } from '../core/logger.service';
 
 @Component({
   selector: 'app-event',
@@ -23,6 +24,7 @@ export class EventComponent implements OnInit {
   toggleService = inject(EventToggleService)
   events = this.toggleService.events;
   pre_events: EVENT[] | undefined;
+  logger: LoggerService = inject(LoggerService);
 
   constructor(private eventService: EventService) {
   }
@@ -37,7 +39,7 @@ export class EventComponent implements OnInit {
   // mark first new date to apply css class on it later
   // for blinking animation
   markFirstNewDate() {
-    console.log(this.pre_events)
+    this.logger.log(this.pre_events)
     if (this.pre_events) {
       for (let event of this.pre_events) {
         if (event.old == null) {

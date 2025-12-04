@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit {
     }
   }
   checkMailInput(input: HTMLInputElement) {
-    console.log("valid mail? ", input.validity.valid)
+    this.logger.log("valid mail? ", input.validity.valid)
     this.validMail = input.validity.valid
   }
   // switching between sign in or sign up ui/events
@@ -176,7 +176,10 @@ export class LoginComponent implements OnInit {
               // user logged in with "USER" role
               this.logger.log("Access restricted: ", err.error.error)
               this.notif(err.error.error)
-            } else if (err.status === 401) {
+            } else if (err.status == 401 && err.error?.errorCode === 'BAD_CREDENTIALS') {
+              this.notif(err.error.error)
+            }
+            else if (err.status === 401) {
               // bad credentials
               this.logger.log("Invalid credentials")
             }

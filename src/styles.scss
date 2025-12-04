@@ -157,7 +157,7 @@ $light-text-color: #cacaca;
 
 // Light theme variables
 $light-bg-color: #d2d2d2;
-$semi-light-bg-color: rgba(192, 192, 192, 0);
+$semi-light-bg-color: rgba(255,255,255, 255);
 $dark-text-color: #181818;
 
 ////////////////////////////////////
@@ -691,6 +691,10 @@ $dark-text-color: #181818;
   .btn-role {
     color: #2b2b2b !important;
   }
+  .cdk-overlay-container {
+    background-color: unset;
+  }
+
 
 
 }

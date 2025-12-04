@@ -1,5 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { EVENT } from '../event/event';
+import { LoggerService } from './logger.service';
 
 // this will be used to mass toggling that happen on site load/reload
 interface EventState {
@@ -14,7 +15,7 @@ export class EventToggleService {
   private toggleSignals = signal<EVENT[]>([]);
   events = this.toggleSignals.asReadonly()
   OG_events: EVENT[] = []
-
+  logger: LoggerService = inject(LoggerService);
   // object to track toggle buttons states (in bottom sheet); to add new button just add new entry here and in buttonOrder
   // needed type annotation cause without it there was some type errors
   buttonStates: { [key: string]: boolean } = {
@@ -61,7 +62,7 @@ export class EventToggleService {
   }
 
   disableEvent(e: keyof EVENT) {
-    console.log("diabled event", e)
+    this.logger.log("diabled event", e)
     this.toggleSignals.update(events =>
       events.map(event => ({ // opening paranthesis here since we'r not doing explicit return, cause there only one statement
         ...event, // spread the object
@@ -114,12 +115,12 @@ export class EventToggleService {
       // then loop over each property
       Object.entries(states).forEach(([property, enabled]) => {
         if (enabled) {
-          console.log("inside enabled")
+          this.logger.log("inside enabled")
           this.enableEvent(property as keyof EVENT)
           this.buttonStates[property] = enabled as boolean
         }
         else {
-          console.log("inside disabled")
+          this.logger.log("inside disabled")
           this.disableEvent(property as keyof EVENT)
           this.buttonStates[property] = enabled as boolean
         }

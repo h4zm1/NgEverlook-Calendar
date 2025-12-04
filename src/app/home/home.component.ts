@@ -128,15 +128,15 @@ export class HomeComponent implements OnInit {
   }
   scrollToToday() {
     const element = document.querySelector('[class="row first"]')
-    console.log("found element to go", element);
+    this.logger.log("found element to go", element);
     element?.scrollIntoView({
       behavior: 'smooth',
       block: 'center'
     });
   }
   onToggleChange(event: MatButtonToggleChange) {
-    // console.log('toggled value ', event.source.value)
-    console.log(event.source.value, ' is now ', event.source.checked)
+    // this.logger.log('toggled value ', event.source.value)
+    this.logger.log(event.source.value, ' is now ', event.source.checked)
     // update button states, so when the bottom sheet get pop'd back up is shows updated button states
     this.toggleService.buttonStates[event.source.value] = event.source.checked
     // per button state change

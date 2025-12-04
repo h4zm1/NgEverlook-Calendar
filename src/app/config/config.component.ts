@@ -117,7 +117,7 @@ export class ConfigComponent implements OnInit {
 
   roleChanged(event: MatButtonToggleChange, email: string, id: number) {
     const role: string = "ROLE_" + event.value
-    console.log("change roll for ", id, " to ", role, " with this email ", email)
+    this.logger.log("change roll for ", id, " to ", role, " with this email ", email)
     var userVetted: userToVet = { id: id, role: role, email: email }
     this.configService.setRole(userVetted).subscribe({
       next: data => {
@@ -130,12 +130,12 @@ export class ConfigComponent implements OnInit {
   }
 
   save() {
-    console.log('Selected days:', this.selectedValues);
+    this.logger.log('Selected days:', this.selectedValues);
 
     const roles = localStorage.getItem("roles");
     // convert time to short format for DB
     this.setTime12Hour()
-    console.log("SELECTED VALUES:", this.selectedValues)
+    this.logger.log("SELECTED VALUES:", this.selectedValues)
     if (roles && roles.includes("ADMIN")) {
       // this.logger.log("saving " + this.date)
 
@@ -192,7 +192,7 @@ export class ConfigComponent implements OnInit {
   createChangeDetectionProxy() {
     const handler = {
       set: (target: any, property: any, value: any) => {
-        console.log(`Property ${property} changed from ${target[property]} to ${value}`);
+        this.logger.log(`Property ${property} changed from ${target[property]} to ${value}`);
         // target = this will be selectedValues
         // property = this will be resetTime, m40, ony..
         // value = this's the new value being set
@@ -208,7 +208,7 @@ export class ConfigComponent implements OnInit {
   detectChanges() {
     // savable = true when both objects are different
     this.savable = JSON.stringify(this.selectedValues) !== JSON.stringify(this.ogConfigValues)
-    // console.log("reset ", this.selectedValues.resetTime, "OG reset ", this.ogConfigValues.resetTime, " savable:: ", this.savable)
+    // this.logger.log("reset ", this.selectedValues.resetTime, "OG reset ", this.ogConfigValues.resetTime, " savable:: ", this.savable)
   }
   isFieldChanged(value: keyof ConfigValue): boolean {
     // apparently the initial date parse am doing at lead is adding an extra hour to the date

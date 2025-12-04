@@ -1,5 +1,6 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { LoggerService } from './logger.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,7 @@ export class ThemeService {
   private overlayContainer = inject(OverlayContainer);
   constructor() { }
   themeSignal = signal<String>("light");
+  logger: LoggerService = inject(LoggerService);
 
   setTheme(theme: String) {
     this.themeSignal.set(theme);
@@ -15,7 +17,7 @@ export class ThemeService {
     this.forceOverlayTheme()
   }
   updateTheme() {
-    console.log("THEME UPDATED")
+    this.logger.log("THEME UPDATED")
     this.themeSignal.update((value) => (value === "light" ? "dark" : "light"));
     // force theme on CDK overlay container
     this.forceOverlayTheme()
