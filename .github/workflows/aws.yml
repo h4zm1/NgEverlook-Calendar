@@ -7,6 +7,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+     name: WoW Events
+     url: https://hazmimosbah.com/wow-events
     steps:
     - name: Deploy script
       uses: appleboy/ssh-action@master
