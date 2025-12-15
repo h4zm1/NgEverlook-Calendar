@@ -1,6 +1,5 @@
 <ul>
   @for (event of events(); track event.id) {
-    <!--    <div [ngClass]="event.old ? 'row old' : 'row' ">-->
     @if (
       event.ony ||
       event.mc ||
@@ -78,5 +77,8 @@
         </div>
       </div>
     }
+  }
+  @if (!hasEnabledProperty() && !isLoading) {
+    <h1 class="no-event">Nothing to show</h1>
   }
 </ul>
