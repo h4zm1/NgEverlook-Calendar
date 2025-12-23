@@ -1,27 +1,10 @@
-# NgEverlookCalendar
+# Twow event Calendar
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.6.
+[wow-events](https://hazmimosbah.com/wow-events/)
 
-## Development server
+<img src="https://i.imgur.com/Eb8GZ5i.png">
+This's to help me and others on Twow to easily check raid reset times and pvp weekends.
+It started with using [mustache](https://mustache.github.io/) to transform json request responses into [htmx](https://github.com/bigskysoftware/htmx) via a client-side template before it is swapped into the DOM.
+And hosted on Render with a docker container while using Supabase's Postgres.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+But now it's fully angular v21 with spring boot [backend](https://github.com/h4zm1/Everlook-Calendar).
