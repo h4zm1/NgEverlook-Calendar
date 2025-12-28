@@ -1,84 +1,136 @@
-<ul>
-  @for (event of events(); track event.id) {
-    @if (
-      event.ony ||
-      event.mc ||
-      event.bwl ||
-      event.aq40 ||
-      event.naxx ||
-      event.zg ||
-      event.aq20 ||
-      event.dmf ||
-      event.pvp ||
-      event.k10 ||
-      event.k40 ||
-      event.es ||
-      event.madness
-    ) {
-      <div
-        [ngClass]="{
-          row: true,
-          old: event.old === 1,
-          first: event.old === 2,
-        }"
-      >
-        <div class="date">
-          {{ event.date }}
-        </div>
-        <div class="dot"></div>
-        <div class="trail"></div>
+@if (!isLoading()) {
+  <ul>
+    @for (event of events(); track event.id) {
+      @if (
+        event.ony ||
+        event.mc ||
+        event.bwl ||
+        event.aq40 ||
+        event.naxx ||
+        event.zg ||
+        event.aq20 ||
+        event.dmf ||
+        event.pvp ||
+        event.k10 ||
+        event.k40 ||
+        event.es ||
+        event.madness
+      ) {
         <div
           [ngClass]="{
-            subject: true,
+            row: true,
             old: event.old === 1,
             first: event.old === 2,
           }"
         >
-          @if (event.ony) {
-            Onyxia<br />
-          }
-          @if (event.mc) {
-            Molten Core<br />
-          }
-          @if (event.bwl) {
-            Blackwing Lair<br />
-          }
-          @if (event.aq40) {
-            Temple of Ahn'Qiraj<br />
-          }
-          @if (event.naxx) {
-            Naxxramas<br />
-          }
-          @if (event.k40) {
-            Tower of Karazhan<br />
-          }
-          @if (event.k10) {
-            Lower Karazhan Halls<br />
-          }
-          @if (event.es) {
-            Emerald Sanctum<br />
-          }
-          @if (event.zg) {
-            Zul'Gurub<br />
-          }
-          @if (event.aq20) {
-            Ruins of Ahn'Qiraj<br />
-          }
-          @if (event.dmf) {
-            {{ event.dmf }}<br />
-          }
-          @if (event.pvp) {
-            {{ event.pvp }}<br />(not sure about exact time)
-          }
-          @if (event.madness) {
-            ZG Edge of Madness: {{ event.madnessBoss }}<br />(not sure about
-            exact time)
-          }
+          <div class="date">
+            {{ event.date }}
+          </div>
+          <div class="dot"></div>
+          <div class="trail"></div>
+          <div
+            [ngClass]="{
+              subject: true,
+              old: event.old === 1,
+              first: event.old === 2,
+            }"
+          >
+            @if (event.ony) {
+              Onyxia<br />
+            }
+            @if (event.mc) {
+              Molten Core<br />
+            }
+            @if (event.bwl) {
+              Blackwing Lair<br />
+            }
+            @if (event.aq40) {
+              Temple of Ahn'Qiraj<br />
+            }
+            @if (event.naxx) {
+              Naxxramas<br />
+            }
+            @if (event.k40) {
+              Tower of Karazhan<br />
+            }
+            @if (event.k10) {
+              Lower Karazhan Halls<br />
+            }
+            @if (event.es) {
+              Emerald Sanctum<br />
+            }
+            @if (event.zg) {
+              Zul'Gurub<br />
+            }
+            @if (event.aq20) {
+              Ruins of Ahn'Qiraj<br />
+            }
+            @if (event.dmf) {
+              {{ event.dmf }}<br />
+            }
+            @if (event.pvp) {
+              {{ event.pvp }}<br />(not sure about exact time)
+            }
+            @if (event.madness) {
+              ZG Edge of Madness: {{ event.madnessBoss }}<br />(not sure about
+              exact time)
+            }
+          </div>
+        </div>
+      }
+    }
+    @if (!hasEnabledProperty() && !isLoading()) {
+      <h1 class="no-event">Empty Filter</h1>
+    }
+  </ul>
+} @else {
+  <div class="load-holder">
+    @for (item of skeletonItems; track item) {
+      <div class="load-event">
+        <div class="load-event-left">
+          <ngx-skeleton-loader
+            class="load-subject"
+            appearance="square"
+            animation="pulse-dark"
+            [theme]="{
+              width: '13rem',
+              height: '1.5rem',
+            }"
+          />
+        </div>
+
+        <div class="load-event-mid">
+          <ngx-skeleton-loader
+            class="load-dot"
+            appearance="circle"
+            animation="pulse-dark"
+            [theme]="{
+              height: '18px',
+              width: '18px',
+            }"
+          />
+          <ngx-skeleton-loader
+            class="load-trail"
+            appearance="square"
+            animation="pulse-dark"
+            [theme]="{
+              width: '.2rem',
+              height: '8rem',
+            }"
+          />
+        </div>
+        <div class="load-event-right">
+          <ngx-skeleton-loader
+            class="load-subject"
+            appearance="square"
+            animation="pulse-dark"
+            [theme]="{
+              width: '16rem',
+              height: '5rem',
+            }"
+          />
         </div>
       </div>
     }
-  }
-  @if (!hasEnabledProperty() && !isLoading) {
-    <h1 class="no-event">Nothing to show</h1>
-  }
-</ul>
+  </div>
+}

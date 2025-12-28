@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { EventService } from './event.service';
 import { EVENT } from './event';
@@ -7,10 +7,16 @@ import { ServertimeComponent } from '../servertime/servertime.component';
 import { CommonModule } from '@angular/common';
 import { EventToggleService } from '../core/event-toggle.service';
 import { LoggerService } from '../core/logger.service';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'app-event',
-  imports: [CommonModule, BossComponent, ServertimeComponent],
+  imports: [
+    CommonModule,
+    BossComponent,
+    ServertimeComponent,
+    NgxSkeletonLoaderModule,
+  ],
   providers: [EventService],
   templateUrl: './event.component.html',
   styleUrl: './event.component.scss',
@@ -21,18 +27,19 @@ export class EventComponent implements OnInit {
   events = this.toggleService.events;
   pre_events: EVENT[] | undefined;
   logger: LoggerService = inject(LoggerService);
-  isLoading = true;
+  isLoading = signal(true);
+  skeletonItems = Array(20)
+    .fill(0)
+    .map((_, i) => i);
+
   constructor(private eventService: EventService) {}
 
   ngOnInit() {
     this.eventService.getEvents().subscribe((data) => {
       this.pre_events = data;
       this.markFirstNewDate();
+      this.isLoading.set(false);
     });
-    // prevent "nothing to shows" to pop on page load pre list filling
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 1000);
   }
   hasEnabledProperty(): boolean {
     return this.events().some(

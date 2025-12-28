@@ -465,6 +465,20 @@ $dark-text-color: #181818;
   .btn-role {
     color: white !important;
   }
+  //skeleton loader bg colors
+  .skeleton-loader.square.progress {
+    background-color: #313131a8 !important;
+  }
+  .skeleton-loader.circle.progress {
+    background-color: #313131a8 !important;
+  }
+  //loading animatino opacity
+  .skeleton-loader.progress:before {
+    opacity: 0.1;
+  }
+  .skeleton-loader.pulse-dark {
+    background-color: #3d3d3d !important;
+  }
 }
 
 ////////////////////////////////////
@@ -703,5 +717,16 @@ $dark-text-color: #181818;
   }
   .cdk-overlay-container {
     background-color: unset;
+  }
+  // skelton loader bg colors
+  .skeleton-loader.square.progress {
+    background-color: #f3f3f3a8 !important;
+  }
+  .skeleton-loader.circle.progress {
+    background-color: #f3f3f3a8 !important;
+  }
+  // animation opacity
+  .skeleton-loader.pulse-dark {
+    background-color: #8f8f8f2e !important;
   }
 }
