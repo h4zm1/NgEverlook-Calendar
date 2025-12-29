@@ -141,15 +141,15 @@ $dark-theme: mat.define-theme(
 
 // setting up font
 * {
-  font-family: "Nunito-Light", sans-serif;
+  font-family: "Nunito", sans-serif;
+  font-weight: 300;
 }
 
-@font-face {
-  font-family: "Nunito-Light";
-  src: url("assets/Nunito-Light.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
+//   font-family: "Nunito-Light";
+//   src: url("assets/Nunito-Light.ttf") format("truetype");
+//   font-weight: normal;
+//   font-style: normal;
+// }
 
 html,
 body {
@@ -465,20 +465,20 @@ $dark-text-color: #181818;
   .btn-role {
     color: white !important;
   }
-  //skeleton loader bg colors
-  .skeleton-loader.square.progress {
-    background-color: #313131a8 !important;
-  }
-  .skeleton-loader.circle.progress {
-    background-color: #313131a8 !important;
-  }
-  //loading animatino opacity
-  .skeleton-loader.progress:before {
-    opacity: 0.1;
-  }
-  .skeleton-loader.pulse-dark {
-    background-color: #3d3d3d !important;
-  }
+  ////skeleton loader bg colors
+  //.skeleton-loader.square.progress {
+  //  background-color: #313131a8 !important;
+  //}
+  //.skeleton-loader.circle.progress {
+  //  background-color: #313131a8 !important;
+  //}
+  ////loading animatino opacity
+  //.skeleton-loader.progress:before {
+  //  opacity: 0.1;
+  //}
+  //.skeleton-loader.pulse-dark {
+  //  background-color: #3d3d3d !important;
+  //}
 }
 
 ////////////////////////////////////
@@ -719,14 +719,14 @@ $dark-text-color: #181818;
     background-color: unset;
   }
   // skelton loader bg colors
-  .skeleton-loader.square.progress {
-    background-color: #f3f3f3a8 !important;
-  }
-  .skeleton-loader.circle.progress {
-    background-color: #f3f3f3a8 !important;
-  }
-  // animation opacity
-  .skeleton-loader.pulse-dark {
-    background-color: #8f8f8f2e !important;
-  }
+  // .skeleton-loader.square.progress {
+  //   background-color: #f3f3f3a8 !important;
+  // }
+  // .skeleton-loader.circle.progress {
+  //   background-color: #f3f3f3a8 !important;
+  // }
+  // // animation opacity
+  // .skeleton-loader.pulse-dark {
+  //   background-color: #8f8f8f2e !important;
+  // }
 }

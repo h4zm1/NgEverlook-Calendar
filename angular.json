@@ -53,10 +53,10 @@
                 "input": "public"
               },
               {
-    "glob": "tc.ico",
-    "input": "src/assets",
-    "output": "/"
-  }
+                "glob": "tc.ico",
+                "input": "src/assets",
+               "output": "/"
+              }
             ],
             "styles": [
               "src/styles.scss"
@@ -65,6 +65,16 @@
           },
           "configurations": {
             "production": {
+               "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": true
+                },
+                "fonts": {
+                  "inline": true
+                }
+              },
               "budgets": [
                 {
                   "type": "initial",
@@ -86,7 +96,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "optimization": false,
+              "optimization": true,
               "extractLicenses": false,
               "sourceMap": true
             }
