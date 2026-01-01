@@ -16,8 +16,7 @@ import {
   MatLabel,
 } from '@angular/material/form-field';
 import { ThemeService } from '../core/theme.service';
-import { CommonModule } from '@angular/common';
-import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -37,7 +36,6 @@ import { userToVet } from './config.service';
     FormsModule,
     MatTooltip,
     MatButtonToggleModule,
-    MatDatepickerInput,
     MatDatepickerToggle,
     MatDatepickerInput,
     MatFormFieldModule,
@@ -47,8 +45,6 @@ import { userToVet } from './config.service';
     MatDatepickerModule,
     MatHint,
     MatLabel,
-    CommonModule,
-    MatInput,
     MatButton,
     MatIcon,
     MatIconButton,

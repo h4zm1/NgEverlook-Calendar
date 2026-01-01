@@ -1,15 +1,14 @@
 import { Component, ElementRef, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { CommonModule } from '@angular/common';
 import { ThemeService } from '../core/theme.service';
 import { Router } from '@angular/router';
 import { AuthService, UserInfo } from '../core/auth.service';
 import { LoggerService } from '../core/logger.service';
 import { LoginStatusService } from '../core/login-status.service';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +16,8 @@ import { LoginStatusService } from '../core/login-status.service';
     FormsModule,
     MatInputModule,
     MatFormFieldModule,
-    MatButtonModule,
     MatIconModule,
-    CommonModule,
+    MatButton,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',

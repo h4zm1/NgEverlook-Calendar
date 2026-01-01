@@ -1,7 +1,9 @@
-<div [ngClass]="themeService.themeSignal()" class="majorLogin">
+<div [class]="themeService.themeSignal()" class="majorLogin">
   <form action="" (ngSubmit)="onSubmit()">
     <div class="popupWrapper">
-      <h1 class="accessNotif" *ngIf="showNotif">{{ statusNotif }}</h1>
+      @if (showNotif) {
+        <h1 class="accessNotif">{{ statusNotif }}</h1>
+      }
       <!--  email field  -->
       <mat-form-field appearance="fill" class="emailInput">
         <mat-label>Your e-mail address</mat-label>
@@ -76,7 +78,7 @@
     <div class="loginHolder" [class.active]="isPasswordFocused">
       <button
         [disabled]="!validPwd || !validMail"
-        [ngStyle]="{ width: isJoining ? '50%' : '25%' }"
+        [style]="{ width: isJoining ? '50%' : '25%' }"
         type="submit"
         mat-button
         [disableRipple]="false"

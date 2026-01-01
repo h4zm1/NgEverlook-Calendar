@@ -1,4 +1,4 @@
-<div [ngClass]="themeService.themeSignal()" class="configPage">
+<div [class]="themeService.themeSignal()" class="configPage">
   <!--  Settings and dark mode buttons-->
   <div class="button-container-config">
     <button
@@ -19,26 +19,28 @@
   </div>
   <div class="mid-vet-holder">
     <!-- user role section -->
-    <div *ngIf="usersToVet?.length" class="vet-holder">
-      <div class="user-role-header">Users roles</div>
-      <div class="vetting-section">
-        @for (user of usersToVet; track user.id) {
-          <div class="user">
-            <div class="user-email">Email: {{ user.email }}</div>
-            Current Role:
-            <mat-button-toggle-group
-              class="role-toggle"
-              (change)="roleChanged($event, user.email, user.id)"
-              [value]="user.role"
-            >
-              <mat-button-toggle value="GUEST"> Guest </mat-button-toggle>
-              <mat-button-toggle value="ADMIN"> Admin </mat-button-toggle>
-              <mat-button-toggle value="USER"> User </mat-button-toggle>
-            </mat-button-toggle-group>
-          </div>
-        }
+    @if (usersToVet?.length) {
+      <div class="vet-holder">
+        <div class="user-role-header">Users roles</div>
+        <div class="vetting-section">
+          @for (user of usersToVet; track user.id) {
+            <div class="user">
+              <div class="user-email">Email: {{ user.email }}</div>
+              Current Role:
+              <mat-button-toggle-group
+                class="role-toggle"
+                (change)="roleChanged($event, user.email, user.id)"
+                [value]="user.role"
+              >
+                <mat-button-toggle value="GUEST"> Guest </mat-button-toggle>
+                <mat-button-toggle value="ADMIN"> Admin </mat-button-toggle>
+                <mat-button-toggle value="USER"> User </mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+          }
+        </div>
       </div>
-    </div>
+    }
     <!-- actual config section -->
     <div class="mid-section">
       <div class="calendar-header">Calander config</div>
@@ -80,11 +82,12 @@
         [disabled]="!configAccess"
         [attr.data-changed]="isFieldChanged('m40')"
       >
-        <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
-          {{ day.label }}
-        </mat-button-toggle>
+        @for (day of daysOfWeek; track day.value) {
+          <mat-button-toggle [value]="day.value">
+            {{ day.label }}
+          </mat-button-toggle>
+        }
       </mat-button-toggle-group>
-
       <!-- zg/aq20 -->
       <mat-label>zg/aq20 reset day</mat-label>
       <mat-button-toggle-group
@@ -92,9 +95,11 @@
         [disabled]="!configAccess"
         [attr.data-changed]="isFieldChanged('m20')"
       >
-        <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
-          {{ day.label }}
-        </mat-button-toggle>
+        @for (day of daysOfWeek; track day.value) {
+          <mat-button-toggle [value]="day.value">
+            {{ day.label }}
+          </mat-button-toggle>
+        }
       </mat-button-toggle-group>
 
       <!-- ONY -->
@@ -104,9 +109,11 @@
         [disabled]="!configAccess"
         [attr.data-changed]="isFieldChanged('ony')"
       >
-        <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
-          {{ day.label }}
-        </mat-button-toggle>
+        @for (day of daysOfWeek; track day.value) {
+          <mat-button-toggle [value]="day.value">
+            {{ day.label }}
+          </mat-button-toggle>
+        }
       </mat-button-toggle-group>
 
       <!-- K10 -->
@@ -116,9 +123,11 @@
         [disabled]="!configAccess"
         [attr.data-changed]="isFieldChanged('k10')"
       >
-        <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
-          {{ day.label }}
-        </mat-button-toggle>
+        @for (day of daysOfWeek; track day.value) {
+          <mat-button-toggle [value]="day.value">
+            {{ day.label }}
+          </mat-button-toggle>
+        }
       </mat-button-toggle-group>
 
       <!-- DMF switch day -->
@@ -128,9 +137,11 @@
         [attr.data-changed]="isFieldChanged('dmf')"
         [disabled]="!configAccess"
       >
-        <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
-          {{ day.label }}
-        </mat-button-toggle>
+        @for (day of daysOfWeek; track day.value) {
+          <mat-button-toggle [value]="day.value">
+            {{ day.label }}
+          </mat-button-toggle>
+        }
       </mat-button-toggle-group>
 
       <!-- DMF location -->
@@ -152,9 +163,11 @@
         [attr.data-changed]="isFieldChanged('madnessStart')"
         [disabled]="!configAccess"
       >
-        <mat-button-toggle *ngFor="let day of daysOfWeek" [value]="day.value">
-          {{ day.label }}
-        </mat-button-toggle>
+        @for (day of daysOfWeek; track day.value) {
+          <mat-button-toggle [value]="day.value">
+            {{ day.label }}
+          </mat-button-toggle>
+        }
       </mat-button-toggle-group>
 
       <!-- madness boss -->
