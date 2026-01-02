@@ -72,15 +72,13 @@ input[type="password"]::-ms-clear {
 }
 .backBtn {
   scale: 1.1;
-  color: #868686;
-  background-color: #f1f1f1ba;
   padding-left: 0.4rem;
   width: 1.7rem;
   border-radius: 0.7rem;
   position: absolute;
 }
 mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color {
-  scale: 0.8;
+  scale: 0.6;
 }
 .left-side,
 .right-side {
@@ -99,7 +97,7 @@ mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color
 }
 
 .loginBtn:disabled {
-  color: gray !important;
+  color: #adadad !important;
 }
 
 .otherLinks {

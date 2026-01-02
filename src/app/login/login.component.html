@@ -14,6 +14,7 @@
           #emailInput
           (input)="checkMailInput(emailInput)"
           [ngModelOptions]="{ standalone: true }"
+          required
         />
       </mat-form-field>
 
@@ -44,7 +45,7 @@
           [(ngModel)]="credentials.password"
           (focusin)="passwordFocused()"
           (focusout)="passwordUnFocused()"
-          #required
+          required
           #pwdInput
         />
       </mat-form-field>

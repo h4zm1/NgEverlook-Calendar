@@ -310,8 +310,10 @@ $dark-text-color: #181818;
   }
 
   .loginBtn,
-  .saveBtn {
+  .saveBtn,
+  .backBtn {
     background-color: #2f2f2fba;
+    color: #d0d0d0;
   }
 
   //login page stuff
@@ -590,8 +592,9 @@ $dark-text-color: #181818;
   //login config page stuff
 
   .loginBtn,
-  .saveBtn {
-    color: black !important;
+  .saveBtn,
+  .backBtn {
+    // color: black !important;
     background-color: #f1f1f1ba;
   }
 

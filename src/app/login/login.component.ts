@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
   validMail = false;
   upperLowerCaseCheck = false;
   symbolCheck = false;
+  normalTextCheck = false;
   numberCheck = false;
   showNotif = false;
   statusNotif = '';
@@ -57,6 +58,7 @@ export class LoginComponent implements OnInit {
 
     // check all conditions
     const length = this.credentials.password.length;
+    this.normalTextCheck = /[a-z]/.test(this.credentials.password);
     this.upperLowerCaseCheck = /[A-Z]/.test(this.credentials.password);
     this.numberCheck = /[1-9]/.test(this.credentials.password);
     this.symbolCheck = /[^a-zA-Z1-9]/.test(this.credentials.password);
@@ -66,13 +68,14 @@ export class LoginComponent implements OnInit {
       this.upperLowerCaseCheck,
       this.numberCheck,
       this.symbolCheck,
+      this.normalTextCheck,
     ].filter(Boolean).length;
 
     if (length < 7) {
       this.popoverMessage = 'Must have at least 7 characters.';
       this.lvlColors = ['lightgray', 'lightgray', 'lightgray', 'lightgray'];
       this.validPwd = false;
-    } else if (length >= 7 && specialConditions === 0) {
+    } else if (length >= 7 && specialConditions === 1) {
       // only length condition is met
       this.popoverMessage = 'Weak Password';
       this.lvlColors = ['#ff5901', 'lightgray', 'lightgray', 'lightgray'];
@@ -87,7 +90,7 @@ export class LoginComponent implements OnInit {
       this.popoverMessage = 'Good Password';
       this.lvlColors = ['#01d25a', '#00d25a', '#00d25a', 'lightgray'];
       this.validPwd = true;
-    } else if (this.symbolCheck) {
+    } else if (specialConditions == 4) {
       // all conditions are met
       this.popoverMessage = 'Strong Password';
       this.lvlColors = ['#01a87e', '#00a87e', '#00a87e', '#00a87e'];
