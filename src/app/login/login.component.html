@@ -76,16 +76,28 @@
 
     <!-- Setting class.active here is for position change when the popover is under the password field-->
     <div class="loginHolder" [class.active]="isPasswordFocused">
-      <button
-        [disabled]="!validPwd || !validMail"
-        [style]="{ width: isJoining ? '50%' : '25%' }"
-        type="submit"
-        mat-button
-        [disableRipple]="false"
-        class="loginBtn"
-      >
-        {{ signBtnText }}
-      </button>
+      <div class="left-side">
+        <button
+          mat-icon-button
+          class="backBtn"
+          (click)="goBack()"
+          [matTooltip]="goBackTip"
+        >
+          <mat-icon>arrow_back_ios</mat-icon>
+        </button>
+      </div>
+      <div class="mid-side">
+        <button
+          [disabled]="!validPwd || !validMail"
+          type="submit"
+          mat-button
+          [disableRipple]="false"
+          class="loginBtn"
+        >
+          {{ signBtnText }}
+        </button>
+      </div>
+      <div class="right-side"></div>
     </div>
 
     <div class="otherLinks" [class.active]="isPasswordFocused">

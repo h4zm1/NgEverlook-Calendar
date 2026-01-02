@@ -9,7 +9,7 @@ import { ServertimeComponent } from '../servertime/servertime.component';
 import { BossComponent } from '../boss/boss.component';
 import { EventComponent } from '../event/event.component';
 import { Router, RouterModule } from '@angular/router';
-import { MatAnchor, MatButton } from '@angular/material/button';
+import { MatAnchor, MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import {
@@ -36,7 +36,7 @@ import {
     BossComponent,
     EventComponent,
     CommonModule,
-    MatButton,
+    MatButtonModule,
     MatAnchor,
     MatIconModule,
     MatTooltip,

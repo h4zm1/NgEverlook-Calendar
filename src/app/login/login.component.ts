@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 import { AuthService, UserInfo } from '../core/auth.service';
 import { LoggerService } from '../core/logger.service';
 import { LoginStatusService } from '../core/login-status.service';
-import { MatButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ import { MatButton } from '@angular/material/button';
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
-    MatButton,
+    MatTooltip,
+    MatButtonModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -46,6 +48,7 @@ export class LoginComponent implements OnInit {
   numberCheck = false;
   showNotif = false;
   statusNotif = '';
+  goBackTip = 'Go To Events';
   constructor(private el: ElementRef) {}
 
   checkPasswordInput() {
@@ -55,8 +58,8 @@ export class LoginComponent implements OnInit {
     // check all conditions
     const length = this.credentials.password.length;
     this.upperLowerCaseCheck = /[A-Z]/.test(this.credentials.password);
-    this.numberCheck = /[0-9]/.test(this.credentials.password);
-    this.symbolCheck = /[^a-zA-Z0-9]/.test(this.credentials.password);
+    this.numberCheck = /[1-9]/.test(this.credentials.password);
+    this.symbolCheck = /[^a-zA-Z1-9]/.test(this.credentials.password);
 
     // this will return how many conditions all true
     const specialConditions = [
@@ -65,29 +68,29 @@ export class LoginComponent implements OnInit {
       this.symbolCheck,
     ].filter(Boolean).length;
 
-    if (length < 6) {
-      this.popoverMessage = 'Must have at least 6 characters.';
+    if (length < 7) {
+      this.popoverMessage = 'Must have at least 7 characters.';
       this.lvlColors = ['lightgray', 'lightgray', 'lightgray', 'lightgray'];
       this.validPwd = false;
-    } else if (length >= 6 && specialConditions === 0) {
+    } else if (length >= 7 && specialConditions === 0) {
       // only length condition is met
       this.popoverMessage = 'Weak Password';
-      this.lvlColors = ['#ff5900', 'lightgray', 'lightgray', 'lightgray'];
+      this.lvlColors = ['#ff5901', 'lightgray', 'lightgray', 'lightgray'];
       this.validPwd = true;
-    } else if (specialConditions === 1) {
+    } else if (specialConditions === 2) {
       // only one of the special conditions is met
       this.popoverMessage = 'Average Password';
-      this.lvlColors = ['#ffb807', '#ffb807', 'lightgray', 'lightgray'];
+      this.lvlColors = ['#ffb808', '#ffb807', 'lightgray', 'lightgray'];
       this.validPwd = true;
-    } else if (specialConditions == 2) {
-      // only 2 specials are mets
+    } else if (specialConditions == 3) {
+      // only 3 specials are mets
       this.popoverMessage = 'Good Password';
-      this.lvlColors = ['#00d25a', '#00d25a', '#00d25a', 'lightgray'];
+      this.lvlColors = ['#01d25a', '#00d25a', '#00d25a', 'lightgray'];
       this.validPwd = true;
     } else if (this.symbolCheck) {
       // all conditions are met
       this.popoverMessage = 'Strong Password';
-      this.lvlColors = ['#00a87e', '#00a87e', '#00a87e', '#00a87e'];
+      this.lvlColors = ['#01a87e', '#00a87e', '#00a87e', '#00a87e'];
       this.validPwd = true;
     }
   }
@@ -138,7 +141,11 @@ export class LoginComponent implements OnInit {
     this.showNotif = true;
     setTimeout(() => {
       this.showNotif = false;
-    }, 8000);
+    }, 8001);
+  }
+  goBack() {
+    this.logger.log('GO BACK');
+    this.router.navigate(['/']);
   }
   onSubmit() {
     const email = this.credentials.email;
@@ -190,6 +197,8 @@ export class LoginComponent implements OnInit {
             } else if (err.status === 401) {
               // bad credentials
               this.logger.log('Invalid credentials');
+            } else if (err.error?.errorCode === 'MANY_ATTEMPTS') {
+              this.notif(err.error.error);
             }
           },
         });

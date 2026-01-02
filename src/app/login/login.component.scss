@@ -14,12 +14,9 @@ form {
   flex-direction: column;
   width: 300px;
   align-self: center;
-
 }
 
-
 ::ng-deep {
-
   // remove underline
   .mat-mdc-form-field {
     .mdc-line-ripple {
@@ -36,7 +33,6 @@ form {
   .mat-mdc-form-field-input-control.mat-mdc-form-field-input-control {
     background-clip: text;
   }
-
 
   .mat-input-element {
     color: white;
@@ -58,31 +54,52 @@ form {
 }
 
 // hiding ms edge password eye
-input[type=password]::-ms-reveal,
-input[type=password]::-ms-clear {
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
   display: none;
 }
 
 // div that contains login button
 .loginHolder {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  // align-items: center;
   position: relative;
   top: 45px;
   transition: 0.4s;
-
+  justify-content: center;
+  gap: 0.5rem;
 }
-
+.backBtn {
+  scale: 1.1;
+  color: #868686;
+  background-color: #f1f1f1ba;
+  padding-left: 0.4rem;
+  width: 1.7rem;
+  border-radius: 0.7rem;
+  position: absolute;
+}
+mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color {
+  scale: 0.8;
+}
+.left-side,
+.right-side {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+.mid-side {
+  flex: 0 0 auto;
+  padding-inline: 0.1rem;
+}
 // scale up login button
 .loginBtn {
   scale: 1.1;
-  //background-color: rgb(241 241 241 / 3%);
   //width: 50%;
 }
 
 .loginBtn:disabled {
-  color: gray !important
+  color: gray !important;
 }
 
 .otherLinks {
@@ -104,7 +121,6 @@ input[type=password]::-ms-clear {
     text-decoration: underline;
   }
 }
-
 
 // container that holds the whole popover
 .popupWrapper {
@@ -211,14 +227,13 @@ input[type=password]::-ms-clear {
   padding-bottom: 1.5px;
 }
 
-
 @media (max-width: 840px) {
   .loginHolder.active {
     top: 212px;
   }
 
   .otherLinks.active {
-    top: 230px
+    top: 230px;
   }
 
   .popover {
