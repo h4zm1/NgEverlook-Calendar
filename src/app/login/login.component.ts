@@ -151,6 +151,7 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/']);
   }
   onSubmit() {
+    if (!this.validMail || !this.validPwd) return;
     const email = this.credentials.email;
     const password = this.credentials.password;
     this.logger.log(this.credentials.email, this.credentials.password);

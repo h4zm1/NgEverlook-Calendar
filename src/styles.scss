@@ -315,6 +315,9 @@ $dark-text-color: #181818;
     background-color: #2f2f2fba;
     color: #d0d0d0;
   }
+  .backBtn {
+    color: #969696;
+  }
 
   //login page stuff
   .popover:after {
@@ -598,6 +601,9 @@ $dark-text-color: #181818;
     background-color: #f1f1f1ba;
   }
 
+  .backBtn {
+    color: #969696;
+  }
   // changing popover arrow color
   .popover:after {
     border-color: #c7838300 #ffffff61 #ffffff #00000000;
